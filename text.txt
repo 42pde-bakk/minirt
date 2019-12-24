@@ -1,3 +1,5 @@
 # Commands 
 https://qst0.github.io/ft_libgfx/man_mlx_new_image.html#storing-color-inside-images
 gcc -framework OpenGL -framework AppKit libmlx.dylib test.c
+
+gcc -I minilibx_mms_20191025_beta -L minilibx_mms_20191025_beta -lmlx -framework OpenGL -framework AppKit libmlx.dylib miniRT && ./a.out

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/23 18:51:20 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/24 14:13:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,9 @@ typedef struct	s_data
 	int		endian;
 }				t_data;
 
-/*typedef	struct	s_scene
+typedef	struct	s_scene
 {
+	char	*identifier;
 	int		width;
 	int		height;
 	int		x1;
@@ -39,7 +40,7 @@ typedef struct	s_data
 	int		color;
 	int		size;
 }				t_scene;
-*/
+
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
 void	put_pixel(t_data *my_mlx, int x, int y, int color);

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/23 18:52:51 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/24 14:13:13 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,15 +40,31 @@ t_data	*init_my_mlx(void)
 	put_square(my_mlx, 100, 100, 75, 255 * 255 * 255);
 	put_square(my_mlx, 300, 250, 99, 255 * 255);
 	put_square(my_mlx, 750, 550, 49, 255);
-	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, 800, 600, "miniRT");
-	mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
+	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, 800, 600, "Printing vierkantjes like a motherfucking boss bitch");
 	return (my_mlx);
 }
+/*
+t_scene	ft_parser(t_scene *scene, int fd)
+{
+	char	*line;
+	int		start;
+	int		i;
 
+	start = 0;
+	i = 0;
+	get_next_line(fd, &line);
+	while (ft_isascii(line[i]) > 0)
+		i++;
+	scene->identifier = ft_substr(line, start, i);
+	ft_atoi(line
+}
+*/
 int		main(void)
 {
 	t_data	*my_mlx;
+//	t_scene *scene;
 
 	my_mlx = init_my_mlx();
+	mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
 	mlx_loop(my_mlx->win_ptr);
 }

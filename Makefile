@@ -6,7 +6,7 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2019/12/23 16:19:09 by pde-bakk      ########   odam.nl          #
+#    Updated: 2019/12/24 14:33:32 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,9 @@ OBJ = $(SRC:.c=.o)
 
 HEADER = minirt.h
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra
+
+MAGIC = -I minilibx_mms_20191025_beta -L minilibx_mms_20191025_beta -lmlx -framework OpenGL -framework AppKit libmlx.dylib
 
 # COLORS
 PINK = \x1b[35;01m
@@ -34,6 +36,7 @@ all: $(NAME)
 
 $(NAME):
 	@echo "$(YELLOW)Linking the library"
+	cp minilibx_mms_20191025_beta/libmlx.dylib libmlx.dylib
 	gcc -c $(FLAGS) $(HEADER) $(SRC)
 	ar -rc $(NAME) $(OBJ)
 	@echo "$(GREEN)Done!"
@@ -43,9 +46,13 @@ clean:
 	/bin/rm -f *.o *~ *.gch
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	/bin/rm -f $(NAME) libmlx.dylib
 
 re: fclean all
 
 bonus: re
 	@echo "$(PINK)Linking bonus files"
+
+run: re
+	gcc $(MAGIC) miniRT
+	./a.out
