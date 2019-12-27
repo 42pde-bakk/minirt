@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/23 18:44:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/27 14:02:13 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,3 +31,4 @@ void	put_square(t_data *my_mlx, int x, int y, int size, int color)
 		y1++;
 	}
 }
+

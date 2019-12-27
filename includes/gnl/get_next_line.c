@@ -6,12 +6,11 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 15:02:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2019/12/06 16:10:25 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/27 14:39:39 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <limits.h>
 
 int		ft_newlinecheck(char *str, int k)
 {
@@ -65,7 +64,7 @@ int		ft_the_finisher(char *str, char *buf, char **line, int ret)
 			break ;
 		i++;
 	}
-	*line = ft_strdup(str, i, 0);
+	*line = gnl_strdup(str, i, 0);
 	if (str)
 		free(str);
 	if (ret == 0 && buf)
@@ -83,29 +82,27 @@ int		ft_the_finisher(char *str, char *buf, char **line, int ret)
 
 int		get_next_line(int fd, char **line)
 {
-	static char	*buf[OPEN_MAX];
+	static char	*buf;
 	char		*str;
 	int			ret;
 
 	ret = 1;
-	str = ft_calloc(0, 0);
-	if (!buf[fd])
-		buf[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	if (buf[fd] != NULL && buf[fd][0] != 0)
-		ret = ft_strlen(buf[fd]);
+	str = gnl_calloc(0, 0);
+	if (!buf)
+		buf = gnl_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (buf != NULL && buf[0] != 0)
+		ret = gnl_strlen(buf);
 	while (ret > 0)
 	{
-		str = ft_strjoiner(str, buf[fd], ret);
+		str = gnl_strjoiner(str, buf, ret);
 		if (ft_newlinecheck(str, 0) > -1)
-			return (ft_the_finisher(str, buf[fd], line, ret));
-//		free(buf);
-		ft_bzero(buf[fd], BUFFER_SIZE + 1);
-//		buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-		ret = read(fd, buf[fd], BUFFER_SIZE);
+			return (ft_the_finisher(str, buf, line, ret));
+		gnl_bzero(buf, BUFFER_SIZE + 1);
+		ret = read(fd, buf, BUFFER_SIZE);
 		if (ret == -1)
 			return (ret);
 	}
 	if (ret == 0)
-		return (ft_the_finisher(str, buf[fd], line, ret));
+		return (ft_the_finisher(str, buf, line, ret));
 	return (0);
 }
