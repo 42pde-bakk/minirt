@@ -6,13 +6,13 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2019/12/27 16:38:21 by pde-bakk      ########   odam.nl          #
+#    Updated: 2019/12/29 16:04:48 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
-SRC = minirt.c parsing.c objects.c
+SRC = minirt.c parsing.c objects.c ft_atof.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -20,11 +20,11 @@ HEADER = minirt.h
 
 FLAGS = -Wall -Werror -Wextra
 
-INCLUDES = includes/extra.c \
+INCLUDES = includes/extra.c includes/ft_itoa_base.c \
 includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c \
 -I includes/gnl/
 
-INCOBJ = extra.o get_next_line.o get_next_line_utils.o
+INCOBJ = extra.o ft_itoa_base.o get_next_line.o get_next_line_utils.o
 
 MAGIC = -I minilibx_mms_20191025_beta -L minilibx_mms_20191025_beta -lmlx -framework OpenGL -framework AppKit libmlx.dylib
 
@@ -67,4 +67,5 @@ bonus: re
 run: re
 	gcc $(MAGIC) miniRT libft.a
 	@echo "$(PINK)bitch"
-	./a.out vb.rt
+	/bin/rm -f *.o *~ *.gch
+	./a.out example.rt

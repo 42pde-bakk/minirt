@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/27 18:30:48 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/29 15:40:06 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ typedef struct	s_data
 int		ft_amount(long int nb);
 int		ft_iswhitespace(char c);
 int		ft_objectcheck(const char *id);
-
+float	ft_atof(const char *str);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
 void	ft_parser(t_data *my_mlx, int fd);

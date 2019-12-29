@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/27 16:42:21 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/29 14:17:38 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ t_data	*init_my_mlx(int fd)
 
 	my_mlx = malloc(sizeof(t_data));
 	if (my_mlx == NULL)
+		return (NULL);
+	my_mlx->scene = malloc(sizeof(t_data));
+	if (my_mlx->scene == NULL)
 		return (NULL);
 	my_mlx->mlx_ptr = mlx_init();
 	ft_parser(my_mlx, fd);
