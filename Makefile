@@ -6,13 +6,13 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2019/12/29 16:04:48 by pde-bakk      ########   odam.nl          #
+#    Updated: 2019/12/29 16:32:27 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
-SRC = minirt.c parsing.c objects.c ft_atof.c
+SRC = minirt.c parsing.c objects.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -20,11 +20,11 @@ HEADER = minirt.h
 
 FLAGS = -Wall -Werror -Wextra
 
-INCLUDES = includes/extra.c includes/ft_itoa_base.c \
+INCLUDES = includes/extra.c includes/ft_itoa_base.c includes/ft_atox_peer.c \
 includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c \
 -I includes/gnl/
 
-INCOBJ = extra.o ft_itoa_base.o get_next_line.o get_next_line_utils.o
+INCOBJ = extra.o ft_itoa_base.o ft_atox_peer.o get_next_line.o get_next_line_utils.o
 
 MAGIC = -I minilibx_mms_20191025_beta -L minilibx_mms_20191025_beta -lmlx -framework OpenGL -framework AppKit libmlx.dylib
 

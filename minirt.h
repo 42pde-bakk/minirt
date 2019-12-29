@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/29 15:40:06 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/29 17:40:11 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,23 +38,23 @@ typedef struct	s_object
 
 typedef	struct	s_scene
 {
-	char	*id;//This one is malloc'd through ft_substr
-	int		width;
-	int		height;
-	float	amblight;
-	int		amblightcolor;
-	int		xcam;
-	int		ycam;
-	int		zcam;
-	float	v1cam;
-	float	v2cam;
-	float	v3cam;
-	int		fov;
-	float	xlight;
-	float	ylight;
-	float	zlight;
-	float	brightness;
-	int		lightcolor;
+	char		*id;//This one is malloc'd through ft_substr
+	int			width;
+	int			height;
+	float		amblight;
+	unsigned	amblightcolor;
+	int			xcam;
+	int			ycam;
+	int			zcam;
+	float		v1cam;
+	float		v2cam;
+	float		v3cam;
+	int			fov;
+	float		xlight;
+	float		ylight;
+	float		zlight;
+	float		brightness;
+	unsigned	lightcolor;
 	t_object	*object;
 }				t_scene;
 
@@ -73,7 +73,8 @@ typedef struct	s_data
 int		ft_amount(long int nb);
 int		ft_iswhitespace(char c);
 int		ft_objectcheck(const char *id);
-float	ft_atof(const char *str);
+float	ft_atof_peer(const char *str, int i);
+int		ft_atoi_peer(const char *str, int i);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
 void	ft_parser(t_data *my_mlx, int fd);
