@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 13:41:01 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/29 17:57:30 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 18:04:39 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,4 @@ int	ft_amount(long int nb)
 		amount++;
 	}
 	return (amount);
-}
-
-int	ft_objectcheck(const char *id)
-{
-	if (ft_strncmp(id, "sp", 2) == 0)
-		return (1);
-	else if (ft_strncmp(id, "pl", 2) == 0)
-		return (2);
-	else if (ft_strncmp(id, "sq", 2) == 0)
-		return (3);
-	else if (ft_strncmp(id, "cy", 2) == 0)
-		return (4);
-	else if (ft_strncmp(id, "tr", 2) == 0)
-		return (5);
-	else
-		return (0);
 }

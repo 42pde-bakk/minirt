@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 17:25:49 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 19:05:48 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ typedef struct	s_triangle
 	float				z3;
 	unsigned long		colour;
 	struct s_triangle	*next;
-}
+}					t_triangle;
 
 typedef struct	s_cam
 {
@@ -92,7 +92,7 @@ typedef struct	s_cam
 	float			xvector;
 	float			yvector;
 	float			zvector;
-	float 			fov;
+	int	 			fov;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -108,7 +108,7 @@ typedef struct	s_light
 
 typedef	struct	s_scene
 {
-//	char			*id;//This one is malloc'd through ft_substr
+	char			*id;//This one is malloc'd through ft_substr
 	int				width;
 	int				height;
 	float			amblight;
@@ -141,7 +141,11 @@ float	ft_atof_peer(const char *str, int *i);
 int		ft_atoi_peer(const char *str, int *i);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
+
+unsigned long	createhexcolour(char *line, int *i);
 void	ft_parser(t_data *my_mlx, int fd);
+
+int		parse_objects(t_data *my_mlx, char *line, int *i);
 
 void	put_pixel(t_data *my_mlx, int x, int y, int color);
 t_data	*init_my_mlx(int fd);

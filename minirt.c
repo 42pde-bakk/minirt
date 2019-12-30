@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 17:38:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 18:35:21 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,43 +26,15 @@ void	put_pixel(t_data *my_mlx, int x, int y, int color)
 	}
 }
 
-t_data	*initstructs(t_data *my_mlx)
+t_data	*init_my_mlx(int fd)
 {
+	t_data	*my_mlx;
+
 	my_mlx = malloc(sizeof(t_data));
 	if (my_mlx == NULL)
 		return (NULL);
 	my_mlx->scene = malloc(sizeof(t_data));
 	if (my_mlx->scene == NULL)
-		return (NULL);
-	my_mlx->light = malloc(sizeof(t_data));
-	if (my_mlx->light == NULL)
-		return (NULL);
-	my_mlx->cam = malloc(sizeof(t_data));
-	if (my_mlx->cam == NULL)
-		return (NULL);
-	my_mlx->sphere = malloc(sizeof(t_data));
-	if (my_mlx->sphere == NULL)
-		return (NULL);
-	my_mlx->plane = malloc(sizeof(t_data));
-	if (my_mlx->plane == NULL)
-		return (NULL);
-	my_mlx->square = malloc(sizeof(t_data));
-	if (my_mlx->square == NULL)
-		return (NULL);
-	my_mlx->cylinder = malloc(sizeof(t_data));
-	if (my_mlx->cylinder == NULL)
-		return (NULL);
-	my_mlx->triangle = malloc(sizeof(t_data));
-	if (my_mlx->triangle == NULL)
-		return (NULL);
-}
-
-t_data	*init_my_mlx(int fd)
-{
-	t_data	*my_mlx;
-
-	my_mlx = initstructs(my_mlx);
-	if (my_mlx == NULL)
 		return (NULL);
 	my_mlx->mlx_ptr = mlx_init();
 	ft_parser(my_mlx, fd);
