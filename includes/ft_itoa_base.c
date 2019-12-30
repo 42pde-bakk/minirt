@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 18:29:13 by pde-bakk       #+#    #+#                */
-/*   Updated: 2019/12/29 17:38:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 17:04:27 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char		*ft_itoa_base(long long nb, long long base)
 	int		amount;
 
 	amount = ft_amount(nb, base);
-		tab = "0123456789abcdefghijklmnopqrstuvwxyz";
+	tab = "0123456789abcdefghijklmnopqrstuvwxyz";
 	if (base < 2 || base > 36)
 		return (0);
 	str = (char*)ft_calloc(amount + 1, sizeof(char));

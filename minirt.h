@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/29 17:40:11 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 17:25:49 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,61 +20,125 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef struct	s_object
+typedef struct	s_sphere
 {
-	float	x1;
-	float	y1;
-	float	z1;
-	float	x2;
-	float	y2;
-	float	z2;
-	float	x3;
-	float	y3;
-	float	z3;
-	float	objsize;
-	float	objheight;
-	int		objcolor;
-}				t_object;
+	float			x;
+	float			y;
+	float			z;
+	float			diameter;
+	unsigned long	colour;
+	struct s_sphere	*next;
+}				t_sphere;
+
+typedef struct	s_plane
+{
+	float			x;
+	float			y;
+	float			z;
+	float			xvector;
+	float			yvector;
+	float			zvector;
+	unsigned long	colour;
+	struct s_plane	*next;
+}				t_plane;
+
+typedef struct	s_square
+{
+	float			x;
+	float			y;
+	float			z;
+	float			xvector;
+	float			yvector;
+	float			zvector;
+	float			size;
+	unsigned long	colour;
+	struct s_square	*next;
+}				t_square;
+
+typedef struct	s_cylinder
+{
+	float				x;
+	float				y;
+	float				z;
+	float				xvector;
+	float				yvector;
+	float				zvector;
+	float				diameter;
+	float				height;
+	unsigned long		colour;
+	struct s_cylinder	*next;
+}				t_cylinder;
+
+typedef struct	s_triangle
+{
+	float				x1;
+	float				y1;
+	float				z1;
+	float				x2;
+	float				y2;
+	float				z2;
+	float				x3;
+	float				y3;
+	float				z3;
+	unsigned long		colour;
+	struct s_triangle	*next;
+}
+
+typedef struct	s_cam
+{
+	float			x;
+	float			y;
+	float			z;
+	float			xvector;
+	float			yvector;
+	float			zvector;
+	float 			fov;
+	struct s_cam	*next;
+}				t_cam;
+
+typedef struct	s_light
+{
+	float			x;
+	float			y;
+	float			z;
+	float			brightness;
+	unsigned long	colour;
+	struct s_light	*next;
+}				t_light;
 
 typedef	struct	s_scene
 {
-	char		*id;//This one is malloc'd through ft_substr
-	int			width;
-	int			height;
-	float		amblight;
-	unsigned	amblightcolor;
-	int			xcam;
-	int			ycam;
-	int			zcam;
-	float		v1cam;
-	float		v2cam;
-	float		v3cam;
-	int			fov;
-	float		xlight;
-	float		ylight;
-	float		zlight;
-	float		brightness;
-	unsigned	lightcolor;
-	t_object	*object;
+//	char			*id;//This one is malloc'd through ft_substr
+	int				width;
+	int				height;
+	float			amblight;
+	unsigned		amblightcolor;
 }				t_scene;
 
 typedef struct	s_data
 {
-	void	*mlx_ptr;
-	void	*mlx_img;
-	void	*win_ptr;
-	char	*addr;
-	int		bpp;
-	int		line_length;
-	int		endian;
-	t_scene	*scene;
+	void		*mlx_ptr;
+	void		*mlx_img;
+	void		*win_ptr;
+	char		*addr;
+	int			bpp;
+	int			line_length;
+	int			endian;
+	t_scene		*scene;
+	t_light		*light;
+	t_cam		*cam;
+	t_sphere	*sphere;
+	t_plane		*plane;
+	t_square	*square;
+	t_cylinder	*cylinder;
+	t_triangle	*triangle;
 }				t_data;
 
 int		ft_amount(long int nb);
 int		ft_iswhitespace(char c);
 int		ft_objectcheck(const char *id);
-float	ft_atof_peer(const char *str, int i);
-int		ft_atoi_peer(const char *str, int i);
+float	ft_atof_peer(const char *str, int *i);
+int		ft_atoi_peer(const char *str, int *i);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
 void	ft_parser(t_data *my_mlx, int fd);

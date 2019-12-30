@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/29 14:17:38 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 17:38:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	put_pixel(t_data *my_mlx, int x, int y, int color)
 {
 	int pos;
 
-	if (x >= 0 && x < 1280 && y >= 0 && y < 720)
+	if (x >= 0 && x < my_mlx->scene->width && y >= 0 && y < my_mlx->scene->height)
 	{
 		pos = y * my_mlx->line_length + x * (my_mlx->bpp / 8);
 		*(my_mlx->addr + pos + 0) = (char)((color & 0x00FFFFFF) >> 0);
@@ -26,20 +26,48 @@ void	put_pixel(t_data *my_mlx, int x, int y, int color)
 	}
 }
 
-t_data	*init_my_mlx(int fd)
+t_data	*initstructs(t_data *my_mlx)
 {
-	t_data	*my_mlx;
-
 	my_mlx = malloc(sizeof(t_data));
 	if (my_mlx == NULL)
 		return (NULL);
 	my_mlx->scene = malloc(sizeof(t_data));
 	if (my_mlx->scene == NULL)
 		return (NULL);
+	my_mlx->light = malloc(sizeof(t_data));
+	if (my_mlx->light == NULL)
+		return (NULL);
+	my_mlx->cam = malloc(sizeof(t_data));
+	if (my_mlx->cam == NULL)
+		return (NULL);
+	my_mlx->sphere = malloc(sizeof(t_data));
+	if (my_mlx->sphere == NULL)
+		return (NULL);
+	my_mlx->plane = malloc(sizeof(t_data));
+	if (my_mlx->plane == NULL)
+		return (NULL);
+	my_mlx->square = malloc(sizeof(t_data));
+	if (my_mlx->square == NULL)
+		return (NULL);
+	my_mlx->cylinder = malloc(sizeof(t_data));
+	if (my_mlx->cylinder == NULL)
+		return (NULL);
+	my_mlx->triangle = malloc(sizeof(t_data));
+	if (my_mlx->triangle == NULL)
+		return (NULL);
+}
+
+t_data	*init_my_mlx(int fd)
+{
+	t_data	*my_mlx;
+
+	my_mlx = initstructs(my_mlx);
+	if (my_mlx == NULL)
+		return (NULL);
 	my_mlx->mlx_ptr = mlx_init();
 	ft_parser(my_mlx, fd);
 	printf("bitch ass\n");
-	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, 800, 600);
+	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
 //	put_objects(my_mlx, fd);
 	put_pixel(my_mlx, 10, 10, 255);

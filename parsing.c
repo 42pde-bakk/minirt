@@ -6,57 +6,75 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/29 18:55:23 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/30 17:43:49 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "includes/gnl/get_next_line.h"
 
-unsigned long	createRGB(char *line, int i)
+unsigned long	createhexcolour(char *line, int *i)
 {
 	int	r;
 	int g;
 	int b;
 
-	i += 1;
-	printf("line[%d]=%c, next=%c\n", i, line[i], line[i+1]);
+	(*i) += 1;
 	r = ft_atoi_peer(line, i);
-	i += ft_amount(r) + 1;
 	g = ft_atoi_peer(line, i);
-	i += ft_amount(g) + 1;
 	b = ft_atoi_peer(line, i);
-	printf("myRGB=%i, %i, %i\n", r, g, b);
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
-int		ft_idfinder(t_data *my_mlx, char *line, int i)
+int				find_light(t_data *my_mlx, char *line, int *i)
 {
-	if (ft_strncmp(my_mlx->scene->id, "R", 2) == 0)
-	{
-		my_mlx->scene->width = ft_atoi_peer(line, i);
-		i = i + ft_amount(my_mlx->scene->width) + 1;
-//		printf("line[%d]=%c, next=%c\n", i, line[i], line[i+1]);
-		my_mlx->scene->height = ft_atoi_peer(line, i);
-		printf("Res: width=%i, height=%i\n", my_mlx->scene->width, my_mlx->scene->height);
-	}
-	else if (ft_strncmp(my_mlx->scene->id, "A", 2) == 0)
-	{
-		printf("Ambience\n");
-//		while (ft_iswhitespace(line[i]) == 1)
-//			i++;
-		my_mlx->scene->amblight = ft_atof_peer(line, i);
-//		i = i + ft_amount(my_mlx->scene->amblight);
-		while (line[i] >= 46 && line[i] <= '9')
-			i++;
-		printf("i=%i\n", i);
-		my_mlx->scene->amblightcolor = createRGB(line, i);
-		printf("Amb: %f, color=%u\n", my_mlx->scene->amblight, my_mlx->scene->amblightcolor);
-	}
-	return (i);
+	my_mlx->light->x = ft_atof_peer(line, i);
+	my_mlx->light->y = ft_atof_peer(line, i);
+	my_mlx->light->z = ft_atof_peer(line, i);
+	my_mlx->light->brightness = ft_atof_peer(line, i);
+	my_mlx->light->colour = createhexcolour(line, i);
+	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%lX\n", my_mlx->light->x, my_mlx->light->y, my_mlx->light->z, my_mlx->light->brightness, my_mlx->light->colour);
+	return (1);
 }
 
-void	ft_parser(t_data *my_mlx, int fd)
+int				find_camera(t_data *my_mlx, char *line, int *i)
+{
+	my_mlx->cam->x = ft_atof_peer(line, i);
+	my_mlx->cam->y = ft_atof_peer(line, i);
+	my_mlx->cam->z = ft_atof_peer(line, i);
+	my_mlx->cam->xvector = ft_atof_peer(line, i);
+	my_mlx->cam->yvector = ft_atof_peer(line, i);
+	my_mlx->cam->zvector = ft_atof_peer(line, i);
+	my_mlx->cam->fov = ft_atoi_peer(line, i);
+	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->x, my_mlx->cam->y, my_mlx->cam->z, my_mlx->cam->xvector, my_mlx->cam->yvector, my_mlx->cam->zvector, my_mlx->cam->fov);
+	return (1);
+}
+
+int				find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
+{
+	if (ft_strncmp(line, "R", 1) == 0)
+	{
+		my_mlx->scene->width = ft_atoi_peer(line, i);
+		my_mlx->scene->height = ft_atoi_peer(line, i);
+		printf("Resolution= W%i by H%i\n", my_mlx->scene->width, my_mlx->scene->height);
+		return (1);
+	}
+	else if (ft_strncmp(line, "A", 2) == 0)
+	{
+		my_mlx->scene->amblight = ft_atof_peer(line, i);
+		my_mlx->scene->amblightcolor = createhexcolour(line, i);
+		printf("Ambient lighting: %f, color=%X\n", my_mlx->scene->amblight, my_mlx->scene->amblightcolor);
+		return (1);
+	}
+	else if (ft_strncmp(line, "c", 2) == 0)
+		return (find_camera(my_mlx, line, i));
+	else if (ft_strncmp(line, "l", 2) == 0)
+		return (find_light(my_mlx, line, i));
+	else
+		return (0);
+}
+
+void			ft_parser(t_data *my_mlx, int fd)
 {
 	char	*line;
 	int		start;
@@ -65,22 +83,18 @@ void	ft_parser(t_data *my_mlx, int fd)
 	while (get_next_line(fd, &line) > 0)
 	{
 		i = 0;
-		printf("getnextline initiated, start prepping for disaster\n");
-		printf("LINE=%s\n", line);
 		while (ft_iswhitespace(line[i]) == 1)
 			i++;
-		start = i;
-		while (ft_isalpha(line[i]) == 1)
-			i++;
-		my_mlx->scene->id = ft_substr(line, start, i - start);
-		while (ft_iswhitespace(line[i]) == 1)
-			   i++;
-		if (ft_objectcheck(my_mlx->scene->id) > 0)
-			return ;
-		printf("line[%i]=%c, next=%c\n", i, line[i], line[i+1]);
-		i = ft_idfinder(my_mlx, line, i);
+//		start = i;
+//		while (ft_isalpha(line[i]) == 1)
+//			i++;
+//		my_mlx->scene->id = ft_substr(line, start, i - start);
+//		while (ft_iswhitespace(line[i]) == 1)
+//			i++;
+		if (find_res_amb_cam_light(my_mlx, line, &i) == 0)
+			if (ft_objectcheck(my_mlx->scene->id) > 0)
+				return ;
 		free(line);
-		free(my_mlx->scene->id);
-		printf("counting: i=%d\n", i);
+//		free(my_mlx->scene->id);
 	}
 }
