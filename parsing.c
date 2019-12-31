@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 19:07:47 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/31 13:36:43 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,18 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 	return (1);
 }
 
+void			find_canvas(t_data *my_mlx)
+{
+	my_mlx->cam->height = (double)(my_mlx->scene->width / (2 * tan(my_mlx->cam->fov / 2)));
+	printf("height =%f\n", my_mlx->cam->height);
+	my_mlx->cam->canvx1 = my_mlx->cam->x - (double)(my_mlx->scene->width / 2);
+	my_mlx->cam->canvx1 = my_mlx->cam->x + (double)(my_mlx->scene->width / 2);
+	my_mlx->cam->canvy1 = my_mlx->cam->y - (double)(my_mlx->scene->height / 2);
+	my_mlx->cam->canvy2 = my_mlx->cam->y + (double)(my_mlx->scene->height / 2);
+	my_mlx->cam->canvZ = my_mlx->cam->z + my_mlx->cam->height;
+	printf("x1=%f, y1=%f, x2=%f, y2=%f\n", my_mlx->cam->canvx1, my_mlx->cam->canvy1, my_mlx->cam->canvx2, my_mlx->cam->canvy2);
+}
+
 int				find_camera(t_data *my_mlx, char *line, int *i)
 {
 	while (my_mlx->cam)
@@ -58,6 +70,7 @@ int				find_camera(t_data *my_mlx, char *line, int *i)
 	my_mlx->cam->zvector = ft_atof_peer(line, i);
 	my_mlx->cam->fov = ft_atoi_peer(line, i);
 	my_mlx->cam->next = NULL;
+	find_canvas(my_mlx);
 	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->x, my_mlx->cam->y, my_mlx->cam->z, my_mlx->cam->xvector, my_mlx->cam->yvector, my_mlx->cam->zvector, my_mlx->cam->fov);
 	return (1);
 }
@@ -66,9 +79,9 @@ int				find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
 {
 	if (ft_strncmp(line, "R ", 2) == 0)
 	{
-		my_mlx->scene->width = ft_atoi_peer(line, i);
-		my_mlx->scene->height = ft_atoi_peer(line, i);
-		printf("Resolution= W%i by H%i\n", my_mlx->scene->width, my_mlx->scene->height);
+		my_mlx->scene->width = ft_atof_peer(line, i);
+		my_mlx->scene->height = ft_atof_peer(line, i);
+		printf("Resolution= W%f by H%f\n", my_mlx->scene->width, my_mlx->scene->height);
 		return (1);
 	}
 	else if (ft_strncmp(line, "A ", 2) == 0)
@@ -103,15 +116,7 @@ void			ft_parser(t_data *my_mlx, int fd)
 		my_mlx->scene->id = ft_substr(line, start, i - start);
 		while (ft_iswhitespace(line[i]) == 1)
 			i++;
-		if (find_res_amb_cam_light(my_mlx, line, &i) == 0)
-		{
-			printf("id=%s\n", my_mlx->scene->id);
-//			if (ft_objectcheck(my_mlx->scene->id) > 0)
-//			{
-//				printf("object found\n");
-//				return ;
-//			}
-		}
+		find_res_amb_cam_light(my_mlx, line, &i);
 		free(line);
 		free(my_mlx->scene->id);
 	}

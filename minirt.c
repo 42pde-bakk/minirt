@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 18:35:21 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/31 13:34:06 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,16 @@ t_data	*init_my_mlx(int fd)
 	my_mlx->scene = malloc(sizeof(t_data));
 	if (my_mlx->scene == NULL)
 		return (NULL);
+	my_mlx->ray = malloc(sizeof(t_data));
+	if (my_mlx->ray == NULL)
+		return (NULL);
 	my_mlx->mlx_ptr = mlx_init();
 	ft_parser(my_mlx, fd);
 	printf("bitch ass\n");
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
 //	put_objects(my_mlx, fd);
+	ray(my_mlx, my_mlx->cam->canvx1, my_mlx->cam->canvx2, my_mlx->cam->canvZ);
 	put_pixel(my_mlx, 10, 10, 255);
 	put_square(my_mlx, 100, 50, 50, 255);
 	put_square(my_mlx, 100, 100, 75, 255 * 255 * 255);

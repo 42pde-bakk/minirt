@@ -6,13 +6,14 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 19:05:48 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2019/12/31 13:36:30 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_MINIRT_H
 # define FT_MINIRT_H
 
+# include <math.h>
 # include "minilibx_mms_20191025_beta/mlx.h"
 # include "includes/libft/libft.h"
 # include <stdlib.h>
@@ -93,6 +94,21 @@ typedef struct	s_cam
 	float			yvector;
 	float			zvector;
 	int	 			fov;
+	double			height;
+	double			canvx1;
+	double			canvx2;
+	double			canvy1;
+	double			canvy2;
+	double			canvZ;
+//	double			canvtoprightx;
+//	double			canvtoprighty;
+//	double			canvtoprightz;
+//	double			canvbottomleftx;
+//	double			canvbottomlefty;
+//	double			canvbottomleftz;
+//	double			canvbottomrightx;
+//	double			canvbottomrighty;
+//	double			canvbottomrightz;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -106,11 +122,19 @@ typedef struct	s_light
 	struct s_light	*next;
 }				t_light;
 
+typedef	struct	s_ray
+{
+	double			x;
+	double			y;
+	double			z;
+	unsigned long	colour;
+}				t_ray;
+
 typedef	struct	s_scene
 {
 	char			*id;//This one is malloc'd through ft_substr
-	int				width;
-	int				height;
+	double			width;
+	double			height;
 	float			amblight;
 	unsigned		amblightcolor;
 }				t_scene;
@@ -127,6 +151,7 @@ typedef struct	s_data
 	t_scene		*scene;
 	t_light		*light;
 	t_cam		*cam;
+	t_ray		*ray;
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_square	*square;
@@ -141,6 +166,7 @@ float	ft_atof_peer(const char *str, int *i);
 int		ft_atoi_peer(const char *str, int *i);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
+void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz);
 
 unsigned long	createhexcolour(char *line, int *i);
 void	ft_parser(t_data *my_mlx, int fd);
