@@ -6,7 +6,7 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2019/12/31 13:37:02 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/02 18:46:33 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,8 +45,9 @@ $(NAME):
 	@make re -C ./includes/libft
 	@cp ./includes/libft/libft.a libft.a
 	@echo "$(YELLOW)Linking the library"
+	@make -C ./minilibx_mms_20191025_beta/
 	cp minilibx_mms_20191025_beta/libmlx.dylib libmlx.dylib
-	gcc -c $(FLAGS) $(HEADER) $(SRC) $(INCLUDES)
+	gcc -c $(FLAGS) $(HEADER) $(SRC) $(INCLUDES) -g -fsanitize=address
 	ar -rcs $(NAME) $(OBJ) $(INCOBJ) libft.a
 	@echo "$(GREEN)Done!$(RESET)"
 
@@ -65,7 +66,6 @@ bonus: re
 	@echo "$(PINK)Linking bonus files"
 
 run: re
-	gcc $(MAGIC) miniRT libft.a
+	gcc $(MAGIC) miniRT libft.a -g -fsanitize=address
 	@echo "$(PINK)bitch"
-	/bin/rm -f *.o *~ *.gch
 	./a.out example.rt

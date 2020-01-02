@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/22 18:25:22 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/31 13:36:30 by pde-bakk      ########   odam.nl         */
+/*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/02 18:25:13 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,83 +23,59 @@
 
 typedef struct	s_sphere
 {
-	float			x;
-	float			y;
-	float			z;
-	float			diameter;
+	double			s[4];
+	double			diameter;
 	unsigned long	colour;
 	struct s_sphere	*next;
 }				t_sphere;
 
 typedef struct	s_plane
 {
-	float			x;
-	float			y;
-	float			z;
-	float			xvector;
-	float			yvector;
-	float			zvector;
+	double			s[4];
+	double			v[4];
 	unsigned long	colour;
 	struct s_plane	*next;
 }				t_plane;
 
 typedef struct	s_square
 {
-	float			x;
-	float			y;
-	float			z;
-	float			xvector;
-	float			yvector;
-	float			zvector;
-	float			size;
+	double			s[4];
+	double			v[4];
+	double			size;
 	unsigned long	colour;
 	struct s_square	*next;
 }				t_square;
 
 typedef struct	s_cylinder
 {
-	float				x;
-	float				y;
-	float				z;
-	float				xvector;
-	float				yvector;
-	float				zvector;
-	float				diameter;
-	float				height;
+	double				s[4];
+	double				v[4];
+	double				diameter;
+	double				height;
 	unsigned long		colour;
 	struct s_cylinder	*next;
 }				t_cylinder;
 
 typedef struct	s_triangle
 {
-	float				x1;
-	float				y1;
-	float				z1;
-	float				x2;
-	float				y2;
-	float				z2;
-	float				x3;
-	float				y3;
-	float				z3;
+	double				s1[4];
+	double				s2[4];
+	double				s3[4];
 	unsigned long		colour;
 	struct s_triangle	*next;
-}					t_triangle;
+}				t_triangle;
 
 typedef struct	s_cam
 {
-	float			x;
-	float			y;
-	float			z;
-	float			xvector;
-	float			yvector;
-	float			zvector;
-	int	 			fov;
-	double			height;
+	double			s[4];
+	double			v[4];
+	int				fov;
+	double			distance;
 	double			canvx1;
 	double			canvx2;
 	double			canvy1;
 	double			canvy2;
-	double			canvZ;
+	double			canvasz;
 //	double			canvtoprightx;
 //	double			canvtoprighty;
 //	double			canvtoprightz;
@@ -114,20 +90,22 @@ typedef struct	s_cam
 
 typedef struct	s_light
 {
-	float			x;
-	float			y;
-	float			z;
-	float			brightness;
+	double			s[4];
+	double			brightness;
 	unsigned long	colour;
 	struct s_light	*next;
 }				t_light;
 
 typedef	struct	s_ray
 {
+	double			v[4];
+	unsigned long	colour;
+	double			*p;
+	double			t;
+	double			t1;
+	double			t2;
 	double			x;
 	double			y;
-	double			z;
-	unsigned long	colour;
 }				t_ray;
 
 typedef	struct	s_scene
@@ -135,7 +113,7 @@ typedef	struct	s_scene
 	char			*id;//This one is malloc'd through ft_substr
 	double			width;
 	double			height;
-	float			amblight;
+	double			amblight;
 	unsigned		amblightcolor;
 }				t_scene;
 
@@ -162,11 +140,14 @@ typedef struct	s_data
 int		ft_amount(long int nb);
 int		ft_iswhitespace(char c);
 int		ft_objectcheck(const char *id);
-float	ft_atof_peer(const char *str, int *i);
+double	ft_atof_peer(const char *str, int *i);
 int		ft_atoi_peer(const char *str, int *i);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
 void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz);
+int		find_sphere(t_data *my_mlx);
+int		find_objects(t_data *my_mlx);
+
 
 unsigned long	createhexcolour(char *line, int *i);
 void	ft_parser(t_data *my_mlx, int fd);

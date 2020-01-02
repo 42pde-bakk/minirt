@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/29 16:22:51 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 17:02:57 by pde-bakk      ########   odam.nl         */
+/*   Created: 2019/12/29 16:22:51 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/02 13:43:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,10 @@ static int	ft_power(int dec)
 	return (power);
 }
 
-float		ft_decimal_float(const char *str, float result, int *i)
+double		ft_decimal_double(const char *str, double result, int *i)
 {
 	int		dec;
-	float	tmp;
+	double	tmp;
 
 	if (str[*i] == '.')
 	{
@@ -57,10 +57,10 @@ float		ft_decimal_float(const char *str, float result, int *i)
 	return (result);
 }
 
-float		ft_atof_peer(const char *str, int *i)
+double		ft_atof_peer(const char *str, int *i)
 {
 	int		sign;
-	float	result;
+	double	result;
 
 	result = 0.0;
 	sign = 1;
@@ -78,7 +78,7 @@ float		ft_atof_peer(const char *str, int *i)
 		result = 10 * result + str[*i] - '0';
 		(*i)++;
 	}
-	result = ft_decimal_float(str, result, i);
+	result = ft_decimal_double(str, result, i);
 	if (str[*i] == ',')
 		(*i) += 1;
 	return (sign * result);
