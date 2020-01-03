@@ -6,29 +6,11 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/02 19:08:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 22:10:23 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int		parse_sphere(t_data *my_mlx, char *line, int *i)
-{
-	while (my_mlx->sphere)
-		my_mlx->sphere = my_mlx->sphere->next;
-	my_mlx->sphere = malloc(sizeof(t_sphere));
-	if (my_mlx->sphere == NULL)
-		return (0);
-	my_mlx->sphere->s[0] = ft_atof_peer(line, i);
-	my_mlx->sphere->s[1] = ft_atof_peer(line, i);
-	my_mlx->sphere->s[2] = ft_atof_peer(line, i);
-	my_mlx->sphere->s[3] = 0;
-	my_mlx->sphere->diameter = ft_atof_peer(line, i);
-	my_mlx->sphere->colour = createhexcolour(line, i);
-	my_mlx->sphere->next = NULL;
-	printf("sphere: {%f, %f, %f}, d=%f, c=%#lX\n", my_mlx->sphere->s[0], my_mlx->sphere->s[1], my_mlx->sphere->s[2], my_mlx->sphere->diameter, my_mlx->sphere->colour);
-	return (1);
-}
 
 int		parse_plane(t_data *my_mlx, char *line, int *i)
 {

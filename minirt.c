@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/03 14:19:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 20:34:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,9 @@ t_data	*init_my_mlx(int fd)
 	printf("bitch ass\n\n");
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-//	put_objects(my_mlx, fd);
-	ray(my_mlx, my_mlx->cam->canvx1, my_mlx->cam->canvy1, my_mlx->cam->canvasz);
-//	put_pixel(my_mlx, 10, 10, 255);
-//	put_square(my_mlx, 100, 50, 50, 255);
-//	put_square(my_mlx, 100, 100, 75, 255 * 255 * 255);
+//	put_square(my_mlx, 750, 550, 49, 255);
 //	put_square(my_mlx, 300, 250, 99, 255 * 255);
-	put_square(my_mlx, 750, 550, 49, 255);
+	ray(my_mlx);
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height, "Printing vierkantjes like a motherfucking boss bitch");
 	return (my_mlx);
 }

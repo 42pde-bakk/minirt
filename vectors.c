@@ -5,63 +5,94 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/31 10:58:56 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/03 14:26:18 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/01/03 16:06:06 by pde-bakk      #+#    #+#                 */
+/*   Updated: 2020/01/03 16:06:07 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	sqr(double n)
+double	*vector_subtractor(double *v1, double *v2)
 {
-	return (n * n);
-}
+	int		i;
+	double	*ret;
 
-void	normalize_ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz)
-{
-	double	length;
-
-	my_mlx->ray->v[0] = canvasx - my_mlx->cam->s[0];
-	my_mlx->ray->v[1] = canvasy - my_mlx->cam->s[1];
-	my_mlx->ray->v[2] = canvasz - my_mlx->cam->s[2];
-	length = sqrt(sqr(my_mlx->ray->v[0]) + sqr(my_mlx->ray->v[1]) + sqr(my_mlx->ray->v[2]));
-//	printf("OLD: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
-	my_mlx->ray->v[0] /= length;
-	my_mlx->ray->v[1] /= length;
-	my_mlx->ray->v[2] /= length;
-	length = sqrt(sqr(my_mlx->ray->v[0]) + sqr(my_mlx->ray->v[1]) + sqr(my_mlx->ray->v[2]));
-//	printf("NEW: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
-}
-
-void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz)
-{
-	int		x;
-	int		y;
-	unsigned long	ret;
-//	printf("welcome\n");
-
-	x = 0;
-	y = 0;
-	while (canvasy < my_mlx->cam->canvy2)
+	i = 0;
+	ret = (double*)malloc(sizeof(double) * 4);
+	if (!ret)
+		return (NULL);
+	while (/*v1[i] && v2[i] &&*/ i < 3)
 	{
-//		printf("canvasy=%f\n", canvasy);
-		canvasx = my_mlx->cam->canvx1;
-		while (canvasx < my_mlx->cam->canvx2)
-		{
-			normalize_ray(my_mlx, canvasx, canvasy, canvasz);
-			ret = find_objects(my_mlx);
-			if (ret > 0)
-				put_pixel(my_mlx, x, y, ret);
-			canvasx++;
-			x++;
-		}
-		canvasy++;
-		y++;
+		ret[i] = v1[i] - v2[i];
+		i++;
+//		printf("vector_subtractor gives: {%f, %f, result=%f}\n", v1[i], v2[i], ret[i]);
 	}
-	// trace ray along vector
+	return (ret);
+}
 
-	// find intersection
-	// put pixel in that colour
-	// clear my ray variables && return
+double	*vector_add(double *v1, double *v2)
+{
+	int		i;
+	double	*ret;
+
+	i = 0;
+	ret = (double*)malloc(sizeof(double) * 4);
+	if (!ret)
+		return (NULL);
+	while (/*v1[i] && v2[i] &&*/ i < 3)
+	{
+		ret[i] = v1[i] + v2[i];
+//		printf("vector_add gives: {%f, %f, result=%f}\n", v1[i], v2[i], ret[i]);
+		i++;
+	}
+	return (ret);
+}
+
+double	dotproduct(double *v1, double *v2)
+{
+	int		i;
+	double	ret;
+
+	ret = 0.0;
+	i = 0;
+	while (/*v1[i] && v2[i] &&*/i < 3)
+	{
+		ret += v1[i] * v2[i];
+//		printf("dotproduct gives: {%f, %f, result=%f}\n", v1[i], v2[i], ret);
+		i++;
+	}
+//	printf("ehhe\n");
+	return (ret);
+}
+
+double	*doublemapi(double *v1, double d)
+{
+	int	i;
+	double	*ret;
+
+	i = 0;
+	ret = (double*)malloc(sizeof(double) * 4);
+	if (!ret)
+		return (NULL);
+	while (/*v1[i] && */i < 3)
+	{
+		ret[i] = v1[i] * d;
+		i++;
+	}
+	return (ret);
+}
+
+double	find_length(double *s, double *p)
+{
+	double	ret;
+	double	retx;
+	double	rety;
+	double	retz;
+
+	retx = pow(s[0] - p[0], 2);
+	rety = pow(s[1] - p[1], 2);
+	retz = pow(s[2] - p[2], 2);
+	ret = sqrt(retx + rety + retz);
+	return (ret);
 
 }

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/03 14:25:44 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 22:11:50 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,21 +70,8 @@ typedef struct	s_cam
 	double			s[4];
 	double			v[4];
 	int				fov;
+	double			radfov;
 	double			distance;
-	double			canvx1;
-	double			canvx2;
-	double			canvy1;
-	double			canvy2;
-	double			canvasz;
-//	double			canvtoprightx;
-//	double			canvtoprighty;
-//	double			canvtoprightz;
-//	double			canvbottomleftx;
-//	double			canvbottomlefty;
-//	double			canvbottomleftz;
-//	double			canvbottomrightx;
-//	double			canvbottomrighty;
-//	double			canvbottomrightz;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -110,7 +97,7 @@ typedef	struct	s_ray
 
 typedef	struct	s_scene
 {
-	char			*id;//This one is malloc'd through ft_substr
+	char			*id;
 	double			width;
 	double			height;
 	double			amblight;
@@ -137,24 +124,42 @@ typedef struct	s_data
 	t_triangle	*triangle;
 }				t_data;
 
+/*
+**Extra functions
+*/
 int		ft_amount(long int nb);
 int		ft_iswhitespace(char c);
 int		ft_objectcheck(const char *id);
 double	ft_atof_peer(const char *str, int *i);
 int		ft_atoi_peer(const char *str, int *i);
-void	put_square(t_data *my_mlx, int x, int y, int size, int color);
+/*
+**Vector mathematics
+*/
+double	*vector_subtractor(double *v1, double *v2);
+double	*vector_add(double *v1, double *v2);
+double	dotproduct(double *v1, double *v2);
+double	*doublemapi(double *v1, double d);
+double	find_length(double *s, double *p);
+/*
+**Objects
+*/
+int					parse_sphere(t_data *my_mlx, char *line, int *i);
 
-void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz);
+void				put_square(t_data *my_mlx, int x, int y, int size, int color);
 unsigned long		find_sphere(t_data *my_mlx);
 unsigned long		find_objects(t_data *my_mlx);
-
-
+/*
+**Rays
+*/
+void	ray(t_data *my_mlx);
+/*
+**Parsing
+*/
 unsigned long	createhexcolour(char *line, int *i);
-void	ft_parser(t_data *my_mlx, int fd);
+void			ft_parser(t_data *my_mlx, int fd);
+int				parse_objects(t_data *my_mlx, char *line, int *i);
 
-int		parse_objects(t_data *my_mlx, char *line, int *i);
-
-void	put_pixel(t_data *my_mlx, int x, int y, unsigned long color);
-t_data	*init_my_mlx(int fd);
+void			put_pixel(t_data *my_mlx, int x, int y, unsigned long color);
+t_data			*init_my_mlx(int fd);
 
 #endif
