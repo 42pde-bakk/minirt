@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/02 19:01:19 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 14:35:54 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 
 void			find_canvas(t_data *my_mlx)
 {
-	my_mlx->cam->distance = (double)(my_mlx->scene->width / (2 * tan(my_mlx->cam->fov / 2)));
+	my_mlx->cam->distance = (double)((my_mlx->scene->width / 2) / tan((my_mlx->cam->fov / 2) * (M_PI / 180)));
 	printf("distance =%f\n", my_mlx->cam->distance);
 	my_mlx->cam->canvx1 = my_mlx->cam->s[0] - (double)(my_mlx->scene->width / 2);
 	my_mlx->cam->canvx2 = my_mlx->cam->s[0] + (double)(my_mlx->scene->width / 2);
-	my_mlx->cam->canvy1 = my_mlx->cam->s[1] - (double)(my_mlx->scene->height / 2);
-	my_mlx->cam->canvy2 = my_mlx->cam->s[1] + (double)(my_mlx->scene->height / 2);
+	my_mlx->cam->canvy1 = my_mlx->cam->s[1] + (double)(my_mlx->scene->height / 2);
+	my_mlx->cam->canvy2 = my_mlx->cam->s[1] - (double)(my_mlx->scene->height / 2);
 	my_mlx->cam->canvasz = my_mlx->cam->s[2] + my_mlx->cam->distance;
-	printf("x1=%f, y1=%f, x2=%f, y2=%f\n", my_mlx->cam->canvx1, my_mlx->cam->canvy1, my_mlx->cam->canvx2, my_mlx->cam->canvy2);
+	printf("canvasx1=%f, y1=%f, x2=%f, y2=%f, z=%f\n", my_mlx->cam->canvx1, my_mlx->cam->canvy1, my_mlx->cam->canvx2, my_mlx->cam->canvy2, my_mlx->cam->canvasz);
 }
 
 int				find_camera(t_data *my_mlx, char *line, int *i)
@@ -70,7 +70,7 @@ int				find_camera(t_data *my_mlx, char *line, int *i)
 	my_mlx->cam->v[2] = ft_atof_peer(line, i);
 	my_mlx->cam->fov = ft_atoi_peer(line, i);
 	my_mlx->cam->next = NULL;
-//	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->s[0], my_mlx->cam->s[1], my_mlx->cam->s[2], my_mlx->cam->v[0], my_mlx->cam->v[1], my_mlx->cam->v[2], my_mlx->cam->fov);
+	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->s[0], my_mlx->cam->s[1], my_mlx->cam->s[2], my_mlx->cam->v[0], my_mlx->cam->v[1], my_mlx->cam->v[2], my_mlx->cam->fov);
 	find_canvas(my_mlx);
 	return (1);
 }

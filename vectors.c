@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/31 10:58:56 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/02 18:46:01 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 14:26:18 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,13 @@ void	normalize_ray(t_data *my_mlx, double canvasx, double canvasy, double canvas
 
 void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz)
 {
-	printf("welcome\n");
+	int		x;
+	int		y;
+	unsigned long	ret;
+//	printf("welcome\n");
+
+	x = 0;
+	y = 0;
 	while (canvasy < my_mlx->cam->canvy2)
 	{
 //		printf("canvasy=%f\n", canvasy);
@@ -43,10 +49,14 @@ void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz)
 		while (canvasx < my_mlx->cam->canvx2)
 		{
 			normalize_ray(my_mlx, canvasx, canvasy, canvasz);
-			find_objects(my_mlx);
+			ret = find_objects(my_mlx);
+			if (ret > 0)
+				put_pixel(my_mlx, x, y, ret);
 			canvasx++;
+			x++;
 		}
 		canvasy++;
+		y++;
 	}
 	// trace ray along vector
 

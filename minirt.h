@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/02 18:25:13 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 14:25:44 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,8 @@ int		ft_atoi_peer(const char *str, int *i);
 void	put_square(t_data *my_mlx, int x, int y, int size, int color);
 
 void	ray(t_data *my_mlx, double canvasx, double canvasy, double canvasz);
-int		find_sphere(t_data *my_mlx);
-int		find_objects(t_data *my_mlx);
+unsigned long		find_sphere(t_data *my_mlx);
+unsigned long		find_objects(t_data *my_mlx);
 
 
 unsigned long	createhexcolour(char *line, int *i);
@@ -154,7 +154,7 @@ void	ft_parser(t_data *my_mlx, int fd);
 
 int		parse_objects(t_data *my_mlx, char *line, int *i);
 
-void	put_pixel(t_data *my_mlx, int x, int y, int color);
+void	put_pixel(t_data *my_mlx, int x, int y, unsigned long color);
 t_data	*init_my_mlx(int fd);
 
 #endif

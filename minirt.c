@@ -6,14 +6,14 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/02 19:01:38 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/03 14:19:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include <stdio.h>
 
-void	put_pixel(t_data *my_mlx, int x, int y, int color)
+void	put_pixel(t_data *my_mlx, int x, int y, unsigned long color)
 {
 	int pos;
 
