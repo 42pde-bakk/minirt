@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/03 22:11:50 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/04 15:36:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,11 +88,7 @@ typedef	struct	s_ray
 	double			v[4];
 	unsigned long	colour;
 	double			*p;
-	double			t;
-	double			t1;
-	double			t2;
-	double			x;
-	double			y;
+	double			length;
 }				t_ray;
 
 typedef	struct	s_scene
