@@ -6,7 +6,7 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/03 22:12:03 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/04 18:47:45 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ = $(SRC:.c=.o)
 
 HEADER = minirt.h
 
-FLAGS = -Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -O3
 
 INCLUDES = includes/extra.c includes/ft_itoa_base.c includes/ft_atox_peer.c \
 includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c \
@@ -63,10 +63,15 @@ fclean: clean
 
 re: fclean all
 
+fuckingclean: fclean
+	/bin/rm -f \#*\# a.out
+	/bin/rm -rf *.dSYM
+	@make fclean -C ./includes/libft
+
 bonus: re
 	@echo "$(PINK)Linking bonus files"
 
 run: re
-	gcc $(MAGIC) miniRT libft.a -g -fsanitize=address
+	gcc $(FLAGS) $(MAGIC) miniRT libft.a -g -fsanitize=address
 	@echo "$(PINK)bitch"
 	./a.out example.rt

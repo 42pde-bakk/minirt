@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/03 23:07:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/04 18:22:24 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,20 +78,6 @@ void	fire_ray(t_data *my_mlx, double pndcx, double pndcy)
 	my_mlx->ray->v[2] = -1.0f;
 }
 
-void	loopspheres(t_data *my_mlx)
-{
-	t_sphere	*head;
-
-	head = my_mlx->sphere;
-	while (my_mlx->sphere)
-	{
-		printf("sphere met diameter=%f\n", my_mlx->sphere->diameter);
-		my_mlx->sphere = my_mlx->sphere->next;
-	}
-	my_mlx->sphere = head;
-	printf("HEAD:sphere met diameter=%f\n", my_mlx->sphere->diameter);
-}
-
 void	ray(t_data *my_mlx)
 {
 	double	x = 0;
@@ -112,10 +98,11 @@ void	ray(t_data *my_mlx)
 //			printf("pndcx, pndcy= (%f, %f)\n", pndcx, pndcy);
 //			normalize_ray(my_mlx);
 			ret = find_objects(my_mlx);
-			if (ret > 0)
+			if (my_mlx->ray->length > 0)
 			{
-//				printf("gucci, ret=%lX\n", ret);
-				put_pixel(my_mlx, x, y, ret);
+				put_pixel(my_mlx, x, y, my_mlx->ray->colour);
+				my_mlx->ray->length = 0;
+				my_mlx->ray->colour = 0;
 			}
 //			printf("pndcx=%f\n", pndcx);
 			x++;

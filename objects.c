@@ -6,45 +6,23 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/04 15:38:23 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/04 18:18:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	put_square(t_data *my_mlx, int x, int y, int size, int color)
-{
-	int i;
-	int x1;
-	int y1;
-
-	i = 0;
-	y1 = y;
-	while (y1 < y + size)
-	{
-		x1 = x;
-		while (x1 < x + size)
-		{
-			put_pixel(my_mlx, x1, y1, color);
-			x1++;
-		}
-		y1++;
-	}
-}
-
 unsigned long			colourremap01(t_data *my_mlx, double ret)
 {
-	int	r;
-	int	g;
-	int	b;
+	int				r;
+	int				g;
+	int				b;
 	unsigned long col;
 
 	col = my_mlx->sphere->colour;
-//	printf("colour=%lX\n", col);
-	r = (col >> 16 & 0xff); // 255.0;
-	g = (col >> 8 & 0xff); // 255.0;
-	b = (col & 0xff); // 255.0;
-//	printf("rgb= %i, %i, %i\n", r, g, b);
+	r = (col >> 16 & 0xff);
+	g = (col >> 8 & 0xff);
+	b = (col & 0xff);
 	r *= ret;
 	g *= ret;
 	b *= ret;
@@ -94,9 +72,12 @@ unsigned long		find_sphere(t_data *my_mlx)
 	{
 		x = sqrt(pow(my_mlx->sphere->diameter / 2, 2) - pow(y, 2));
 		t1 = fabs(t - x);
-//		t2 = t + x;
-		my_mlx->ray->length = t1;
-		my_mlx->ray->colour = remap01(my_mlx, t1);
+		t2 = t + x;
+		if (t1 > my_mlx->ray->length)
+		{
+			my_mlx->ray->length = t1;
+			my_mlx->ray->colour = remap01(my_mlx, t1);
+		}
 		return (1);
 	}
 //	printf("t=%f\n", my_mlx->ray->t);
@@ -107,20 +88,16 @@ unsigned long		find_sphere(t_data *my_mlx)
 unsigned long		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
-	unsigned long	ret;
+	int			ret;
 
 	head = my_mlx->sphere;
 	while (my_mlx->sphere)
 	{
 //		printf("new sphere met diameter=%f\n", my_mlx->sphere->diameter);
-		ret =  find_sphere(my_mlx);
-		if (ret > 0)
-		{
-			my_mlx->sphere = head;
-			return (ret);
-		}
+		ret = find_sphere(my_mlx);
+//		printf("ret = %i\n", ret);
 		my_mlx->sphere = my_mlx->sphere->next;
 	}
 	my_mlx->sphere = head;
-	return (0);
+	return (ret);
 }

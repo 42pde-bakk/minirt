@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/04 15:36:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/04 18:34:26 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,9 +139,11 @@ double	find_length(double *s, double *p);
 /*
 **Objects
 */
+void				loopspheres(t_data *my_mlx);
 int					parse_sphere(t_data *my_mlx, char *line, int *i);
+int					parse_square(t_data *my_mlx, char *line, int *i);
+int					parse_plane(t_data *my_mlx, char *line, int *i);
 
-void				put_square(t_data *my_mlx, int x, int y, int size, int color);
 unsigned long		find_sphere(t_data *my_mlx);
 unsigned long		find_objects(t_data *my_mlx);
 /*

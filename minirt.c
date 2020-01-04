@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/03 20:34:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/04 18:18:57 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ t_data	*mallocmachine(t_data *my_mlx)
 	my_mlx->ray = malloc(sizeof(t_ray));
 	if (my_mlx->ray == NULL)
 		return (NULL);
+	my_mlx->ray->length = 0;
 	my_mlx->light = NULL;
 	my_mlx->cam = NULL;
 	my_mlx->sphere = NULL;
@@ -45,6 +46,12 @@ t_data	*mallocmachine(t_data *my_mlx)
 	my_mlx->cylinder = NULL;
 	my_mlx->triangle = NULL;
 	return (my_mlx);
+}
+
+int		quit(t_data *my_mlx)
+{
+	(void)my_mlx;
+	exit(0);
 }
 
 t_data	*init_my_mlx(int fd)
@@ -60,10 +67,8 @@ t_data	*init_my_mlx(int fd)
 	printf("bitch ass\n\n");
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-//	put_square(my_mlx, 750, 550, 49, 255);
-//	put_square(my_mlx, 300, 250, 99, 255 * 255);
 	ray(my_mlx);
-	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height, "Printing vierkantjes like a motherfucking boss bitch");
+	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height, "Printing RONDJES like a motherfucking boss bitch");
 	return (my_mlx);
 }
 
@@ -80,5 +85,6 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	my_mlx = init_my_mlx(fd);
 	mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
+	mlx_key_hook(my_mlx->win_ptr, &quit, my_mlx);
 	mlx_loop(my_mlx->win_ptr);
 }
