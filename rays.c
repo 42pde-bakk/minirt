@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 18:31:56 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/07 21:24:59 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	ray(t_data *my_mlx)
 	unsigned	ret;
 
 //	loopspheres(my_mlx);
-	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
+//	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);
@@ -101,5 +101,5 @@ void	ray(t_data *my_mlx)
 		y++;
 		x = 0;
 	}
-	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
+//	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
 }

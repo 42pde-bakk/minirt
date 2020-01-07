@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/06 17:05:24 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/06 17:21:22 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/07 21:09:45 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,6 @@ typedef enum		e_key_code
 	UP_ARROW = 126,
 	DOWN_ARROW = 125,
 	ESCAPE = 53,
+	NUMONE = 83,
+	NUMZERO = 82,
 }					t_key_code;
