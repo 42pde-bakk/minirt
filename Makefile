@@ -6,24 +6,26 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/04 18:47:45 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/07 16:35:11 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
 SRC = minirt.c parsing.c objects.c parseobjects.c vectors.c rays.c \
-sphere.c
+sphere.c planesquare.c 
 
 OBJ = $(SRC:.c=.o)
 
 HEADER = minirt.h
 
-FLAGS = -Wall -Werror -Wextra -O3
+FLAGS = -Wall -Werror -Wextra -O3 -g
+ifdef DEBUG
+ FLAGS += -fsanitize=address
+endif
 
 INCLUDES = includes/extra.c includes/ft_itoa_base.c includes/ft_atox_peer.c \
-includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c \
--I includes/gnl/
+includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c
 
 INCOBJ = extra.o ft_itoa_base.o ft_atox_peer.o get_next_line.o get_next_line_utils.o
 
@@ -48,7 +50,7 @@ $(NAME):
 	@echo "$(YELLOW)Linking the library"
 	@make -C ./minilibx_mms_20191025_beta/
 	cp minilibx_mms_20191025_beta/libmlx.dylib libmlx.dylib
-	gcc -c $(FLAGS) $(HEADER) $(SRC) $(INCLUDES) -g -fsanitize=address
+	gcc -c $(FLAGS) $(HEADER) $(SRC) $(INCLUDES)
 	ar -rcs $(NAME) $(OBJ) $(INCOBJ) libft.a
 	@echo "$(GREEN)Done!$(RESET)"
 
@@ -72,6 +74,6 @@ bonus: re
 	@echo "$(PINK)Linking bonus files"
 
 run: re
-	gcc $(FLAGS) $(MAGIC) miniRT libft.a -g -fsanitize=address
+	gcc $(FLAGS) $(MAGIC) miniRT libft.a
 	@echo "$(PINK)bitch"
 	./a.out example.rt

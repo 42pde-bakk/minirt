@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/03 16:01:34 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/04 18:22:24 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/07 18:31:56 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,76 +17,67 @@ void	normalize_ray(t_data *my_mlx)
 	double	length;
 
 	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
-	printf("OLD: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
+//	printf("OLD: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
 	my_mlx->ray->v[0] /= length;
 	my_mlx->ray->v[1] /= length;
 	my_mlx->ray->v[2] /= length;
 	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
-	printf("NEW: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
+//	printf("NEW: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
 }
 
 double	ndcx(t_data *my_mlx, double x)
 {
-	double	PixelNDCx;
-	double	PixelScreenx;
-	double	PixelCamerax;
+	double	pixelndcx;
+	double	pixelscreenx;
+	double	pixelcamerax;
+	double	ratio;
 	double	angle;
 
-	PixelNDCx = (x + 0.5) / my_mlx->scene->width; // define pixel in NDC space
+	ratio = my_mlx->scene->width / my_mlx->scene->height;
 
-	PixelScreenx = 2 * PixelNDCx - 1; // pixel remapped
-
-	if (my_mlx->scene->width > my_mlx->scene->height)
-	{
-		PixelCamerax = 2 * PixelNDCx - 1;
-		PixelCamerax *= (my_mlx->scene->width / my_mlx->scene->height);
-	}
-	else
-		PixelCamerax = PixelScreenx;
+	pixelndcx = (x + 0.5) / my_mlx->scene->width; //define pixel in NDC space
+	pixelscreenx = 2 * pixelndcx - 1; //remap pixel
 	angle = my_mlx->cam->fov * (M_PI / 180);
-	PixelCamerax = PixelCamerax * tan(angle / 2);
-	return (PixelCamerax);
-
+	pixelcamerax = pixelscreenx * ratio * tan(angle / 2);
+	return (pixelcamerax);
 }
 
 double	ndcy(t_data *my_mlx, double y)
 {
-	double	PixelNDCy;
-	double	PixelScreeny;
-	double	PixelCameray;
+	double	pixelndcy;
+	double	pixelscreeny;
+	double	pixelcameray;
 	double	angle;
 
-	PixelNDCy = (y + 0.5) / my_mlx->scene->height;
-
-	PixelScreeny = 1 - 2 * PixelNDCy;
-//	if (my_mlx->scene->height > my_mlx->scene->width)
-//	{
-//		PixelCameray = 2 * PixelScreeny - 1;
-//		PixelCameray *= (my_mlx->scene->height / my_mlx->scene->width);
-//	}
-//	else
-	PixelCameray = PixelScreeny;
+	pixelndcy = (y + 0.5) / my_mlx->scene->height;
+	pixelscreeny = 1 - 2 * pixelndcy;
 	angle = my_mlx->cam->fov * (M_PI / 180);
-	PixelCameray = PixelCameray * tan(angle / 2);
-	return (PixelCameray);
+	pixelcameray = pixelscreeny * tan(angle / 2);
+	return (pixelcameray);
 }
 
 void	fire_ray(t_data *my_mlx, double pndcx, double pndcy)
 {
+	static int counter;
+
 	my_mlx->ray->v[0] = pndcx;
 	my_mlx->ray->v[1] = pndcy;
-	my_mlx->ray->v[2] = -1.0f;
+	my_mlx->ray->v[2] = 1.0f;
+//	if (counter % 50 == 0)
+//		printf("ray= {%f, %f, %f}\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2]);
+	counter++;
 }
 
 void	ray(t_data *my_mlx)
 {
-	double	x = 0;
-	double	y = 0;
-	double	pndcx;
-	double	pndcy;
-	unsigned long	ret;
+	double		x = 0;
+	double		y = 0;
+	double		pndcx;
+	double		pndcy;
+	unsigned	ret;
 
-	loopspheres(my_mlx);
+//	loopspheres(my_mlx);
+	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);
@@ -95,8 +86,8 @@ void	ray(t_data *my_mlx)
 		{
 			pndcx = ndcx(my_mlx, x);
 			fire_ray(my_mlx, pndcx, pndcy);
+			normalize_ray(my_mlx);
 //			printf("pndcx, pndcy= (%f, %f)\n", pndcx, pndcy);
-//			normalize_ray(my_mlx);
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length > 0)
 			{
@@ -110,10 +101,5 @@ void	ray(t_data *my_mlx)
 		y++;
 		x = 0;
 	}
-	// trace ray along vector
-
-	// find intersection
-	// put pixel in that colour
-	// clear my ray variables && return
-
+	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
 }

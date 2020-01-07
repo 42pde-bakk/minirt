@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 22:06:16 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/04 15:42:53 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/07 11:56:44 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ int		parse_sphere(t_data *my_mlx, char *line, int *i)
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_sphere(&my_mlx->sphere, new);
-	printf("sphere: {%f, %f, %f}, d=%f, c=%#lX\n", new->s[0], new->s[1], new->s[2], new->diameter, new->colour);
+	printf("sphere: {%f, %f, %f}, d=%f, c=%#X\n", new->s[0], new->s[1], new->s[2], new->diameter, new->colour);
 	return (1);
 }

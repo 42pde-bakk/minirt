@@ -6,14 +6,14 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/03 20:32:02 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/07 11:53:56 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "includes/gnl/get_next_line.h"
 
-unsigned long	createhexcolour(char *line, int *i)
+unsigned		createhexcolour(char *line, int *i)
 {
 	int	r;
 	int g;
@@ -39,7 +39,7 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 	my_mlx->light->brightness = ft_atof_peer(line, i);
 	my_mlx->light->colour = createhexcolour(line, i);
 	my_mlx->light->next = NULL;
-	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%lX\n", my_mlx->light->s[0], my_mlx->light->s[1], my_mlx->light->s[2], my_mlx->light->brightness, my_mlx->light->colour);
+	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%X\n", my_mlx->light->s[0], my_mlx->light->s[1], my_mlx->light->s[2], my_mlx->light->brightness, my_mlx->light->colour);
 	return (1);
 }
 

@@ -5,19 +5,19 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/23 16:21:19 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/04 18:18:33 by pde-bakk      ########   odam.nl         */
+/*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/07 18:39:06 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-unsigned long			colourremap01(t_data *my_mlx, double ret)
+unsigned			colourremap01(t_data *my_mlx, double ret)
 {
 	int				r;
 	int				g;
 	int				b;
-	unsigned long col;
+	unsigned 		col;
 
 	col = my_mlx->sphere->colour;
 	r = (col >> 16 & 0xff);
@@ -29,25 +29,27 @@ unsigned long			colourremap01(t_data *my_mlx, double ret)
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
-unsigned long			remap01(t_data *my_mlx, double t1)
+unsigned				remap01(t_data *my_mlx, double t1)
 {
-	double	a;
-	double	b;
-	double	ret;
-	unsigned long	col;
+	double		spherez;
+	double		coll;
+	double		ret;
+	unsigned 	col;
 
 	t1 = fabs(t1);
-	a = my_mlx->sphere->s[2];
-	b = my_mlx->sphere->s[2] - my_mlx->sphere->diameter / 2;
-	ret = fabs((t1 - a) / (b - a));
-	if (ret < 0 || ret > 1)
-		printf("ret=%f, a=%f\n", ret, a);
+	spherez = my_mlx->sphere->s[2];
+	coll = my_mlx->sphere->s[2] - my_mlx->sphere->diameter / 2;
+	ret = fabs((t1 - spherez) / (coll - spherez));
+//	if (ret < 0 || ret > 1)
+//		printf("ret=%f, spherez=%f, t1=%f, collision=%f\n", ret, spherez, t1, coll);
+	if (ret > 1.0f)
+		ret = ret - 1.0f;
 	col = colourremap01(my_mlx, ret);
 //	printf("col=%lX\n", col);
 	return (col);
 }
 
-unsigned long		find_sphere(t_data *my_mlx)
+unsigned		find_sphere(t_data *my_mlx)
 {
 	double	*tmp;
 	double	*tmpt;
@@ -59,7 +61,9 @@ unsigned long		find_sphere(t_data *my_mlx)
 
 	tmp = vector_subtractor(my_mlx->sphere->s, my_mlx->cam->s);
 //	printf("diameter=%f\n", my_mlx->sphere->diameter);
-//	printf("tmp[]={%f, %f, %f}\n", tmp[0], tmp[1], tmp[2]);
+//	printf("cam ={%f, %f, %f}\n", my_mlx->cam->s[0], my_mlx->cam->s[1], my_mlx->cam->s[2]);
+//	printf("sphere ={%f, %f, %f}\n", my_mlx->sphere->s[0], my_mlx->sphere->s[1], my_mlx->sphere->s[2]);
+//	printf("sphere - cam ={%f, %f, %f}\n", tmp[0], tmp[1], tmp[2]);
 	t = dotproduct(tmp, my_mlx->ray->v);
 	free(tmp);
 	tmpt = doublemapi(my_mlx->ray->v, t);
@@ -71,21 +75,23 @@ unsigned long		find_sphere(t_data *my_mlx)
 	if (y < my_mlx->sphere->diameter / 2)
 	{
 		x = sqrt(pow(my_mlx->sphere->diameter / 2, 2) - pow(y, 2));
-		t1 = fabs(t - x);
+		t1 = (t - x);
 		t2 = t + x;
 		if (t1 > my_mlx->ray->length)
 		{
 			my_mlx->ray->length = t1;
 			my_mlx->ray->colour = remap01(my_mlx, t1);
 		}
+		free(my_mlx->ray->p);
 		return (1);
 	}
 //	printf("t=%f\n", my_mlx->ray->t);
 //	printf("p={%f, %f, %f}\n", my_mlx->ray->p[0], my_mlx->ray->p[1], my_mlx->ray->p[2]);
+	free(my_mlx->ray->p);
 	return (0);
 }
 
-unsigned long		find_objects(t_data *my_mlx)
+unsigned 		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
 	int			ret;

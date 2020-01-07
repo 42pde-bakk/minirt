@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/04 18:34:26 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/07 18:18:19 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <math.h>
 # include "minilibx_mms_20191025_beta/mlx.h"
 # include "includes/libft/libft.h"
+# include "includes/gnl/get_next_line.h"
+# include "enums.h"
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
@@ -25,7 +27,7 @@ typedef struct	s_sphere
 {
 	double			s[4];
 	double			diameter;
-	unsigned long	colour;
+	unsigned		colour;
 	struct s_sphere	*next;
 }				t_sphere;
 
@@ -52,7 +54,7 @@ typedef struct	s_cylinder
 	double				v[4];
 	double				diameter;
 	double				height;
-	unsigned long		colour;
+	unsigned			colour;
 	struct s_cylinder	*next;
 }				t_cylinder;
 
@@ -61,7 +63,7 @@ typedef struct	s_triangle
 	double				s1[4];
 	double				s2[4];
 	double				s3[4];
-	unsigned long		colour;
+	unsigned			colour;
 	struct s_triangle	*next;
 }				t_triangle;
 
@@ -79,14 +81,14 @@ typedef struct	s_light
 {
 	double			s[4];
 	double			brightness;
-	unsigned long	colour;
+	unsigned		colour;
 	struct s_light	*next;
 }				t_light;
 
 typedef	struct	s_ray
 {
 	double			v[4];
-	unsigned long	colour;
+	unsigned		colour;
 	double			*p;
 	double			length;
 }				t_ray;
@@ -104,8 +106,11 @@ typedef struct	s_data
 {
 	void		*mlx_ptr;
 	void		*mlx_img;
+	void		*mlx_img2;
 	void		*win_ptr;
 	char		*addr;
+	char		*addr2;
+	int			frame;
 	int			bpp;
 	int			line_length;
 	int			endian;
@@ -144,8 +149,8 @@ int					parse_sphere(t_data *my_mlx, char *line, int *i);
 int					parse_square(t_data *my_mlx, char *line, int *i);
 int					parse_plane(t_data *my_mlx, char *line, int *i);
 
-unsigned long		find_sphere(t_data *my_mlx);
-unsigned long		find_objects(t_data *my_mlx);
+unsigned 			find_sphere(t_data *my_mlx);
+unsigned 			find_objects(t_data *my_mlx);
 /*
 **Rays
 */
@@ -153,11 +158,11 @@ void	ray(t_data *my_mlx);
 /*
 **Parsing
 */
-unsigned long	createhexcolour(char *line, int *i);
+unsigned 		createhexcolour(char *line, int *i);
 void			ft_parser(t_data *my_mlx, int fd);
 int				parse_objects(t_data *my_mlx, char *line, int *i);
 
-void			put_pixel(t_data *my_mlx, int x, int y, unsigned long color);
+void			put_pixel(t_data *my_mlx, int x, int y, unsigned color);
 t_data			*init_my_mlx(int fd);
 
 #endif

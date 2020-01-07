@@ -6,52 +6,97 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/04 18:34:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/07 19:56:10 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+void	ft_lstadd_back_cylinder(t_cylinder **alst, t_cylinder *new)
+{
+	t_cylinder	*tmp;
+
+	if (alst == NULL)
+		return ;
+	tmp = *alst;
+	if (tmp)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+	{
+		new->next = *alst;
+		*alst = new;
+	}
+}
+
 int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 {
-	while (my_mlx->cylinder)
-		my_mlx->cylinder = my_mlx->cylinder->next;
-	my_mlx->cylinder = malloc(sizeof(t_cylinder));
-	if (my_mlx->cylinder == NULL)
+	t_cylinder	*new;
+
+	new = malloc(sizeof(t_square));
+	if (new == NULL)
 		return (0);
-	my_mlx->cylinder->s[0] = ft_atof_peer(line, i);
-	my_mlx->cylinder->s[1] = ft_atof_peer(line, i);
-	my_mlx->cylinder->s[2] = ft_atof_peer(line, i);
-	my_mlx->cylinder->v[0] = ft_atof_peer(line, i);
-	my_mlx->cylinder->v[1] = ft_atof_peer(line, i);
-	my_mlx->cylinder->v[2] = ft_atof_peer(line, i);
-	my_mlx->cylinder->diameter = ft_atof_peer(line, i);
-	my_mlx->cylinder->height = ft_atof_peer(line, i);
-	my_mlx->cylinder->colour = createhexcolour(line, i);
-	my_mlx->cylinder->next = NULL;
-	printf("Cylinder parsed: {%f, %f, %f}, {%f, %f, %f}, d=%f, h=%f, c=%#lX\n", my_mlx->cylinder->s[0], my_mlx->cylinder->s[1], my_mlx->cylinder->s[2], my_mlx->cylinder->v[0], my_mlx->cylinder->v[1], my_mlx->cylinder->v[2], my_mlx->cylinder->diameter, my_mlx->cylinder->height, my_mlx->cylinder->colour);
+	new->s[0] = ft_atof_peer(line, i);
+	new->s[1] = ft_atof_peer(line, i);
+	new->s[2] = ft_atof_peer(line, i);
+	new->s[3] = 0;
+	new->v[0] = ft_atof_peer(line, i);
+	new->v[1] = ft_atof_peer(line, i);
+	new->v[2] = ft_atof_peer(line, i);
+	new->v[3] = 0;
+	new->diameter = ft_atof_peer(line, i);
+	new->height = ft_atof_peer(line, i);
+	new->colour = createhexcolour(line, i);
+	new->next = NULL;
+	ft_lstadd_back_cylinder(&my_mlx->cylinder, new);
 	return (1);
+}
+
+void	ft_lstadd_back_triangle(t_triangle **alst, t_triangle *new)
+{
+	t_triangle *tmp;
+
+	if (alst == NULL)
+		return ;
+	tmp = *alst;
+	if (tmp)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+	{
+		new->next = *alst;
+		*alst = new;
+	}
 }
 
 int		parse_triangle(t_data *my_mlx, char *line, int *i)
 {
-	while (my_mlx->triangle)
-		my_mlx->triangle = my_mlx->triangle->next;
-	my_mlx->triangle = malloc(sizeof(t_triangle));
-	if (my_mlx->triangle == NULL)
+	t_triangle	*new;
+
+	new = malloc(sizeof(t_triangle));
+	if (new == NULL)
 		return (0);
-	my_mlx->triangle->s1[0] = ft_atof_peer(line, i);
-	my_mlx->triangle->s1[1] = ft_atof_peer(line, i);
-	my_mlx->triangle->s1[2] = ft_atof_peer(line, i);
-	my_mlx->triangle->s2[0] = ft_atof_peer(line, i);
-	my_mlx->triangle->s2[1] = ft_atof_peer(line, i);
-	my_mlx->triangle->s2[2] = ft_atof_peer(line, i);
-	my_mlx->triangle->s3[0] = ft_atof_peer(line, i);
-	my_mlx->triangle->s3[1] = ft_atof_peer(line, i);
-	my_mlx->triangle->s3[2] = ft_atof_peer(line, i);
-	my_mlx->triangle->colour = createhexcolour(line, i);
-	my_mlx->triangle->next = NULL;
-	printf("Triangle parsed: {%f, %f, %f}, {%f, %f, %f}, {%f, %f, %f}, c=%#lX\n", my_mlx->triangle->s1[0], my_mlx->triangle->s1[1], my_mlx->triangle->s1[2], my_mlx->triangle->s2[0], my_mlx->triangle->s2[1], my_mlx->triangle->s2[2], my_mlx->triangle->s3[0], my_mlx->triangle->s3[1], my_mlx->triangle->s3[2], my_mlx->triangle->colour);
+	new->s1[0] = ft_atof_peer(line, i);
+	new->s1[1] = ft_atof_peer(line, i);
+	new->s1[2] = ft_atof_peer(line, i);
+	new->s1[3] = 0;
+	new->s2[0] = ft_atof_peer(line, i);
+	new->s2[1] = ft_atof_peer(line, i);
+	new->s2[2] = ft_atof_peer(line, i);
+	new->s2[3] = 0;
+	new->s3[0] = ft_atof_peer(line, i);
+	new->s3[1] = ft_atof_peer(line, i);
+	new->s3[2] = ft_atof_peer(line, i);
+	new->s3[3] = 0;
+	new->colour = createhexcolour(line, i);
+	new->next = NULL;
+	ft_lstadd_back_triangle(&my_mlx->triangle, new);
 	return (1);
 }
 

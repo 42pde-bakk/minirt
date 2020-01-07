@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/04 18:33:52 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/07 19:56:59 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	ft_lstadd_back_square(t_square **alst, t_square *new)
 	}
 	else
 	{
-//		printf("adding in front\n");
 		new->next = *alst;
 		*alst = new;
 	}
@@ -35,7 +34,7 @@ void	ft_lstadd_back_square(t_square **alst, t_square *new)
 
 int		parse_square(t_data *my_mlx, char *line, int *i)
 {
-	t_square  *new;
+	t_square	*new;
 
 	new = malloc(sizeof(t_square));
 	if (new == NULL)
@@ -52,7 +51,6 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_square(&my_mlx->square, new);
-	printf("square: {%f, %f, %f}, d=%f, c=%#lX\n", new->s[0], new->s[1], new->s[2], new->v[0], new->v[1], new->v[2], new->size, new->colour);
 	return (1);
 }
 
@@ -71,7 +69,6 @@ void	ft_lstadd_back_plane(t_plane **alst, t_plane *new)
 	}
 	else
 	{
-//		printf("adding in front\n");
 		new->next = *alst;
 		*alst = new;
 	}
@@ -79,7 +76,7 @@ void	ft_lstadd_back_plane(t_plane **alst, t_plane *new)
 
 int		parse_plane(t_data *my_mlx, char *line, int *i)
 {
-	t_plane  *new;
+	t_plane	*new;
 
 	new = malloc(sizeof(t_plane));
 	if (new == NULL)
@@ -95,6 +92,5 @@ int		parse_plane(t_data *my_mlx, char *line, int *i)
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_plane(&my_mlx->plane, new);
-	printf("Plane: {%f, %f, %f}, d=%f, c=%#lX\n", new->s[0], new->s[1], new->s[2], new->v[0], new->v[1], new->v[2], new->colour);
 	return (1);
 }
