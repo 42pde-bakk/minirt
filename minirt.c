@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 21:34:03 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 13:41:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,6 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	my_mlx = init_my_mlx(fd);
 	mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
-//	mlx_key_hook(my_mlx->win_ptr, &readinput, my_mlx);
+	mlx_key_hook(my_mlx->win_ptr, &readinput, my_mlx);
 	mlx_loop(my_mlx->win_ptr);
 }

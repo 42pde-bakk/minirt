@@ -5,23 +5,19 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/03 16:06:06 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/03 16:06:07 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/08 13:55:57 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	*vector_subtractor(double *v1, double *v2)
+double	*vector_subtractor(double *v1, double *v2, double *ret)
 {
 	int		i;
-	double	*ret;
 
 	i = 0;
-	ret = (double*)malloc(sizeof(double) * 4);
-	if (!ret)
-		return (NULL);
-	while (/*v1[i] && v2[i] &&*/ i < 3)
+	while (/*v1[i] && v2[i] &&*/i < 3)
 	{
 		ret[i] = v1[i] - v2[i];
 		i++;
@@ -30,15 +26,11 @@ double	*vector_subtractor(double *v1, double *v2)
 	return (ret);
 }
 
-double	*vector_add(double *v1, double *v2)
+double	*vector_add(double *v1, double *v2, double *ret)
 {
 	int		i;
-	double	*ret;
 
 	i = 0;
-	ret = (double*)malloc(sizeof(double) * 4);
-	if (!ret)
-		return (NULL);
 	while (/*v1[i] && v2[i] &&*/ i < 3)
 	{
 		ret[i] = v1[i] + v2[i];
@@ -65,15 +57,11 @@ double	dotproduct(double *v1, double *v2)
 	return (ret);
 }
 
-double	*doublemapi(double *v1, double d)
+double	*doublemapi(double *v1, double d, double *ret)
 {
 	int	i;
-	double	*ret;
 
 	i = 0;
-	ret = (double*)malloc(sizeof(double) * 4);
-	if (!ret)
-		return (NULL);
 	while (/*v1[i] && */i < 3)
 	{
 		ret[i] = v1[i] * d;

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 18:18:19 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 13:55:42 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 typedef struct	s_sphere
 {
 	double			s[4];
+	double			tmp[4];
 	double			diameter;
 	unsigned		colour;
 	struct s_sphere	*next;
@@ -89,7 +90,7 @@ typedef	struct	s_ray
 {
 	double			v[4];
 	unsigned		colour;
-	double			*p;
+	double			p[4];
 	double			length;
 }				t_ray;
 
@@ -136,10 +137,10 @@ int		ft_atoi_peer(const char *str, int *i);
 /*
 **Vector mathematics
 */
-double	*vector_subtractor(double *v1, double *v2);
-double	*vector_add(double *v1, double *v2);
+double	*vector_subtractor(double *v1, double *v2, double *ret);
+double	*vector_add(double *v1, double *v2, double *ret);
 double	dotproduct(double *v1, double *v2);
-double	*doublemapi(double *v1, double d);
+double	*doublemapi(double *v1, double d, double *ret);
 double	find_length(double *s, double *p);
 /*
 **Objects

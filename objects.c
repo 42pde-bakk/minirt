@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 18:39:06 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 13:57:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,42 +52,33 @@ unsigned				remap01(t_data *my_mlx, double t1)
 unsigned		find_sphere(t_data *my_mlx)
 {
 	double	*tmp;
-	double	*tmpt;
 	double	t;
 	double	t1;
 	double	t2;
 	double	y;
 	double	x;
 
-	tmp = vector_subtractor(my_mlx->sphere->s, my_mlx->cam->s);
-//	printf("diameter=%f\n", my_mlx->sphere->diameter);
-//	printf("cam ={%f, %f, %f}\n", my_mlx->cam->s[0], my_mlx->cam->s[1], my_mlx->cam->s[2]);
-//	printf("sphere ={%f, %f, %f}\n", my_mlx->sphere->s[0], my_mlx->sphere->s[1], my_mlx->sphere->s[2]);
-//	printf("sphere - cam ={%f, %f, %f}\n", tmp[0], tmp[1], tmp[2]);
+	tmp = vector_subtractor(my_mlx->sphere->s, my_mlx->cam->s, my_mlx->sphere->tmp);
 	t = dotproduct(tmp, my_mlx->ray->v);
-	free(tmp);
-	tmpt = doublemapi(my_mlx->ray->v, t);
-//	printf("tmpt={%f, %f, %f}\n", tmpt[0], tmpt[1], tmpt[2]);
-//	printf("ray={%f, %f, %f}\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2]);
-	my_mlx->ray->p = vector_add(my_mlx->cam->s, tmpt);
-	free(tmpt);
+
+	tmp = doublemapi(my_mlx->ray->v, t, my_mlx->sphere->tmp);
+	tmp = vector_add(my_mlx->cam->s, tmp, my_mlx->ray->p);
+
 	y = find_length(my_mlx->sphere->s, my_mlx->ray->p);
 	if (y < my_mlx->sphere->diameter / 2)
 	{
 		x = sqrt(pow(my_mlx->sphere->diameter / 2, 2) - pow(y, 2));
 		t1 = (t - x);
 		t2 = t + x;
-		if (t1 > my_mlx->ray->length)
+		if (t1 < my_mlx->ray->length || my_mlx->ray->length == 0)
 		{
 			my_mlx->ray->length = t1;
 			my_mlx->ray->colour = remap01(my_mlx, t1);
 		}
-		free(my_mlx->ray->p);
 		return (1);
 	}
 //	printf("t=%f\n", my_mlx->ray->t);
 //	printf("p={%f, %f, %f}\n", my_mlx->ray->p[0], my_mlx->ray->p[1], my_mlx->ray->p[2]);
-	free(my_mlx->ray->p);
 	return (0);
 }
 
