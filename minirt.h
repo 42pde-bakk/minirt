@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 16:25:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 20:38:03 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,9 @@ void			ft_parser(t_data *my_mlx, int fd);
 int				parse_objects(t_data *my_mlx, char *line, int *i);
 
 void			put_pixel(t_data *my_mlx, int x, int y, unsigned color);
+int				newframe(t_data *my_mlx);
 t_data			*init_my_mlx(int fd);
 
+int				keyinput(int keycode, t_data *my_mlx);
+int				mouseinput(int keycode, t_data *my_mlx);
 #endif

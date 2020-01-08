@@ -6,14 +6,14 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/07 16:35:11 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/08 20:31:25 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
 SRC = minirt.c parsing.c objects.c parseobjects.c vectors.c rays.c \
-sphere.c planesquare.c 
+sphere.c planesquare.c readinput.c
 
 OBJ = $(SRC:.c=.o)
 
@@ -75,5 +75,6 @@ bonus: re
 
 run: re
 	gcc $(FLAGS) $(MAGIC) miniRT libft.a
+	@make clean
 	@echo "$(PINK)bitch"
 	./a.out example.rt

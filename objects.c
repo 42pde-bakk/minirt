@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 16:27:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 20:55:57 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,17 @@ unsigned		find_triangle(t_data *my_mlx)
 	double	d;
 	double	*p;
 	double	t;
+	double	pc; //parallelcheck
 
 	p = NULL;
 	trianglecross(my_mlx, my_mlx->triangle->cross);
 	normalize_ray(my_mlx->triangle->cross);
 	d = dotproduct(my_mlx->triangle->cross, my_mlx->triangle->s1);
-	t = -(dotproduct(my_mlx->triangle->cross, my_mlx->cam->s) + d
-	/ dotproduct(my_mlx->triangle->cross, my_mlx->ray->v)); //t=-(dot(N, orig) + D / dot(N, dir))
+	pc = dotproduct(my_mlx->triangle->cross, my_mlx->ray->v);
+	if (pc == 0) // if the normal of the triangle * the ray direction = 0
+		return (0);
+	t = -(dotproduct(my_mlx->triangle->cross, my_mlx->cam->s) + d) / pc;
+	//t=-(dot(N, orig) + D / dot(N, dir))
 	p = vector_add(my_mlx->cam->s, (doublemapi(my_mlx->ray->v, t, p)), p);
 	return (0);
 }

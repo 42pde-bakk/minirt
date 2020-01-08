@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 16:38:23 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 20:40:20 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,59 +100,6 @@ int		newframe(t_data *my_mlx)
 	return (1);
 }
 
-int		readinput(int keycode, t_data *my_mlx)
-{
-	if (keycode == ESCAPE)
-	{
-		(void)my_mlx;
-		free(my_mlx->mlx_img);
-		free(my_mlx->mlx_ptr);
-		exit(0);
-	}
-	if (keycode == LEFT_ARROW)
-	{
-		my_mlx->cam->s[0] = my_mlx->cam->s[0] - 5.0;
-		printf("X-5: %f\n", my_mlx->cam->s[0]);
-		newframe(my_mlx);
-	}
-	if (keycode == RIGHT_ARROW)
-	{
-		my_mlx->cam->s[0] = my_mlx->cam->s[0] + 5.0;
-		printf("X-5: %f\n", my_mlx->cam->s[0]);
-		newframe(my_mlx);
-	}
-	if (keycode == UP_ARROW)
-	{
-		my_mlx->cam->s[1] = my_mlx->cam->s[1] + 5.0;
-		printf("Y+5: %f\n", my_mlx->cam->s[1]);
-		newframe(my_mlx);
-	}
-	if (keycode == DOWN_ARROW)
-	{
-		my_mlx->cam->s[1] = my_mlx->cam->s[1] - 5.0;
-		printf("Y-5: %f\n", my_mlx->cam->s[1]);
-		newframe(my_mlx);
-	}
-	if (keycode == NUMONE)
-	{
-		my_mlx->cam->s[2] = my_mlx->cam->s[2] + 5.0;
-		printf("Z+5: %f\n", my_mlx->cam->s[2]);
-		newframe(my_mlx);
-	}
-	if (keycode == NUMZERO)
-	{
-		my_mlx->cam->s[2] = my_mlx->cam->s[2] - 5.0;
-		printf("Z-5: %f\n", my_mlx->cam->s[2]);
-		newframe(my_mlx);
-	}
-	if (keycode == LEFT_CLICK)
-	{
-		printf("Newframe\n");
-		newframe(my_mlx);
-	}
-	return (1);
-}
-
 t_data	*init_my_mlx(int fd)
 {
 	t_data	*my_mlx;
@@ -190,6 +137,7 @@ int		main(int argc, char **argv)
 	fd = open(argv[1], O_RDONLY);
 	my_mlx = init_my_mlx(fd);
 	mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
-	mlx_key_hook(my_mlx->win_ptr, &readinput, my_mlx);
+	mlx_mouse_hook (my_mlx->win_ptr, &mouseinput, my_mlx);
+	mlx_key_hook(my_mlx->win_ptr, &keyinput, my_mlx);
 	mlx_loop(my_mlx->win_ptr);
 }
