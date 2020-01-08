@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 13:55:57 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 16:17:39 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,21 @@ double	*vector_subtractor(double *v1, double *v2, double *ret)
 //		printf("vector_subtractor gives: {%f, %f, result=%f}\n", v1[i], v2[i], ret[i]);
 	}
 	return (ret);
+}
+
+void	trianglecross(t_data *my_mlx, double *ret)
+{
+	double *v1;
+	double *v2;
+	
+	v1 = NULL;
+	v2 = NULL;
+	v1 = vector_subtractor(my_mlx->triangle->s2, my_mlx->triangle->s1, v1);
+	v2 = vector_subtractor(my_mlx->triangle->s3, my_mlx->triangle->s1, v2);
+
+	ret[0] = v1[1] * v2[2] - v1[2] * v2[1];
+	ret[1] = v1[2] * v2[0] - v1[0] * v2[2];
+	ret[2] = v1[0] * v2[1] - v1[1] * v2[0];
 }
 
 double	*vector_add(double *v1, double *v2, double *ret)

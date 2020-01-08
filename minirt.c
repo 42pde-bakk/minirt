@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 13:41:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 16:38:23 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,33 +72,29 @@ t_data	*mallocmachine(t_data *my_mlx)
 
 int		newframe(t_data *my_mlx)
 {
-//	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
-
-//	printf("Destroyed image & ret=%i, clear=%i\n", ret, clear);
-//	free(my_mlx->mlx_ptr);
-//	free(my_mlx->mlx_img);
-//	free(my_mlx->addr);
-
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
-
-	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
-	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-
-	my_mlx->mlx_img2 = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
-	my_mlx->addr2 = mlx_get_data_addr(my_mlx->mlx_img2, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-
-
-	ray(my_mlx);
 	if (my_mlx->frame % 2 == 1)
 	{
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
+		my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width,
+		my_mlx->scene->height);
+		my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp,
+		&my_mlx->line_length, &my_mlx->endian);
+		ray(my_mlx);
 		mlx_clear_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
-		mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
+		mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr,
+		my_mlx->mlx_img, 0, 0);
 	}
 	else if (my_mlx->frame % 2 == 0)
 	{
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
+		my_mlx->mlx_img2 = mlx_new_image(my_mlx->mlx_ptr,
+		my_mlx->scene->width, my_mlx->scene->height);
+		my_mlx->addr2 = mlx_get_data_addr(my_mlx->mlx_img2,
+		&my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
+		ray(my_mlx);
 		mlx_clear_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
-		mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img2, 0, 0);
+		mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr,
+		my_mlx->mlx_img2, 0, 0);
 	}
 	my_mlx->frame++;
 	return (1);

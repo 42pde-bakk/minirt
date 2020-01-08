@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 13:57:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 16:27:15 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ unsigned			colourremap01(t_data *my_mlx, double ret)
 	int				r;
 	int				g;
 	int				b;
-	unsigned 		col;
+	unsigned		col;
 
 	col = my_mlx->sphere->colour;
 	r = (col >> 16 & 0xff);
@@ -34,7 +34,7 @@ unsigned				remap01(t_data *my_mlx, double t1)
 	double		spherez;
 	double		coll;
 	double		ret;
-	unsigned 	col;
+	unsigned	col;
 
 	t1 = fabs(t1);
 	spherez = my_mlx->sphere->s[2];
@@ -49,6 +49,22 @@ unsigned				remap01(t_data *my_mlx, double t1)
 	return (col);
 }
 
+unsigned		find_triangle(t_data *my_mlx)
+{
+	double	d;
+	double	*p;
+	double	t;
+
+	p = NULL;
+	trianglecross(my_mlx, my_mlx->triangle->cross);
+	normalize_ray(my_mlx->triangle->cross);
+	d = dotproduct(my_mlx->triangle->cross, my_mlx->triangle->s1);
+	t = -(dotproduct(my_mlx->triangle->cross, my_mlx->cam->s) + d
+	/ dotproduct(my_mlx->triangle->cross, my_mlx->ray->v)); //t=-(dot(N, orig) + D / dot(N, dir))
+	p = vector_add(my_mlx->cam->s, (doublemapi(my_mlx->ray->v, t, p)), p);
+	return (0);
+}
+
 unsigned		find_sphere(t_data *my_mlx)
 {
 	double	*tmp;
@@ -59,6 +75,7 @@ unsigned		find_sphere(t_data *my_mlx)
 	double	x;
 
 	tmp = vector_subtractor(my_mlx->sphere->s, my_mlx->cam->s, my_mlx->sphere->tmp);
+//	printf("tmp={%f, %f, %f} while struct={%f, %f, %f}\n", tmp[0], tmp[1], tmp[2], my_mlx->sphere->tmp[0], my_mlx->sphere->tmp[1], my_mlx->sphere->tmp[2]);
 	t = dotproduct(tmp, my_mlx->ray->v);
 
 	tmp = doublemapi(my_mlx->ray->v, t, my_mlx->sphere->tmp);

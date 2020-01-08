@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 13:55:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 16:25:29 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,9 @@ typedef struct	s_triangle
 	double				s1[4];
 	double				s2[4];
 	double				s3[4];
+	double				tmpa[4];
+	double				tmpb[4];
+	double				cross[4];
 	unsigned			colour;
 	struct s_triangle	*next;
 }				t_triangle;
@@ -142,6 +145,8 @@ double	*vector_add(double *v1, double *v2, double *ret);
 double	dotproduct(double *v1, double *v2);
 double	*doublemapi(double *v1, double d, double *ret);
 double	find_length(double *s, double *p);
+
+void	trianglecross(t_data *my_mlx, double *ret);
 /*
 **Objects
 */
@@ -150,16 +155,17 @@ int					parse_sphere(t_data *my_mlx, char *line, int *i);
 int					parse_square(t_data *my_mlx, char *line, int *i);
 int					parse_plane(t_data *my_mlx, char *line, int *i);
 
-unsigned 			find_sphere(t_data *my_mlx);
-unsigned 			find_objects(t_data *my_mlx);
+unsigned			find_sphere(t_data *my_mlx);
+unsigned			find_objects(t_data *my_mlx);
 /*
 **Rays
 */
+void	normalize_ray(double *ray);
 void	ray(t_data *my_mlx);
 /*
 **Parsing
 */
-unsigned 		createhexcolour(char *line, int *i);
+unsigned		createhexcolour(char *line, int *i);
 void			ft_parser(t_data *my_mlx, int fd);
 int				parse_objects(t_data *my_mlx, char *line, int *i);
 

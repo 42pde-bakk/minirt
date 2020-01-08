@@ -6,24 +6,29 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 21:24:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/08 15:15:42 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	normalize_ray(t_data *my_mlx)
+void	normalize_ray(double *ray)
 {
 	double	length;
 
-	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
-//	printf("OLD: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
-	my_mlx->ray->v[0] /= length;
-	my_mlx->ray->v[1] /= length;
-	my_mlx->ray->v[2] /= length;
-	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
+// 	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
+// //	printf("OLD: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
+// 	my_mlx->ray->v[0] /= length;
+// 	my_mlx->ray->v[1] /= length;
+// 	my_mlx->ray->v[2] /= length;
+// 	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
 //	printf("NEW: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
+	length = sqrt((ray[0] * ray[0]) + (ray[1] * ray[1]) + (ray[2] * ray[2]));
+	ray[0] /= length;
+	ray[1] /= length;
+	ray[2] /= length;
 }
+
 
 double	ndcx(t_data *my_mlx, double x)
 {
@@ -86,7 +91,7 @@ void	ray(t_data *my_mlx)
 		{
 			pndcx = ndcx(my_mlx, x);
 			fire_ray(my_mlx, pndcx, pndcy);
-			normalize_ray(my_mlx);
+			normalize_ray(my_mlx->ray->v);
 //			printf("pndcx, pndcy= (%f, %f)\n", pndcx, pndcy);
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length > 0)
