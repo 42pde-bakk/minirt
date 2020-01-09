@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parseobjects.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 19:56:10 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/09 14:34:06 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ void	ft_lstadd_back_triangle(t_triangle **alst, t_triangle *new)
 int		parse_triangle(t_data *my_mlx, char *line, int *i)
 {
 	t_triangle	*new;
+	double	*tmp1;
+	double	*tmp2;
 
 	new = malloc(sizeof(t_triangle));
 	if (new == NULL)
@@ -95,6 +97,9 @@ int		parse_triangle(t_data *my_mlx, char *line, int *i)
 	new->s3[2] = ft_atof_peer(line, i);
 	new->s3[3] = 0;
 	new->colour = createhexcolour(line, i);
+	tmp1 = vector_sub(new->s2, new->s1, tmp1);
+	tmp2 = vector_sub(new->s3, new->s1, tmp2);
+	new->cross = crossproduct(tmp1, tmp2, new->cross);
 	new->next = NULL;
 	ft_lstadd_back_triangle(&my_mlx->triangle, new);
 	return (1);

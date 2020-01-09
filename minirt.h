@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minirt.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 20:38:03 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/09 14:48:32 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+typedef struct	s_vec3
+{
+	double	x;
+	double	y;
+	double z;
+}				t_vec3;
 
 typedef struct	s_sphere
 {
@@ -66,7 +73,7 @@ typedef struct	s_triangle
 	double				s3[4];
 	double				tmpa[4];
 	double				tmpb[4];
-	double				cross[4];
+	t_vec3				cross;
 	unsigned			colour;
 	struct s_triangle	*next;
 }				t_triangle;
@@ -140,13 +147,14 @@ int		ft_atoi_peer(const char *str, int *i);
 /*
 **Vector mathematics
 */
-double	*vector_subtractor(double *v1, double *v2, double *ret);
+double	*vector_sub(double *v1, double *v2, double *ret);
 double	*vector_add(double *v1, double *v2, double *ret);
 double	dotproduct(double *v1, double *v2);
 double	*doublemapi(double *v1, double d, double *ret);
 double	find_length(double *s, double *p);
 
 void	trianglecross(t_data *my_mlx, double *ret);
+double	*crossproduct(double *v1, double *v2, double *ret);
 /*
 **Objects
 */
