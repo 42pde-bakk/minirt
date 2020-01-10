@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 15:34:55 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 17:41:56 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,6 @@ t_vec3	vector_sub(t_vec3 v1, t_vec3 v2)
 	ret.z = v1.z - v2.z;
 	return (ret);
 }
-
-/* void	trianglecross(t_data *my_mlx
-{
-	t_vec3	v1;
-	t_vec3	v2;
-	t_vec3	ret;
-
-	v1 = vector_sub(my_mlx->triangle->s2, my_mlx->triangle->s1);
-	printf("debug\n");
-	v2 = vector_sub(my_mlx->triangle->s3, my_mlx->triangle->s1);
-
-	printf("wtf\n");
-	ret.x = v1.y * v2.z - v1.z * v2.y;
-	ret.y = v1.z * v2.x - v1.x * v2.z;
-	ret.z = v1.x * v2.y - v1.y * v2.x;
-} */
 
 t_vec3	crossproduct(t_vec3 v1, t_vec3 v2)
 {

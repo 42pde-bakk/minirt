@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 19:33:50 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 18:38:30 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,8 @@ int		parse_triangle(t_data *my_mlx, char *line, int *i)
 	new->colour = createhexcolour(line, i);
 	tmp1 = vector_sub(new->s1, new->s0);
 	tmp2 = vector_sub(new->s2, new->s0);
-	new->cross = crossproduct(tmp1, tmp2);
+	new->normal = crossproduct(tmp1, tmp2);
+	new->normal = normalize_ray(new->normal);
 	new->next = NULL;
 	ft_lstadd_back_triangle(&my_mlx->triangle, new);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 15:27:53 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 20:24:20 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,14 @@ int		parse_plane(t_data *my_mlx, char *line, int *i)
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
 
-	new->v.x = ft_atof_peer(line, i);
-	new->v.y = ft_atof_peer(line, i);
-	new->v.z = ft_atof_peer(line, i);
+	new->normal.x = ft_atof_peer(line, i);
+	new->normal.y = ft_atof_peer(line, i);
+	new->normal.y *= -1;
+	new->normal.z = ft_atof_peer(line, i);
 
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_plane(&my_mlx->plane, new);
+	printf("new plane @ {%f, %f, %f} with normal={%f, %f, %f} colour=%lX\n", new->s.x, new->s.y, new->s.z, new->normal.x, new->normal.y, new->normal.z, new->colour);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 15:35:09 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 18:57:33 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ typedef struct	s_sphere
 typedef struct	s_plane
 {
 	t_vec3			s;
-	t_vec3			v;
+	t_vec3			normal;
 	unsigned long	colour;
 	struct s_plane	*next;
 }				t_plane;
@@ -71,9 +71,7 @@ typedef struct	s_triangle
 	t_vec3				s0;
 	t_vec3				s1;
 	t_vec3				s2;
-//	t_vec3				tmpa;
-//	t_vec3				tmpb;
-	t_vec3				cross;
+	t_vec3				normal;
 	unsigned			colour;
 	struct s_triangle	*next;
 }				t_triangle;
@@ -98,7 +96,6 @@ typedef	struct	s_ray
 {
 	t_vec3			v;
 	unsigned		colour;
-//	t_vec3			p;
 	double			length;
 }				t_ray;
 
@@ -165,7 +162,7 @@ unsigned			find_objects(t_data *my_mlx);
 /*
 **Rays
 */
-void	normalize_ray(t_vec3 ray);
+t_vec3	normalize_ray(t_vec3 ray);
 void	ray(t_data *my_mlx);
 /*
 **Parsing

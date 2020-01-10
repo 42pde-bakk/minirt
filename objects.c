@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 16:55:28 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 20:26:45 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,9 @@ int				triangle_intersection(t_data *my_mlx, t_vec3 p)
 	c1 = vector_sub(p, my_mlx->triangle->s1);
 	c2 = vector_sub(p, my_mlx->triangle->s2);
 
-	if (dotproduct(my_mlx->triangle->cross, crossproduct(edge0, c0)) > 0 &&
-	dotproduct(my_mlx->triangle->cross, crossproduct(edge1, c1)) > 0 &&
-	dotproduct(my_mlx->triangle->cross, crossproduct(edge2, c2)) > 0)
+	if (dotproduct(my_mlx->triangle->normal, crossproduct(edge0, c0)) > 0 &&
+	dotproduct(my_mlx->triangle->normal, crossproduct(edge1, c1)) > 0 &&
+	dotproduct(my_mlx->triangle->normal, crossproduct(edge2, c2)) > 0)
 		return (1);
 	else
 		return (0);
@@ -81,24 +81,53 @@ unsigned		find_triangle(t_data *my_mlx)
 	double	t;
 	double	pc; //parallelcheck
 
-//	trianglecross(my_mlx, my_mlx->triangle->cross);
-	printf("check\n");
-	normalize_ray(my_mlx->triangle->cross);
-	d = dotproduct(my_mlx->triangle->cross, my_mlx->triangle->s1);
-	pc = dotproduct(my_mlx->triangle->cross, my_mlx->ray->v);
+	d = dotproduct(my_mlx->triangle->normal, my_mlx->triangle->s0);
+	pc = dotproduct(my_mlx->triangle->normal, my_mlx->ray->v);
 //	printf("triangle\n");
 	if (pc == 0) // if the normal of the triangle * the ray direction = 0
 		return (0);
-	t = -(dotproduct(my_mlx->triangle->cross, my_mlx->cam->s) + d) / pc;
+	t = -(dotproduct(my_mlx->triangle->normal, my_mlx->cam->s) + d) / pc;
 	//t=-(dot(N, orig) + D / dot(N, dir))
-//	printf("triangle2\n");
+//	printf("d=%f, pc=%f, t=%f\n", d, pc, t);
 	if (t <= 0)
 		return (0); //triangle is behind the camera
 	p = vector_add(my_mlx->cam->s, (vec_mult(my_mlx->ray->v, t)));
 	if (triangle_intersection(my_mlx, p) == 1)
-		return (my_mlx->triangle->colour);
+	{
+		if (d < my_mlx->ray->length || my_mlx->ray->length == 0)
+		{
+			my_mlx->ray->length = d;
+			my_mlx->ray->length = my_mlx->triangle->colour;
+			printf("triangle colour = %u\n", my_mlx->triangle->colour);
+		}
+		return (1);
+	}
 	else
 		return (0);	
+}
+
+int				find_plane(t_data *my_mlx)
+{
+	t_vec3	sub;
+	double	a;
+	double	denom;
+	double	t;
+
+	sub = vector_sub(my_mlx->plane->s, my_mlx->cam->s);
+	denom = dotproduct(my_mlx->plane->normal, my_mlx->ray->v);
+	if (denom > 0.000001)
+	{
+		a = dotproduct(sub, my_mlx->plane->normal);
+		t = a / denom;
+		if (t > 0)
+			if (t < my_mlx->ray->length || my_mlx->ray->length == 0)
+			{
+				my_mlx->ray->length = t;
+				my_mlx->ray->colour = my_mlx->plane->colour;
+				return (1);
+			}
+	}
+	return (0);
 }
 
 unsigned		find_sphere(t_data *my_mlx)
@@ -112,42 +141,39 @@ unsigned		find_sphere(t_data *my_mlx)
 	t_vec3	p;
 
 	tmp = vector_sub(my_mlx->sphere->s, my_mlx->cam->s);
-//	printf("tmp={%f, %f, %f}\n", tmp.x, tmp.y, tmp.z);
 	t = dotproduct(tmp, my_mlx->ray->v);
-//	printf("ray={%f, %f, %f}, & ", my_mlx->ray->v.x, my_mlx->ray->v.y, my_mlx->ray->v.z);
-//	printf("t=%f\n", t);
-//	tmp = vec_mult(my_mlx->ray->v, t);
-//	tmp = vector_add(my_mlx->cam->s, tmp);
 	p = vector_add(my_mlx->cam->s, vec_mult(my_mlx->ray->v, t));
-
 	y = find_length(p, my_mlx->sphere->s);
-//	printf("y=%f\n", y);
 	if (y < my_mlx->sphere->diameter / 2)
 	{
 		if (pow(my_mlx->sphere->diameter / 2, 2) - (y * y) < 0)
 			return (0);
-//		printf("collission\n");
 		x = sqrt(pow(my_mlx->sphere->diameter / 2, 2) - pow(y, 2));
 		t1 = (t - x);
 		t2 = t + x;
 		if (t1 < my_mlx->ray->length || my_mlx->ray->length == 0)
 		{
 			my_mlx->ray->length = t2;
-//			my_mlx->ray->colour = my_mlx->sphere->colour;
 			my_mlx->ray->colour = remap01(my_mlx, t1);
 		}
 		return (1);
 	}
-//	printf("t=%f\n", my_mlx->ray->t);
-//	printf("p={%f, %f, %f}\n", my_mlx->ray->p.x, my_mlx->ray->p.y, my_mlx->ray->p.z);
 	return (0);
 }
 
-unsigned 		find_objects(t_data *my_mlx)
+unsigned		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
-//	t_triangle	*thead;
+	t_plane		*thead;
 	int			ret;
+
+	thead = my_mlx->plane;
+	while (my_mlx->plane)
+	{
+		ret = find_plane(my_mlx);
+		my_mlx->plane = my_mlx->plane->next;
+	}
+	my_mlx->plane = thead;
 
 	head = my_mlx->sphere;
 	while (my_mlx->sphere)
@@ -156,15 +182,5 @@ unsigned 		find_objects(t_data *my_mlx)
 		my_mlx->sphere = my_mlx->sphere->next;
 	}
 	my_mlx->sphere = head;
-
-	// thead = my_mlx->triangle;
-// 	while (my_mlx->triangle)
-// 	{
-// //		printf("new sphere met diameter=%f\n", my_mlx->sphere->diameter);
-// 		ret = find_triangle(my_mlx);
-// //		printf("ret = %i\n", ret);
-// 		my_mlx->triangle = my_mlx->triangle->next;
-// 	}
-// 	my_mlx->triangle = thead;
 	return (ret);
 }

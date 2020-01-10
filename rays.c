@@ -6,22 +6,25 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 16:55:09 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 20:19:05 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	normalize_ray(t_vec3 ray)
+t_vec3	normalize_ray(t_vec3 ray)
 {
+	t_vec3	ret;
 	double	length;
 
+	ret = ray;
 	length = sqrt((ray.x * ray.x) + (ray.y * ray.y) + (ray.z * ray.z));
-	ray.x /= length;
-	ray.y /= length;
-	ray.z /= length;
+	ret.x /= length;
+	ret.y /= length;
+	ret.z /= length;
 	// length = sqrt((ray.x * ray.x) + (ray.y * ray.y) + (ray.z * ray.z));
 	// printf("ray={%f, %f, %f} legnth=%f\n", ray.x, ray.y, ray.z, length);
+	return (ret);
 }
 
 void	norm_ray(t_data *my_mlx)
