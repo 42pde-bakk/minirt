@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 14:48:32 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/09 18:44:48 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,13 @@ typedef struct	s_vec3
 {
 	double	x;
 	double	y;
-	double z;
+	double	z;
 }				t_vec3;
 
 typedef struct	s_sphere
 {
-	double			s[4];
-	double			tmp[4];
+	t_vec3			s;
+	t_vec3			tmp;
 	double			diameter;
 	unsigned		colour;
 	struct s_sphere	*next;
@@ -41,16 +41,16 @@ typedef struct	s_sphere
 
 typedef struct	s_plane
 {
-	double			s[4];
-	double			v[4];
+	t_vec3			s;
+	t_vec3			v;
 	unsigned long	colour;
 	struct s_plane	*next;
 }				t_plane;
 
 typedef struct	s_square
 {
-	double			s[4];
-	double			v[4];
+	t_vec3			s;
+	t_vec3			v;
 	double			size;
 	unsigned long	colour;
 	struct s_square	*next;
@@ -58,8 +58,8 @@ typedef struct	s_square
 
 typedef struct	s_cylinder
 {
-	double				s[4];
-	double				v[4];
+	t_vec3				s;
+	t_vec3				v;
 	double				diameter;
 	double				height;
 	unsigned			colour;
@@ -68,11 +68,11 @@ typedef struct	s_cylinder
 
 typedef struct	s_triangle
 {
-	double				s1[4];
-	double				s2[4];
-	double				s3[4];
-	double				tmpa[4];
-	double				tmpb[4];
+	t_vec3				s0;
+	t_vec3				s1;
+	t_vec3				s2;
+//	t_vec3				tmpa;
+//	t_vec3				tmpb;
 	t_vec3				cross;
 	unsigned			colour;
 	struct s_triangle	*next;
@@ -80,17 +80,15 @@ typedef struct	s_triangle
 
 typedef struct	s_cam
 {
-	double			s[4];
-	double			v[4];
+	t_vec3			s;
+	t_vec3			v;
 	int				fov;
-	double			radfov;
-	double			distance;
 	struct s_cam	*next;
 }				t_cam;
 
 typedef struct	s_light
 {
-	double			s[4];
+	t_vec3			s;
 	double			brightness;
 	unsigned		colour;
 	struct s_light	*next;
@@ -98,9 +96,9 @@ typedef struct	s_light
 
 typedef	struct	s_ray
 {
-	double			v[4];
+	t_vec3			v;
 	unsigned		colour;
-	double			p[4];
+//	t_vec3			p;
 	double			length;
 }				t_ray;
 
@@ -147,14 +145,13 @@ int		ft_atoi_peer(const char *str, int *i);
 /*
 **Vector mathematics
 */
-double	*vector_sub(double *v1, double *v2, double *ret);
-double	*vector_add(double *v1, double *v2, double *ret);
-double	dotproduct(double *v1, double *v2);
-double	*doublemapi(double *v1, double d, double *ret);
-double	find_length(double *s, double *p);
+t_vec3	vector_sub(t_vec3 v1, t_vec3 v2);
+t_vec3	vector_add(t_vec3 v1, t_vec3 v2);
+double	dotproduct(t_vec3 v1, t_vec3 v2);
+t_vec3	doublemapi(t_vec3 v1, double d);
+double	find_length(t_vec3 s, t_vec3 p);
 
-void	trianglecross(t_data *my_mlx, double *ret);
-double	*crossproduct(double *v1, double *v2, double *ret);
+t_vec3	crossproduct(t_vec3 v1, t_vec3 v2);
 /*
 **Objects
 */
@@ -168,7 +165,7 @@ unsigned			find_objects(t_data *my_mlx);
 /*
 **Rays
 */
-void	normalize_ray(double *ray);
+void	normalize_ray(t_vec3 ray);
 void	ray(t_data *my_mlx);
 /*
 **Parsing

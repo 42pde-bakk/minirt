@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 14:31:47 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/09 19:39:45 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ unsigned				remap01(t_data *my_mlx, double t1)
 	unsigned	col;
 
 	t1 = fabs(t1);
-	spherez = my_mlx->sphere->s[2];
-	coll = my_mlx->sphere->s[2] - my_mlx->sphere->diameter / 2;
+	spherez = my_mlx->sphere->s.z;
+	coll = my_mlx->sphere->s.z - my_mlx->sphere->diameter / 2;
 	ret = fabs((t1 - spherez) / (coll - spherez));
 //	if (ret < 0 || ret > 1)
 //		printf("ret=%f, spherez=%f, t1=%f, collision=%f\n", ret, spherez, t1, coll);
@@ -49,26 +49,26 @@ unsigned				remap01(t_data *my_mlx, double t1)
 	return (col);
 }
 
-int				triangle_intersection(t_data *my_mlx, double *p)
+int				triangle_intersection(t_data *my_mlx, t_vec3 p)
 {
-	double	*edge0 = NULL;
-	double	*edge1 = NULL;
-	double	*edge2 = NULL;
-	double	*c0 = NULL;
-	double	*c1 = NULL;
-	double	*c2 = NULL;
+	t_vec3	edge0;
+	t_vec3	edge1;
+	t_vec3	edge2;
+	t_vec3	c0;
+	t_vec3	c1;
+	t_vec3	c2;
 
-	edge0 = vector_sub(my_mlx->triangle->s2, my_mlx->triangle->s1, edge0);
-	edge1 = vector_sub(my_mlx->triangle->s3, my_mlx->triangle->s2, edge1);
-	edge2 = vector_sub(my_mlx->triangle->s1, my_mlx->triangle->s3, edge2);
+	edge0 = vector_sub(my_mlx->triangle->s1, my_mlx->triangle->s0);
+	edge1 = vector_sub(my_mlx->triangle->s2, my_mlx->triangle->s1);
+	edge2 = vector_sub(my_mlx->triangle->s0, my_mlx->triangle->s2);
 
-	c0 = vector_sub(p, my_mlx->triangle->s1, c0);
-	c1 = vector_sub(p, my_mlx->triangle->s2, c1);
-	c2 = vector_sub(p, my_mlx->triangle->s3, c2);
+	c0 = vector_sub(p, my_mlx->triangle->s0);
+	c1 = vector_sub(p, my_mlx->triangle->s1);
+	c2 = vector_sub(p, my_mlx->triangle->s2);
 
-	if (dotproduct(my_mlx->triangle->cross, crossproduct(edge0, c0, edge0)) > 0 &&
-	dotproduct(my_mlx->triangle->cross, crossproduct(edge1, c1, edge0)) > 0 &&
-	dotproduct(my_mlx->triangle->cross, crossproduct(edge2, c2, edge0)) > 0)
+	if (dotproduct(my_mlx->triangle->cross, crossproduct(edge0, c0)) > 0 &&
+	dotproduct(my_mlx->triangle->cross, crossproduct(edge1, c1)) > 0 &&
+	dotproduct(my_mlx->triangle->cross, crossproduct(edge2, c2)) > 0)
 		return (1);
 	else
 		return (0);
@@ -76,12 +76,11 @@ int				triangle_intersection(t_data *my_mlx, double *p)
 
 unsigned		find_triangle(t_data *my_mlx)
 {
+	t_vec3	p;
 	double	d;
-	double	*p;
 	double	t;
 	double	pc; //parallelcheck
 
-	p = NULL;
 //	trianglecross(my_mlx, my_mlx->triangle->cross);
 	printf("check\n");
 	normalize_ray(my_mlx->triangle->cross);
@@ -95,7 +94,7 @@ unsigned		find_triangle(t_data *my_mlx)
 //	printf("triangle2\n");
 	if (t <= 0)
 		return (0); //triangle is behind the camera
-	p = vector_add(my_mlx->cam->s, (doublemapi(my_mlx->ray->v, t, p)), p);
+	p = vector_add(my_mlx->cam->s, (doublemapi(my_mlx->ray->v, t)));
 	if (triangle_intersection(my_mlx, p) == 1)
 		return (my_mlx->triangle->colour);
 	else
@@ -104,62 +103,67 @@ unsigned		find_triangle(t_data *my_mlx)
 
 unsigned		find_sphere(t_data *my_mlx)
 {
-	double	*tmp;
+	t_vec3	tmp;
 	double	t;
-	double	t1;
-	double	t2;
 	double	y;
 	double	x;
+	double	t1;
+	double	t2;
+	t_vec3	p;
 
-	tmp = vector_sub(my_mlx->sphere->s, my_mlx->cam->s, my_mlx->sphere->tmp);
-//	printf("tmp={%f, %f, %f} while struct={%f, %f, %f}\n", tmp[0], tmp[1], tmp[2], my_mlx->sphere->tmp[0], my_mlx->sphere->tmp[1], my_mlx->sphere->tmp[2]);
+	tmp = vector_sub(my_mlx->sphere->s, my_mlx->cam->s);
+//	printf("tmp={%f, %f, %f} while struct={%f, %f, %f}\n", tmp.x, tmp.y, tmp.z, tmp.x, tmp.y, tmp.z);
 	t = dotproduct(tmp, my_mlx->ray->v);
+//	printf("t=%f\n", t);
+//	tmp = doublemapi(my_mlx->ray->v, t);
+//	tmp = vector_add(my_mlx->cam->s, tmp);
+	p = vector_add(my_mlx->cam->s, doublemapi(my_mlx->ray->v, t));
 
-	tmp = doublemapi(my_mlx->ray->v, t, my_mlx->sphere->tmp);
-	tmp = vector_add(my_mlx->cam->s, tmp, my_mlx->ray->p);
-
-	y = find_length(my_mlx->sphere->s, my_mlx->ray->p);
+	y = find_length(p, my_mlx->sphere->s);
+//	printf("y=%f\n", y);
 	if (y < my_mlx->sphere->diameter / 2)
 	{
+		if (pow(my_mlx->sphere->diameter / 2, 2) - (y * y) < 0)
+			return (0);
+//		printf("collission\n");
 		x = sqrt(pow(my_mlx->sphere->diameter / 2, 2) - pow(y, 2));
 		t1 = (t - x);
 		t2 = t + x;
 		if (t1 < my_mlx->ray->length || my_mlx->ray->length == 0)
 		{
-			my_mlx->ray->length = t1;
-			my_mlx->ray->colour = remap01(my_mlx, t1);
+			my_mlx->ray->length = t2;
+			my_mlx->ray->colour = my_mlx->sphere->colour;
+//			my_mlx->ray->colour = remap01(my_mlx, t1);
 		}
 		return (1);
 	}
 //	printf("t=%f\n", my_mlx->ray->t);
-//	printf("p={%f, %f, %f}\n", my_mlx->ray->p[0], my_mlx->ray->p[1], my_mlx->ray->p[2]);
+//	printf("p={%f, %f, %f}\n", my_mlx->ray->p.x, my_mlx->ray->p.y, my_mlx->ray->p.z);
 	return (0);
 }
 
 unsigned 		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
-	t_triangle	*thead;
+//	t_triangle	*thead;
 	int			ret;
 
 	head = my_mlx->sphere;
 	while (my_mlx->sphere)
 	{
-//		printf("new sphere met diameter=%f\n", my_mlx->sphere->diameter);
 		ret = find_sphere(my_mlx);
-//		printf("ret = %i\n", ret);
 		my_mlx->sphere = my_mlx->sphere->next;
 	}
 	my_mlx->sphere = head;
 
-	thead = my_mlx->triangle;
-	while (my_mlx->triangle)
-	{
-//		printf("new sphere met diameter=%f\n", my_mlx->sphere->diameter);
-		ret = find_triangle(my_mlx);
-//		printf("ret = %i\n", ret);
-		my_mlx->triangle = my_mlx->triangle->next;
-	}
-	my_mlx->triangle = thead;
+	// thead = my_mlx->triangle;
+// 	while (my_mlx->triangle)
+// 	{
+// //		printf("new sphere met diameter=%f\n", my_mlx->sphere->diameter);
+// 		ret = find_triangle(my_mlx);
+// //		printf("ret = %i\n", ret);
+// 		my_mlx->triangle = my_mlx->triangle->next;
+// 	}
+// 	my_mlx->triangle = thead;
 	return (ret);
 }

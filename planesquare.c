@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   planesquare.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 19:56:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/09 15:27:53 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,15 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 	new = malloc(sizeof(t_square));
 	if (new == NULL)
 		return (0);
-	new->s[0] = ft_atof_peer(line, i);
-	new->s[1] = ft_atof_peer(line, i);
-	new->s[2] = ft_atof_peer(line, i);
-	new->s[3] = 0;
-	new->v[0] = ft_atof_peer(line, i);
-	new->v[1] = ft_atof_peer(line, i);
-	new->v[2] = ft_atof_peer(line, i);
-	new->v[3] = 0;
+
+	new->s.x = ft_atof_peer(line, i);
+	new->s.y = ft_atof_peer(line, i);
+	new->s.z = ft_atof_peer(line, i);
+
+	new->v.x = ft_atof_peer(line, i);
+	new->v.y = ft_atof_peer(line, i);
+	new->v.z = ft_atof_peer(line, i);
+
 	new->size = ft_atof_peer(line, i);
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
@@ -81,14 +82,15 @@ int		parse_plane(t_data *my_mlx, char *line, int *i)
 	new = malloc(sizeof(t_plane));
 	if (new == NULL)
 		return (0);
-	new->s[0] = ft_atof_peer(line, i);
-	new->s[1] = ft_atof_peer(line, i);
-	new->s[2] = ft_atof_peer(line, i);
-	new->s[3] = 0;
-	new->v[0] = ft_atof_peer(line, i);
-	new->v[1] = ft_atof_peer(line, i);
-	new->v[2] = ft_atof_peer(line, i);
-	new->v[3] = 0;
+
+	new->s.x = ft_atof_peer(line, i);
+	new->s.y = ft_atof_peer(line, i);
+	new->s.z = ft_atof_peer(line, i);
+
+	new->v.x = ft_atof_peer(line, i);
+	new->v.y = ft_atof_peer(line, i);
+	new->v.z = ft_atof_peer(line, i);
+
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_plane(&my_mlx->plane, new);
