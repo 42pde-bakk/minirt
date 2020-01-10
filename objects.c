@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 20:26:45 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/10 22:16:04 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,64 +49,39 @@ unsigned				remap01(t_data *my_mlx, double t1)
 	return (col);
 }
 
-int				triangle_intersection(t_data *my_mlx, t_vec3 p)
+int			find_triangle(t_data *my_mlx)
 {
 	t_vec3	edge0;
 	t_vec3	edge1;
-	t_vec3	edge2;
-	t_vec3	c0;
-	t_vec3	c1;
-	t_vec3	c2;
+	t_vec3	pvec;
+	double	det;
 
 	edge0 = vector_sub(my_mlx->triangle->s1, my_mlx->triangle->s0);
-	edge1 = vector_sub(my_mlx->triangle->s2, my_mlx->triangle->s1);
-	edge2 = vector_sub(my_mlx->triangle->s0, my_mlx->triangle->s2);
+	edge1 = vector_sub(my_mlx->triangle->s2, my_mlx->triangle->s0);
+	pvec = crossproduct(my_mlx->ray->v, edge1);
+	det = dotproduct(edge0, pvec);
 
-	c0 = vector_sub(p, my_mlx->triangle->s0);
-	c1 = vector_sub(p, my_mlx->triangle->s1);
-	c2 = vector_sub(p, my_mlx->triangle->s2);
-
-	if (dotproduct(my_mlx->triangle->normal, crossproduct(edge0, c0)) > 0 &&
-	dotproduct(my_mlx->triangle->normal, crossproduct(edge1, c1)) > 0 &&
-	dotproduct(my_mlx->triangle->normal, crossproduct(edge2, c2)) > 0)
-		return (1);
-	else
+	if (fabs(det) < 0.000001)
 		return (0);
-}
-
-unsigned		find_triangle(t_data *my_mlx)
-{
-	t_vec3	p;
-	double	d;
-	double	t;
-	double	pc; //parallelcheck
-
-	d = dotproduct(my_mlx->triangle->normal, my_mlx->triangle->s0);
-	pc = dotproduct(my_mlx->triangle->normal, my_mlx->ray->v);
-//	printf("triangle\n");
-	if (pc == 0) // if the normal of the triangle * the ray direction = 0
+	double	invdet = 1 / det;
+	t_vec3	tvec = vector_sub(my_mlx->cam->s, my_mlx->triangle->s0);
+	double	u = dotproduct(tvec, pvec) * invdet;
+	if (u < 0 || u > 1)
 		return (0);
-	t = -(dotproduct(my_mlx->triangle->normal, my_mlx->cam->s) + d) / pc;
-	//t=-(dot(N, orig) + D / dot(N, dir))
-//	printf("d=%f, pc=%f, t=%f\n", d, pc, t);
-	if (t <= 0)
-		return (0); //triangle is behind the camera
-	p = vector_add(my_mlx->cam->s, (vec_mult(my_mlx->ray->v, t)));
-	if (triangle_intersection(my_mlx, p) == 1)
+	t_vec3	qvec = crossproduct(tvec, edge0);
+	double	v = dotproduct(my_mlx->ray->v, qvec) * invdet;
+	if (v < 0 || u + v > 1)
+		return (0);
+	double	t = dotproduct(edge1, qvec) * invdet;
+	if (t < my_mlx->ray->length || my_mlx->ray->length == 0)
 	{
-		if (d < my_mlx->ray->length || my_mlx->ray->length == 0)
-		{
-			my_mlx->ray->length = d;
-			my_mlx->ray->length = my_mlx->triangle->colour;
-			printf("triangle colour = %u\n", my_mlx->triangle->colour);
-		}
-		return (1);
+		my_mlx->ray->length = t;
+		my_mlx->ray->colour = my_mlx->triangle->colour;
 	}
-	else
-		return (0);	
+    return (1); // this ray hits the triangle 
 }
 
-int				find_plane(t_data *my_mlx)
+int			find_plane(t_data *my_mlx)
 {
 	t_vec3	sub;
 	double	a;
@@ -164,16 +139,17 @@ unsigned		find_sphere(t_data *my_mlx)
 unsigned		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
-	t_plane		*thead;
+	t_plane		*phead;
+	t_triangle	*thead;
 	int			ret;
 
-	thead = my_mlx->plane;
+	phead = my_mlx->plane;
 	while (my_mlx->plane)
 	{
 		ret = find_plane(my_mlx);
 		my_mlx->plane = my_mlx->plane->next;
 	}
-	my_mlx->plane = thead;
+	my_mlx->plane = phead;
 
 	head = my_mlx->sphere;
 	while (my_mlx->sphere)
@@ -182,5 +158,13 @@ unsigned		find_objects(t_data *my_mlx)
 		my_mlx->sphere = my_mlx->sphere->next;
 	}
 	my_mlx->sphere = head;
+
+	thead = my_mlx->triangle;
+	while (my_mlx->triangle)
+	{
+		ret = find_triangle(my_mlx);
+		my_mlx->triangle = my_mlx->triangle->next;
+	}
+	my_mlx->triangle = thead;
 	return (ret);
 }
