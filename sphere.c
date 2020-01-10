@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   sphere.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/03 22:06:16 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/07 11:56:44 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/01/03 22:06:16 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/09 15:34:54 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,14 @@ int		parse_sphere(t_data *my_mlx, char *line, int *i)
 	new = malloc(sizeof(t_sphere));
 	if (new == NULL)
 		return (0);
-	new->s[0] = ft_atof_peer(line, i);
-	new->s[1] = ft_atof_peer(line, i);
-	new->s[2] = ft_atof_peer(line, i);
-	new->s[3] = 0;
+	new->s.x = ft_atof_peer(line, i);
+	new->s.y = ft_atof_peer(line, i);
+	new->s.z = ft_atof_peer(line, i);
+
 	new->diameter = ft_atof_peer(line, i);
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_sphere(&my_mlx->sphere, new);
-	printf("sphere: {%f, %f, %f}, d=%f, c=%#X\n", new->s[0], new->s[1], new->s[2], new->diameter, new->colour);
+	printf("new sphere @ {%f, %f, %f} with diameter=%f\n", new->s.x, new->s.y, new->s.z, new->diameter);
 	return (1);
 }

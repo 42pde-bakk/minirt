@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minirt.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 12:51:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/09 19:41:42 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_data	*mallocmachine(t_data *my_mlx)
 	my_mlx->ray = malloc(sizeof(t_ray));
 	if (my_mlx->ray == NULL)
 		return (NULL);
-	my_mlx->ray->length = 0;
+	my_mlx->ray->length = 0.0f;
 	my_mlx->light = NULL;
 	my_mlx->cam = NULL;
 	my_mlx->sphere = NULL;

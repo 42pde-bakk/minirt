@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 14:34:06 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/09 19:33:50 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,20 @@ int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 {
 	t_cylinder	*new;
 
-	new = malloc(sizeof(t_square));
+	new = malloc(sizeof(t_cylinder));
 	if (new == NULL)
 		return (0);
-	new->s[0] = ft_atof_peer(line, i);
-	new->s[1] = ft_atof_peer(line, i);
-	new->s[2] = ft_atof_peer(line, i);
-	new->s[3] = 0;
-	new->v[0] = ft_atof_peer(line, i);
-	new->v[1] = ft_atof_peer(line, i);
-	new->v[2] = ft_atof_peer(line, i);
-	new->v[3] = 0;
+	new->s.x = ft_atof_peer(line, i);
+	new->s.y = ft_atof_peer(line, i);
+	new->s.z = ft_atof_peer(line, i);
+
+	new->v.x = ft_atof_peer(line, i);
+	new->v.y = ft_atof_peer(line, i);
+	new->v.z = ft_atof_peer(line, i);
+
 	new->diameter = ft_atof_peer(line, i);
 	new->height = ft_atof_peer(line, i);
+
 	new->colour = createhexcolour(line, i);
 	new->next = NULL;
 	ft_lstadd_back_cylinder(&my_mlx->cylinder, new);
@@ -78,28 +79,28 @@ void	ft_lstadd_back_triangle(t_triangle **alst, t_triangle *new)
 int		parse_triangle(t_data *my_mlx, char *line, int *i)
 {
 	t_triangle	*new;
-	double	*tmp1;
-	double	*tmp2;
+	t_vec3	tmp1;
+	t_vec3	tmp2;
 
 	new = malloc(sizeof(t_triangle));
 	if (new == NULL)
 		return (0);
-	new->s1[0] = ft_atof_peer(line, i);
-	new->s1[1] = ft_atof_peer(line, i);
-	new->s1[2] = ft_atof_peer(line, i);
-	new->s1[3] = 0;
-	new->s2[0] = ft_atof_peer(line, i);
-	new->s2[1] = ft_atof_peer(line, i);
-	new->s2[2] = ft_atof_peer(line, i);
-	new->s2[3] = 0;
-	new->s3[0] = ft_atof_peer(line, i);
-	new->s3[1] = ft_atof_peer(line, i);
-	new->s3[2] = ft_atof_peer(line, i);
-	new->s3[3] = 0;
+	new->s0.x = ft_atof_peer(line, i);
+	new->s0.y = ft_atof_peer(line, i);
+	new->s0.z = ft_atof_peer(line, i);
+
+	new->s1.x = ft_atof_peer(line, i);
+	new->s1.y = ft_atof_peer(line, i);
+	new->s1.z = ft_atof_peer(line, i);
+
+	new->s2.x = ft_atof_peer(line, i);
+	new->s2.y = ft_atof_peer(line, i);
+	new->s2.z = ft_atof_peer(line, i);
+
 	new->colour = createhexcolour(line, i);
-	tmp1 = vector_sub(new->s2, new->s1, tmp1);
-	tmp2 = vector_sub(new->s3, new->s1, tmp2);
-	new->cross = crossproduct(tmp1, tmp2, new->cross);
+	tmp1 = vector_sub(new->s1, new->s0);
+	tmp2 = vector_sub(new->s2, new->s0);
+	new->cross = crossproduct(tmp1, tmp2);
 	new->next = NULL;
 	ft_lstadd_back_triangle(&my_mlx->triangle, new);
 	return (1);

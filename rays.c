@@ -3,74 +3,71 @@
 /*                                                        ::::::::            */
 /*   rays.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/08 15:15:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/10 16:55:09 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	normalize_ray(double *ray)
+void	normalize_ray(t_vec3 ray)
 {
 	double	length;
 
-// 	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
-// //	printf("OLD: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
-// 	my_mlx->ray->v[0] /= length;
-// 	my_mlx->ray->v[1] /= length;
-// 	my_mlx->ray->v[2] /= length;
-// 	length = sqrt(pow(my_mlx->ray->v[0], 2) + pow(my_mlx->ray->v[1], 2) + pow(my_mlx->ray->v[2], 2));
-//	printf("NEW: x=%f, y=%f, z=%f, l=%f\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2], length);
-	length = sqrt((ray[0] * ray[0]) + (ray[1] * ray[1]) + (ray[2] * ray[2]));
-	ray[0] /= length;
-	ray[1] /= length;
-	ray[2] /= length;
+	length = sqrt((ray.x * ray.x) + (ray.y * ray.y) + (ray.z * ray.z));
+	ray.x /= length;
+	ray.y /= length;
+	ray.z /= length;
+	// length = sqrt((ray.x * ray.x) + (ray.y * ray.y) + (ray.z * ray.z));
+	// printf("ray={%f, %f, %f} legnth=%f\n", ray.x, ray.y, ray.z, length);
 }
 
+void	norm_ray(t_data *my_mlx)
+{
+	double length;
+
+	length = sqrt((my_mlx->ray->v.x * my_mlx->ray->v.x) + (my_mlx->ray->v.y * my_mlx->ray->v.y) + (my_mlx->ray->v.z * my_mlx->ray->v.z));
+	my_mlx->ray->v.x /= length;
+	my_mlx->ray->v.y /= length;
+	my_mlx->ray->v.z /= length;
+}
 
 double	ndcx(t_data *my_mlx, double x)
 {
-	double	pixelndcx;
-	double	pixelscreenx;
-	double	pixelcamerax;
+	double	pixelx;
 	double	ratio;
 	double	angle;
 
 	ratio = my_mlx->scene->width / my_mlx->scene->height;
 
-	pixelndcx = (x + 0.5) / my_mlx->scene->width; //define pixel in NDC space
-	pixelscreenx = 2 * pixelndcx - 1; //remap pixel
+	pixelx = (x + 0.5) / my_mlx->scene->width; //define pixel in NDC space
+	pixelx = 2 * pixelx - 1; //remap pixel
 	angle = my_mlx->cam->fov * (M_PI / 180);
-	pixelcamerax = pixelscreenx * ratio * tan(angle / 2);
-	return (pixelcamerax);
+//	pixelcamerax = pixelscreenx;
+	pixelx = pixelx * ratio * tan(angle / 2);
+	return (pixelx);
 }
 
 double	ndcy(t_data *my_mlx, double y)
 {
-	double	pixelndcy;
-	double	pixelscreeny;
-	double	pixelcameray;
+	double	pixely;
 	double	angle;
 
-	pixelndcy = (y + 0.5) / my_mlx->scene->height;
-	pixelscreeny = 1 - 2 * pixelndcy;
+	pixely = (y + 0.5) / my_mlx->scene->height;
+	pixely = 1 - 2 * pixely;
 	angle = my_mlx->cam->fov * (M_PI / 180);
-	pixelcameray = pixelscreeny * tan(angle / 2);
-	return (pixelcameray);
+	pixely *= tan(angle / 2);
+	return (pixely);
 }
 
 void	fire_ray(t_data *my_mlx, double pndcx, double pndcy)
 {
-	static int counter;
-
-	my_mlx->ray->v[0] = pndcx;
-	my_mlx->ray->v[1] = pndcy;
-	my_mlx->ray->v[2] = 1.0f;
-//	if (counter % 50 == 0)
-//		printf("ray= {%f, %f, %f}\n", my_mlx->ray->v[0], my_mlx->ray->v[1], my_mlx->ray->v[2]);
-	counter++;
+	my_mlx->ray->v.x = pndcx;
+	my_mlx->ray->v.y = pndcy;
+	my_mlx->ray->v.z = 1.0f;
+//	printf("ray->v (t_vec3)={%f, %f, %f}\n", my_mlx->ray->v.x, my_mlx->ray->v.y, my_mlx->ray->v.z);
 }
 
 void	ray(t_data *my_mlx)
@@ -91,13 +88,12 @@ void	ray(t_data *my_mlx)
 		{
 			pndcx = ndcx(my_mlx, x);
 			fire_ray(my_mlx, pndcx, pndcy);
-			normalize_ray(my_mlx->ray->v);
-//			printf("pndcx, pndcy= (%f, %f)\n", pndcx, pndcy);
+			norm_ray(my_mlx);
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length > 0)
 			{
 				put_pixel(my_mlx, x, y, my_mlx->ray->colour);
-				my_mlx->ray->length = 0;
+				my_mlx->ray->length = 0.0;
 				my_mlx->ray->colour = 0;
 			}
 //			printf("pndcx=%f\n", pndcx);

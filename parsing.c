@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parsing.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/27 11:47:08 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/01/07 11:53:56 by pde-bakk      ########   odam.nl         */
+/*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/01/09 19:41:28 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 	my_mlx->light = malloc(sizeof(t_light));
 	if (my_mlx->light == NULL)
 		return (0);
-	my_mlx->light->s[0] = ft_atof_peer(line, i);
-	my_mlx->light->s[1] = ft_atof_peer(line, i);
-	my_mlx->light->s[2] = ft_atof_peer(line, i);
+	my_mlx->light->s.x = ft_atof_peer(line, i);
+	my_mlx->light->s.y = ft_atof_peer(line, i);
+	my_mlx->light->s.z = ft_atof_peer(line, i);
+
 	my_mlx->light->brightness = ft_atof_peer(line, i);
 	my_mlx->light->colour = createhexcolour(line, i);
 	my_mlx->light->next = NULL;
-	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%X\n", my_mlx->light->s[0], my_mlx->light->s[1], my_mlx->light->s[2], my_mlx->light->brightness, my_mlx->light->colour);
+	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%X\n", my_mlx->light->s.x, my_mlx->light->s.y, my_mlx->light->s.z, my_mlx->light->brightness, my_mlx->light->colour);
 	return (1);
 }
 
@@ -53,18 +54,19 @@ int				find_camera(t_data *my_mlx, char *line, int *i)
 	my_mlx->cam = malloc(sizeof(t_cam));
 	if (!my_mlx->cam)
 		return (0);
-	my_mlx->cam->s[0] = ft_atof_peer(line, i);
-	my_mlx->cam->s[1] = ft_atof_peer(line, i);
-	my_mlx->cam->s[2] = ft_atof_peer(line, i);
-	my_mlx->cam->v[0] = ft_atof_peer(line, i);
-	my_mlx->cam->v[1] = ft_atof_peer(line, i);
-	my_mlx->cam->v[2] = ft_atof_peer(line, i);
+	my_mlx->cam->s.x = ft_atof_peer(line, i);
+	my_mlx->cam->s.y = ft_atof_peer(line, i);
+	my_mlx->cam->s.z = ft_atof_peer(line, i);
+
+	my_mlx->cam->v.x = ft_atof_peer(line, i);
+	my_mlx->cam->v.y = ft_atof_peer(line, i);
+	my_mlx->cam->v.z = ft_atof_peer(line, i);
+
 	my_mlx->cam->fov = ft_atoi_peer(line, i);
-	my_mlx->cam->radfov = my_mlx->cam->fov * (M_PI / 180);
 	my_mlx->cam->next = NULL;
 	if (head != NULL)
 		my_mlx->cam = head;
-	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i, rad=%f\n", my_mlx->cam->s[0], my_mlx->cam->s[1], my_mlx->cam->s[2], my_mlx->cam->v[0], my_mlx->cam->v[1], my_mlx->cam->v[2], my_mlx->cam->fov, my_mlx->cam->radfov);
+	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->s.x, my_mlx->cam->s.y, my_mlx->cam->s.z, my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z, my_mlx->cam->fov);
 	return (1);
 }
 
