@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 19:41:42 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/13 15:01:48 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	put_pixel(t_data *my_mlx, int x, int y, unsigned color)
 }
 
 /*
-void put_pixel(t_data *my_mlx, int x, int y, unsigned color)
+void put_rgb(t_data *my_mlx, int x, int y, unsigned color)
 {
     if (x >= 0 && x < data->winx && y >= 0 && y < data->winy)
     {

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 19:41:28 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/13 16:05:14 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,21 +26,42 @@ unsigned		createhexcolour(char *line, int *i)
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
+void			ft_lstadd_back_light(t_light **alst, t_light *new)
+{
+	t_light *tmp;
+
+	if (alst == NULL)
+		return ;
+	tmp = *alst;
+	if (tmp)
+	{
+		while (tmp->next)
+			tmp = tmp->next;
+		tmp->next = new;
+	}
+	else
+	{
+		new->next = *alst;
+		*alst = new;
+	}
+}
+
 int				find_light(t_data *my_mlx, char *line, int *i)
 {
-	while (my_mlx->light)
-		my_mlx->light = my_mlx->light->next;
-	my_mlx->light = malloc(sizeof(t_light));
-	if (my_mlx->light == NULL)
-		return (0);
-	my_mlx->light->s.x = ft_atof_peer(line, i);
-	my_mlx->light->s.y = ft_atof_peer(line, i);
-	my_mlx->light->s.z = ft_atof_peer(line, i);
+	t_light *new;
 
-	my_mlx->light->brightness = ft_atof_peer(line, i);
-	my_mlx->light->colour = createhexcolour(line, i);
-	my_mlx->light->next = NULL;
-	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%X\n", my_mlx->light->s.x, my_mlx->light->s.y, my_mlx->light->s.z, my_mlx->light->brightness, my_mlx->light->colour);
+	new = malloc(sizeof(t_light));
+	if (new == NULL)
+		return (0);
+	new->s.x = ft_atof_peer(line, i);
+	new->s.y = ft_atof_peer(line, i);
+	new->s.z = ft_atof_peer(line, i);
+
+	new->brightness = ft_atof_peer(line, i);
+	new->colour = createhexcolour(line, i);
+	new->next = NULL;
+	ft_lstadd_back_light(&my_mlx->light, new);
+	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%X\n", new->s.x, new->s.y, new->s.z, new->brightness, new->colour);
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 17:41:56 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/13 19:26:45 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,4 +72,14 @@ double	find_length(t_vec3 s, t_vec3 p)
 	retz = pow(s.z - p.z, 2);
 	ret = sqrt(retx + rety + retz);
 	return (ret);
+}
+
+t_vec3	vec_reset(void)
+{
+	t_vec3 ret;
+
+	ret.x = 0.f;
+	ret.y = 0.f;
+	ret.z = 0.f;
+	return (ret);	
 }

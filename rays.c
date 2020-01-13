@@ -6,11 +6,34 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 20:19:05 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/13 19:23:18 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void	put_rgb(t_data *my_mlx, int x, int y, t_rgb rgb)
+{
+	int			pos;
+
+	if (x >= 0 && x < my_mlx->scene->width && y >= 0 &&
+		y < my_mlx->scene->height)
+	{
+		pos = y * my_mlx->line_length + x * (my_mlx->bpp / 8);
+		if (my_mlx->frame % 2 == 1)
+		{
+			*(my_mlx->addr + pos + 0) = (char)(rgb.b);
+			*(my_mlx->addr + pos + 1) = (char)(rgb.g);
+			*(my_mlx->addr + pos + 2) = (char)(rgb.r);
+		}
+		else if (my_mlx->frame % 2 == 0)
+		{
+			*(my_mlx->addr2 + pos + 0) = (char)(rgb.b);
+			*(my_mlx->addr2 + pos + 1) = (char)(rgb.g);
+			*(my_mlx->addr2 + pos + 2) = (char)(rgb.r);
+		}
+	}
+}
 
 t_vec3	normalize_ray(t_vec3 ray)
 {
@@ -81,12 +104,9 @@ void	ray(t_data *my_mlx)
 	double		pndcy;
 	unsigned	ret;
 
-//	loopspheres(my_mlx);
-//	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);
-//		printf("pndcy=%f\n", pndcy);
 		while (x < my_mlx->scene->width)
 		{
 			pndcx = ndcx(my_mlx, x);
@@ -95,15 +115,15 @@ void	ray(t_data *my_mlx)
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length > 0)
 			{
+				my_mlx->ray->colour = light_tracing(my_mlx, my_mlx->ray->colour);
 				put_pixel(my_mlx, x, y, my_mlx->ray->colour);
 				my_mlx->ray->length = 0.0;
 				my_mlx->ray->colour = 0;
+				my_mlx->ray->hitnormal = vec_reset();
 			}
-//			printf("pndcx=%f\n", pndcx);
 			x++;
 		}
 		y++;
 		x = 0;
 	}
-//	printf("pndcx=%f, pndcy=%f\n", ndcx(my_mlx, x), ndcy(my_mlx, y));
 }

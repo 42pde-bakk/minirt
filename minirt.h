@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 18:57:33 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/13 19:22:50 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+typedef	struct s_rgb
+{
+	int			r;
+	int			g;
+	int			b;
+	unsigned	colour;
+}				t_rgb;
 
 typedef struct	s_vec3
 {
@@ -43,7 +51,7 @@ typedef struct	s_plane
 {
 	t_vec3			s;
 	t_vec3			normal;
-	unsigned long	colour;
+	unsigned		colour;
 	struct s_plane	*next;
 }				t_plane;
 
@@ -52,7 +60,7 @@ typedef struct	s_square
 	t_vec3			s;
 	t_vec3			v;
 	double			size;
-	unsigned long	colour;
+	unsigned		colour;
 	struct s_square	*next;
 }				t_square;
 
@@ -97,6 +105,7 @@ typedef	struct	s_ray
 	t_vec3			v;
 	unsigned		colour;
 	double			length;
+	t_vec3			hitnormal;
 }				t_ray;
 
 typedef	struct	s_scene
@@ -147,7 +156,7 @@ t_vec3	vector_add(t_vec3 v1, t_vec3 v2);
 double	dotproduct(t_vec3 v1, t_vec3 v2);
 t_vec3	vec_mult(t_vec3 v1, double d);
 double	find_length(t_vec3 s, t_vec3 p);
-
+t_vec3	vec_reset(void);
 t_vec3	crossproduct(t_vec3 v1, t_vec3 v2);
 /*
 **Objects
@@ -162,8 +171,8 @@ unsigned			find_objects(t_data *my_mlx);
 /*
 **Rays
 */
-t_vec3	normalize_ray(t_vec3 ray);
-void	ray(t_data *my_mlx);
+t_vec3				normalize_ray(t_vec3 ray);
+void				ray(t_data *my_mlx);
 /*
 **Parsing
 */
@@ -177,4 +186,7 @@ t_data			*init_my_mlx(int fd);
 
 int				keyinput(int keycode, t_data *my_mlx);
 int				mouseinput(int keycode, t_data *my_mlx);
+
+unsigned		light_tracing(t_data *my_mlx, unsigned colour);
+
 #endif

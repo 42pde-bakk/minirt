@@ -3,17 +3,17 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: pde-bakk <marvin@codam.nl>                   +#+                      #
+#    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/08 20:31:25 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/13 14:16:47 by Peer de Bak   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
 SRC = minirt.c parsing.c objects.c parseobjects.c vectors.c rays.c \
-sphere.c planesquare.c readinput.c
+sphere.c planesquare.c readinput.c lighting.c
 
 OBJ = $(SRC:.c=.o)
 
