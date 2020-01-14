@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 22:06:16 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 15:34:54 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 17:17:49 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,9 @@ int		parse_sphere(t_data *my_mlx, char *line, int *i)
 	new->s.z = ft_atof_peer(line, i);
 
 	new->diameter = ft_atof_peer(line, i);
-	new->colour = createhexcolour(line, i);
+	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_sphere(&my_mlx->sphere, new);
-	printf("new sphere @ {%f, %f, %f} with diameter=%f\n", new->s.x, new->s.y, new->s.z, new->diameter);
+//	printf("new sphere @ {%f, %f, %f} with diameter=%f\n", new->s.x, new->s.y, new->s.z, new->diameter);
 	return (1);
 }

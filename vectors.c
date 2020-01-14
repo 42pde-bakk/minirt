@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/13 19:26:45 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 11:00:45 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,9 @@ t_vec3	vec_reset(void)
 	ret.y = 0.f;
 	ret.z = 0.f;
 	return (ret);	
+}
+
+double	vec3_sqr(t_vec3 vec)
+{
+	return (pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
 }

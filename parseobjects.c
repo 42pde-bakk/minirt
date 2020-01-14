@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/10 18:38:30 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 16:51:23 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 	new->diameter = ft_atof_peer(line, i);
 	new->height = ft_atof_peer(line, i);
 
-	new->colour = createhexcolour(line, i);
+	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_cylinder(&my_mlx->cylinder, new);
 	return (1);
@@ -97,7 +97,7 @@ int		parse_triangle(t_data *my_mlx, char *line, int *i)
 	new->s2.y = ft_atof_peer(line, i);
 	new->s2.z = ft_atof_peer(line, i);
 
-	new->colour = createhexcolour(line, i);
+	new->colour = parse_tcol(line, i);
 	tmp1 = vector_sub(new->s1, new->s0);
 	tmp2 = vector_sub(new->s2, new->s0);
 	new->normal = crossproduct(tmp1, tmp2);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_atox_peer.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/29 16:22:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/02 13:43:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/14 16:45:25 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ double		ft_atof_peer(const char *str, int *i)
 	result = 0.0;
 	sign = 1;
 	while (ft_iswhitespace(str[*i]))
+		(*i)++;
+	if (str[*i] == ',')
 		(*i)++;
 	if (str[*i] == '-')
 	{

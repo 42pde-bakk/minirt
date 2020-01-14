@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/13 19:22:50 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 17:21:06 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,12 @@
 # include <fcntl.h>
 # include <stdio.h>
 
-typedef	struct s_rgb
+typedef	struct	s_col
 {
-	int			r;
-	int			g;
-	int			b;
-	unsigned	colour;
-}				t_rgb;
+	double	r;
+	double	g;
+	double	b;
+}				t_col;
 
 typedef struct	s_vec3
 {
@@ -43,7 +42,7 @@ typedef struct	s_sphere
 	t_vec3			s;
 	t_vec3			tmp;
 	double			diameter;
-	unsigned		colour;
+	t_col			colour;
 	struct s_sphere	*next;
 }				t_sphere;
 
@@ -51,7 +50,7 @@ typedef struct	s_plane
 {
 	t_vec3			s;
 	t_vec3			normal;
-	unsigned		colour;
+	t_col			colour;
 	struct s_plane	*next;
 }				t_plane;
 
@@ -60,7 +59,7 @@ typedef struct	s_square
 	t_vec3			s;
 	t_vec3			v;
 	double			size;
-	unsigned		colour;
+	t_col			colour;
 	struct s_square	*next;
 }				t_square;
 
@@ -70,7 +69,7 @@ typedef struct	s_cylinder
 	t_vec3				v;
 	double				diameter;
 	double				height;
-	unsigned			colour;
+	t_col				colour;
 	struct s_cylinder	*next;
 }				t_cylinder;
 
@@ -80,7 +79,7 @@ typedef struct	s_triangle
 	t_vec3				s1;
 	t_vec3				s2;
 	t_vec3				normal;
-	unsigned			colour;
+	t_col				colour;
 	struct s_triangle	*next;
 }				t_triangle;
 
@@ -96,14 +95,14 @@ typedef struct	s_light
 {
 	t_vec3			s;
 	double			brightness;
-	unsigned		colour;
+	t_col			colour;
 	struct s_light	*next;
 }				t_light;
 
 typedef	struct	s_ray
 {
 	t_vec3			v;
-	unsigned		colour;
+	t_col			colour;
 	double			length;
 	t_vec3			hitnormal;
 }				t_ray;
@@ -113,8 +112,8 @@ typedef	struct	s_scene
 	char			*id;
 	double			width;
 	double			height;
-	double			amblight;
-	unsigned		amblightcolor;
+	double			ambintensity;
+	t_col			amblightcolour;
 }				t_scene;
 
 typedef struct	s_data
@@ -157,6 +156,7 @@ double	dotproduct(t_vec3 v1, t_vec3 v2);
 t_vec3	vec_mult(t_vec3 v1, double d);
 double	find_length(t_vec3 s, t_vec3 p);
 t_vec3	vec_reset(void);
+double	vec3_sqr(t_vec3 vec);
 t_vec3	crossproduct(t_vec3 v1, t_vec3 v2);
 /*
 **Objects
@@ -176,7 +176,8 @@ void				ray(t_data *my_mlx);
 /*
 **Parsing
 */
-unsigned		createhexcolour(char *line, int *i);
+// unsigned		createhexcolour(char *line, int *i);
+t_col			parse_tcol(char *line, int *i);
 void			ft_parser(t_data *my_mlx, int fd);
 int				parse_objects(t_data *my_mlx, char *line, int *i);
 
@@ -187,6 +188,23 @@ t_data			*init_my_mlx(int fd);
 int				keyinput(int keycode, t_data *my_mlx);
 int				mouseinput(int keycode, t_data *my_mlx);
 
-unsigned		light_tracing(t_data *my_mlx, unsigned colour);
+/*
+**colour.c
+*/
+unsigned		colourremap01(t_data *my_mlx, double ret);
+t_vec3			unsigned_to_vec(unsigned col);
+unsigned		vec_to_unsigned(t_vec3 vec);
+int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
+int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
+t_col			colour_mult(t_col a, double mult, t_col b);
+t_col			colour_new(void);
+t_col			colour_add(t_col v1, t_col v2);
+/*
+**lighting.c
+*/
+int				find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
+t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
+t_col			light_add(t_data *my_mlx, t_col light, t_vec3 dir, int ret);
+t_col			light_tracing(t_data *my_mlx, t_col hitcol);
 
 #endif

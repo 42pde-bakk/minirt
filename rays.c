@@ -6,31 +6,37 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/13 19:23:18 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 17:14:59 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	put_rgb(t_data *my_mlx, int x, int y, t_rgb rgb)
+void	put_rgb(t_data *my_mlx, int x, int y, t_col rgb)
 {
-	int			pos;
+	int	pos;
+	int	r;
+	int g;
+	int b;
 
+	r = (int)rgb.r;
+	g = (int)rgb.g;
+	b = (int)rgb.b;
 	if (x >= 0 && x < my_mlx->scene->width && y >= 0 &&
 		y < my_mlx->scene->height)
 	{
 		pos = y * my_mlx->line_length + x * (my_mlx->bpp / 8);
 		if (my_mlx->frame % 2 == 1)
 		{
-			*(my_mlx->addr + pos + 0) = (char)(rgb.b);
-			*(my_mlx->addr + pos + 1) = (char)(rgb.g);
-			*(my_mlx->addr + pos + 2) = (char)(rgb.r);
+			*(my_mlx->addr + pos + 0) = (char)(b);
+			*(my_mlx->addr + pos + 1) = (char)(g);
+			*(my_mlx->addr + pos + 2) = (char)(r);
 		}
 		else if (my_mlx->frame % 2 == 0)
 		{
-			*(my_mlx->addr2 + pos + 0) = (char)(rgb.b);
-			*(my_mlx->addr2 + pos + 1) = (char)(rgb.g);
-			*(my_mlx->addr2 + pos + 2) = (char)(rgb.r);
+			*(my_mlx->addr2 + pos + 0) = (char)(b);
+			*(my_mlx->addr2 + pos + 1) = (char)(g);
+			*(my_mlx->addr2 + pos + 2) = (char)(r);
 		}
 	}
 }
@@ -116,9 +122,9 @@ void	ray(t_data *my_mlx)
 			if (my_mlx->ray->length > 0)
 			{
 				my_mlx->ray->colour = light_tracing(my_mlx, my_mlx->ray->colour);
-				put_pixel(my_mlx, x, y, my_mlx->ray->colour);
+				put_rgb(my_mlx, x, y, my_mlx->ray->colour);
 				my_mlx->ray->length = 0.0;
-				my_mlx->ray->colour = 0;
+				my_mlx->ray->colour = colour_new();
 				my_mlx->ray->hitnormal = vec_reset();
 			}
 			x++;

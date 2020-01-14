@@ -6,14 +6,14 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/13 14:16:47 by Peer de Bak   ########   odam.nl          #
+#    Updated: 2020/01/14 12:13:14 by Peer de Bak   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
 SRC = minirt.c parsing.c objects.c parseobjects.c vectors.c rays.c \
-sphere.c planesquare.c readinput.c lighting.c
+sphere.c planesquare.c readinput.c lighting.c colour.c
 
 OBJ = $(SRC:.c=.o)
 

@@ -6,24 +6,33 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/13 16:05:14 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 17:22:08 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "includes/gnl/get_next_line.h"
 
-unsigned		createhexcolour(char *line, int *i)
-{
-	int	r;
-	int g;
-	int b;
+// unsigned		createhexcolour(char *line, int *i)
+// {
+// 	int	r;
+// 	int g;
+// 	int b;
 
-	(*i) += 1;
-	r = ft_atoi_peer(line, i);
-	g = ft_atoi_peer(line, i);
-	b = ft_atoi_peer(line, i);
-	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+// 	(*i) += 1;
+// 	r = ft_atoi_peer(line, i);
+// 	g = ft_atoi_peer(line, i);
+// 	b = ft_atoi_peer(line, i);
+// 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
+// }
+t_col			parse_tcol(char *line, int *i)
+{
+	t_col	new;
+
+	new.r = ft_atof_peer(line, i);
+	new.g = ft_atof_peer(line, i);
+	new.b = ft_atof_peer(line, i);
+	return (new);
 }
 
 void			ft_lstadd_back_light(t_light **alst, t_light *new)
@@ -58,10 +67,10 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 	new->s.z = ft_atof_peer(line, i);
 
 	new->brightness = ft_atof_peer(line, i);
-	new->colour = createhexcolour(line, i);
+	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_light(&my_mlx->light, new);
-	printf("Light:coords={%f, %f, %f}, brightness=%f, colour=0x%X\n", new->s.x, new->s.y, new->s.z, new->brightness, new->colour);
+	printf("Light:coords={%f, %f, %f}, brightness=%f, colour={%f, %f, %f}\n", new->s.x, new->s.y, new->s.z, new->brightness, new->colour.r, new->colour.g, new->colour.b);
 	return (1);
 }
 
@@ -102,9 +111,9 @@ int				find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
 	}
 	else if (ft_strncmp(line, "A ", 2) == 0)
 	{
-		my_mlx->scene->amblight = ft_atof_peer(line, i);
-		my_mlx->scene->amblightcolor = createhexcolour(line, i);
-		printf("Ambient lighting: %f, color=%X\n", my_mlx->scene->amblight, my_mlx->scene->amblightcolor);
+		my_mlx->scene->ambintensity = ft_atof_peer(line, i);
+		my_mlx->scene->amblightcolour = parse_tcol(line, i);
+		printf("Ambient lighting: %f, color={%f, %f, %f}\n", my_mlx->scene->ambintensity, my_mlx->scene->amblightcolour.r, my_mlx->scene->amblightcolour.g, my_mlx->scene->amblightcolour.b);
 		return (1);
 	}
 	else if (ft_strncmp(line, "c ", 2) == 0)
