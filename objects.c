@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/13 19:24:46 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/14 18:33:32 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,7 @@ unsigned		find_objects(t_data *my_mlx)
 	shead = my_mlx->square;
 	while (my_mlx->square)
 	{
-		ret = find_square(my_mlx);
+		// ret = find_square(my_mlx);
 		my_mlx->square = my_mlx->square->next;
 	}
 	my_mlx->square = shead;

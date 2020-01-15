@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/14 12:13:14 by Peer de Bak   ########   odam.nl          #
+#    Updated: 2020/01/14 20:26:54 by Peer de Bak   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,11 @@ OBJ = $(SRC:.c=.o)
 
 HEADER = minirt.h
 
-FLAGS = -Wall -Werror -Wextra -O3 -g
+FLAGS = -Wall -Werror -Wextra -g
+ifdef SPEED
+FLAGS += -O3
+endif
+
 ifdef DEBUG
  FLAGS += -fsanitize=address
 endif

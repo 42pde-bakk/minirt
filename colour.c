@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 12:06:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/14 17:06:27 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 12:21:33 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,23 @@ int		sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir)
 		return (1);
 	else
 		return (0);
-	
 }
 
+t_col		colour_mult(t_col col, double c1, double c2)
+{
+	col.r *= c1 * c2;
+	col.g *= c1 * c2;
+	col.b *= c1 * c2;
+	return (col);
+}
 
-t_col		colour_mult(t_col a, double mult, t_col b)
+t_col		colour_multcol(t_col a, t_col b)
 {
 	t_col	out;
 
-	out.r = a.r * (b.r * mult / 255.0);
-	out.g = a.g * (b.g * mult / 255.0);
-	out.b = a.b * (b.b * mult / 255.0);
+	out.r = a.r * b.r;
+	out.g = a.g * b.g;
+	out.b = a.b * b.b;
 	return (out);
 }
 
@@ -117,4 +123,12 @@ t_col	colour_add(t_col v1, t_col v2)
 	ret.g = v1.g + v2.g;
 	ret.b = v1.b + v2.b;
 	return (ret);
+}
+
+t_col	colour_check(t_col col)
+{
+	col.r = fmin(255.f, col.r);
+	col.g = fmin(255.f, col.g);
+	col.b = fmin(255.f, col.b);
+	return (col);
 }

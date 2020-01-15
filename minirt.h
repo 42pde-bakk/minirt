@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/14 17:21:06 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 12:21:43 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdio.h>
+
+# ifndef ALBEDO
+#  define ALBEDO 1
+# endif
 
 typedef	struct	s_col
 {
@@ -196,15 +200,17 @@ t_vec3			unsigned_to_vec(unsigned col);
 unsigned		vec_to_unsigned(t_vec3 vec);
 int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
 int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
-t_col			colour_mult(t_col a, double mult, t_col b);
+t_col			colour_mult(t_col col, double c1, double c2);
+t_col			colour_multcol(t_col a, t_col b);
 t_col			colour_new(void);
 t_col			colour_add(t_col v1, t_col v2);
+t_col			colour_check(t_col col);
 /*
 **lighting.c
 */
 int				find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
 t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
-t_col			light_add(t_data *my_mlx, t_col light, t_vec3 dir, int ret);
-t_col			light_tracing(t_data *my_mlx, t_col hitcol);
+t_col			light_add(t_data *my_mlx, t_col total, t_vec3 dir, int ret);
+t_col			light_tracing(t_data *my_mlx);
 
 #endif
