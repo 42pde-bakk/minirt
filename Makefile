@@ -6,14 +6,17 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/14 20:26:54 by Peer de Bak   ########   odam.nl          #
+#    Updated: 2020/01/15 23:51:03 by Peer de Bak   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
 SRC = minirt.c parsing.c objects.c parseobjects.c vectors.c rays.c \
-sphere.c planesquare.c readinput.c lighting.c colour.c
+sphere.c planesquare.c readinput.c lighting.c colour.c obstacles.c
+
+MAX_RESX := $(shell displayplacer list | grep "current mode" | awk -F '[:x]' '/mode/{print$$3}')
+MAX_RESY := $(shell displayplacer list | grep "current mode" | awk -F '[:xc]' '/mode/{print$$4}')
 
 OBJ = $(SRC:.c=.o)
 
@@ -54,7 +57,9 @@ $(NAME):
 	@echo "$(YELLOW)Linking the library"
 	@make -C ./minilibx_mms_20191025_beta/
 	cp minilibx_mms_20191025_beta/libmlx.dylib libmlx.dylib
-	gcc -c $(FLAGS) $(HEADER) $(SRC) $(INCLUDES)
+	@echo MY_RESX is $(MAX_RESX)
+	@echo MY_RESY is $(MAX_RESY)
+	gcc -c -D MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY) $(FLAGS) $(HEADER) $(SRC) $(INCLUDES)
 	ar -rcs $(NAME) $(OBJ) $(INCOBJ) libft.a
 	@echo "$(GREEN)Done!$(RESET)"
 

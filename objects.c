@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/14 18:33:32 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 23:25:35 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int			find_triangle(t_data *my_mlx)
 	pvec = crossproduct(my_mlx->ray->v, edge1);
 	det = dotproduct(edge0, pvec);
 
-	if (fabs(det) < 0.000001)
+	if (fabs(det) < EPSILON)
 		return (0);
 	double	invdet = 1 / det;
 	t_vec3	tvec = vector_sub(my_mlx->cam->s, my_mlx->triangle->s0);
@@ -60,6 +60,7 @@ int			find_triangle(t_data *my_mlx)
 	{
 		my_mlx->ray->length = t;
 		my_mlx->ray->colour = my_mlx->triangle->colour;
+		my_mlx->ray->hitnormal = my_mlx->triangle->normal;
 	}
     return (1); // this ray hits the triangle 
 }
@@ -107,6 +108,7 @@ int			find_plane(t_data *my_mlx)
 			{
 				my_mlx->ray->length = t;
 				my_mlx->ray->colour = my_mlx->plane->colour;
+				my_mlx->ray->hitnormal = my_mlx->plane->normal;
 				return (1);
 			}
 	}
@@ -136,7 +138,10 @@ unsigned		find_sphere(t_data *my_mlx)
 		t2 = t + x;
 		if (t1 < my_mlx->ray->length || my_mlx->ray->length == 0)
 		{
-			my_mlx->ray->length = t1;
+			if (my_mlx->cam->s.z > t1 * my_mlx->ray->v.z)
+				my_mlx->ray->length = t2;
+			else
+				my_mlx->ray->length = t1;
 			my_mlx->ray->colour = my_mlx->sphere->colour;
 			my_mlx->ray->hitnormal = vector_sub(my_mlx->sphere->s, vec_mult(my_mlx->ray->v, t1));
 			my_mlx->ray->hitnormal = normalize_ray(my_mlx->ray->hitnormal);

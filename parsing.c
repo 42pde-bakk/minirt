@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/14 17:22:08 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 23:48:34 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 // 	b = ft_atoi_peer(line, i);
 // 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 // }
+
 t_col			parse_tcol(char *line, int *i)
 {
 	t_col	new;
@@ -66,7 +67,7 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
 
-	new->brightness = ft_atof_peer(line, i);
+	new->brightness = fmax(0.0, fmin(1.0, ft_atof_peer(line, i)));
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_light(&my_mlx->light, new);
@@ -104,9 +105,10 @@ int				find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
 {
 	if (ft_strncmp(line, "R ", 2) == 0)
 	{
-		my_mlx->scene->width = ft_atof_peer(line, i);
-		my_mlx->scene->height = ft_atof_peer(line, i);
+		my_mlx->scene->width = fmin(2560.0, ft_atof_peer(line, i));
+		my_mlx->scene->height = fmin(1440.0, ft_atof_peer(line, i));
 		printf("Resolution= W%f by H%f\n", my_mlx->scene->width, my_mlx->scene->height);
+		printf("Max_res=[%i, %i]\n", MAX_RESX, MAX_RESY);
 		return (1);
 	}
 	else if (ft_strncmp(line, "A ", 2) == 0)

@@ -6,66 +6,34 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/15 12:22:34 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 23:22:55 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int			find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir)
-{
-	t_sphere	*head;
-	int			ret;
-
-	ret =  0;
-	head = my_mlx->sphere;
-	while (my_mlx->sphere && ret == 0)
-	{
-		ret = sphere_obs(my_mlx, pos, dir);
-		my_mlx->sphere = my_mlx->sphere->next;
-	}
-	my_mlx->sphere = head;
-	return (ret);
-}
-
-t_col	ambient_lighting(t_data *my_mlx, t_col colour)
-{
-	t_col		ambient;
-	
-	ambient.r = my_mlx->scene->amblightcolour.r;
-	ambient.g = my_mlx->scene->amblightcolour.g;
-	ambient.b = my_mlx->scene->amblightcolour.b;
-	colour.r *= ((double)ambient.r / 255);
-	colour.r *= my_mlx->scene->ambintensity;
-	colour.g *= ((double)ambient.g / 255);
-	colour.g *= my_mlx->scene->ambintensity;
-	colour.b *= ((double)ambient.b / 255);
-	colour.b *= my_mlx->scene->ambintensity;
-	return (colour);;
-}
-
-t_col		light_add(t_data *my_mlx, t_col total, t_vec3 dir, int ret)
+t_col		light_add(t_data *my_mlx, t_vec3 dir, int ret)
 {
 	t_col	hitcol;
-	t_col	lightintensity;
+	double	intensity;
+	t_light	light;
 	double	r2;
+	t_col	out;
 
+	light = *my_mlx->light;
 	hitcol = my_mlx->ray->colour;
 	if (ret == 0)
 	{	
 		r2 = vec3_sqr(dir);
-		lightintensity = colour_mult(my_mlx->light->colour, my_mlx->light->brightness, (100 / (4 * M_PI * r2)));
-		dir = normalize_ray(dir);
-		double tmp = dotproduct(my_mlx->ray->hitnormal, dir);
-		lightintensity = colour_mult(lightintensity, ALBEDO, fmax(0.0f, tmp));
-		hitcol = colour_multcol(hitcol, lightintensity);
-		hitcol = colour_check(hitcol);
-		printf("tmp = %f, hitcol = {%f, %f, %f}, lightinten={%f, %f, %f}\n", tmp, hitcol.r, hitcol.g, hitcol.b, lightintensity.r, lightintensity.g, lightintensity.b);
-//		printf("length=%f & hitcol = {%f, %f, %f}\n", my_mlx->ray->length, hitcol.r, hitcol.g, hitcol.b);
+		double tmp = dotproduct(my_mlx->ray->hitnormal, normalize_ray(dir));
+		intensity = fmin((light.brightness * 100 / (4.0 * M_PI * r2)) * fmax(tmp, 0.0) * ALBEDO, 1.0);
+//		printf("brightness=%f, 4πr2=%f, r2=%f\n", my_mlx->light->brightness, 4.0 * M_PI * r2, r2);
+		out = colour_mul(hitcol, light.colour, intensity);
+//		printf("hitcol={%f, %f, %f} & tmp=%f || intens=%f, out={%f, %f, %f}\n", hitcol.r, hitcol.g, hitcol.b, tmp, intensity, out.r, out.g, out.b);
+		return (out);
 	}
 	else
-		hitcol = colour_new();
-	return (colour_add(total, hitcol));
+		return (colour_new());
 }
 
 t_col	light_tracing(t_data *my_mlx)
@@ -78,17 +46,18 @@ t_col	light_tracing(t_data *my_mlx)
 
 	ret = 0;
 	head = my_mlx->light;
-	total = colour_new();
+	total = colour_add(colour_new(), colour_mul(my_mlx->ray->colour, my_mlx->scene->amblightcolour, my_mlx->scene->ambintensity));
+// printf("amblight gives: {%f, %f, %f}\n", total.r, total.g, total.b);
 	while (my_mlx->light)
 	{
-		pos = vec_mult(my_mlx->ray->v, my_mlx->ray->length);
+		pos = vector_add(my_mlx->cam->s, vec_mult(my_mlx->ray->v, my_mlx->ray->length));
 		dir = vector_sub(my_mlx->light->s, pos);
 		ret = find_obstacles(my_mlx, pos, dir);
-		total = light_add(my_mlx, total, dir, ret);
+//		printf("totalfirst={%f,%f,%f} (so not really total tbh)\n", total.r, total.g, total.b);
+		total = colour_add(total, light_add(my_mlx, dir, ret));
+		// printf("total AFTER={%f,%f,%f}\n", total.r, total.g, total.b);
 		my_mlx->light = my_mlx->light->next;
 	}
-//	printf("hitcolor={%f, %f, %f} & +light={%f, %f, %f}\n", my_mlx->ray->colour.r, my_mlx->ray->colour.g, my_mlx->ray->colour.b, light.r, light.g, light.b);
-//	light = ambient_lighting(my_mlx, light);
 	my_mlx->light = head;
 	return (total);
 }

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/15 12:21:43 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 23:52:32 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,19 @@
 # include <stdio.h>
 
 # ifndef ALBEDO
-#  define ALBEDO 1
+#  define ALBEDO 2
+# endif
+
+# ifndef EPSILON
+#  define EPSILON 1e-6
+# endif
+
+# ifndef MAX_RESX
+#  define MAX_RESX 420
+# endif
+
+# ifndef MAX_RESY
+#  define MAX_RESY 420
 # endif
 
 typedef	struct	s_col
@@ -191,26 +203,29 @@ t_data			*init_my_mlx(int fd);
 
 int				keyinput(int keycode, t_data *my_mlx);
 int				mouseinput(int keycode, t_data *my_mlx);
-
 /*
-**colour.c
+**obstacles.c
 */
-unsigned		colourremap01(t_data *my_mlx, double ret);
 t_vec3			unsigned_to_vec(unsigned col);
 unsigned		vec_to_unsigned(t_vec3 vec);
 int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
 int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
+/*
+**colour.c
+*/
 t_col			colour_mult(t_col col, double c1, double c2);
-t_col			colour_multcol(t_col a, t_col b);
+t_col			coltimescol(t_col a, t_col b);
 t_col			colour_new(void);
 t_col			colour_add(t_col v1, t_col v2);
 t_col			colour_check(t_col col);
+t_col			col_times_lightratio(t_col col, t_col light, double max);
+t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 /*
 **lighting.c
 */
 int				find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
 t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
-t_col			light_add(t_data *my_mlx, t_col total, t_vec3 dir, int ret);
+t_col			light_add(t_data *my_mlx, t_vec3 dir, int ret);
 t_col			light_tracing(t_data *my_mlx);
 
 #endif

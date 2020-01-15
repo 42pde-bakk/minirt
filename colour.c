@@ -6,28 +6,11 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 12:06:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/15 12:21:33 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/15 17:31:27 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// unsigned			colourremap01(t_data *my_mlx, double ret)
-// {
-// 	int				r;
-// 	int				g;
-// 	int				b;
-// 	unsigned		col;
-
-// 	col = my_mlx->ray->colour;
-// 	r = (col >> 16 & 0xff);
-// 	g = (col >> 8 & 0xff);
-// 	b = (col & 0xff);
-// 	r *= ret;
-// 	g *= ret;
-// 	b *= ret;
-// 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
-// }
 
 t_vec3			unsigned_to_vec(unsigned col)
 {
@@ -51,42 +34,6 @@ unsigned		vec_to_unsigned(t_vec3 vec)
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
 }
 
-int		plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir)
-{
-	t_vec3	tmp;
-	double	a;
-	double	denom;
-	double	t;
-
-	tmp = vector_sub(my_mlx->plane->s, pos);
-	denom = dotproduct(my_mlx->plane->normal, dir);
-	if (denom > 0.000001)
-	{
-		a = dotproduct(tmp, my_mlx->plane->normal);
-		t = a / denom;
-		if (t > 0)
-			return (1);
-	}
-	return (0);
-}
-
-int		sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir)
-{
-	t_vec3	tmp;
-	t_vec3	p;
-	double	t;
-	double	y;
-
-	tmp = vector_sub(my_mlx->sphere->s, pos);
-	t = dotproduct(dir, my_mlx->ray->v);
-	p = vector_add(pos, vec_mult(dir, t));
-	y = find_length(p, my_mlx->sphere->s);
-	if (y < my_mlx->sphere->diameter / 2)
-		return (1);
-	else
-		return (0);
-}
-
 t_col		colour_mult(t_col col, double c1, double c2)
 {
 	col.r *= c1 * c2;
@@ -95,7 +42,7 @@ t_col		colour_mult(t_col col, double c1, double c2)
 	return (col);
 }
 
-t_col		colour_multcol(t_col a, t_col b)
+t_col		coltimescol(t_col a, t_col b)
 {
 	t_col	out;
 
@@ -131,4 +78,24 @@ t_col	colour_check(t_col col)
 	col.g = fmin(255.f, col.g);
 	col.b = fmin(255.f, col.b);
 	return (col);
+}
+
+t_col	col_times_lightratio(t_col col, t_col light, double max)
+{
+	t_col	ret;
+	
+	ret.r = col.r + (light.r / max);
+	ret.g = col.g + (light.g / max);
+	ret.b = col.b + (light.b / max);
+	return (ret);
+}
+
+t_col	colour_mul(t_col coloura, t_col colourb, double mul)
+{
+	t_col	ret;
+
+	ret.r = coloura.r * colourb.r * mul / 255;
+	ret.g = coloura.g * colourb.g * mul / 255;
+	ret.b = coloura.b * colourb.b * mul / 255;
+	return (ret);
 }
