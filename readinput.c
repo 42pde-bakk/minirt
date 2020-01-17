@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/09 15:23:11 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/18 00:00:08 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,25 @@
 
 void	arrowkeys(int keycode, t_data *my_mlx)
 {
-	if (keycode == LEFT_ARROW)
+	if (keycode == AKEY)
 	{
 		my_mlx->cam->s.x = my_mlx->cam->s.x - 5.0;
 		printf("X-5: %f\n", my_mlx->cam->s.x);
 		newframe(my_mlx);
 	}
-	if (keycode == RIGHT_ARROW)
+	if (keycode == DKEY)
 	{
 		my_mlx->cam->s.x = my_mlx->cam->s.x + 5.0;
 		printf("X-5: %f\n", my_mlx->cam->s.x);
 		newframe(my_mlx);
 	}
-	if (keycode == UP_ARROW)
+	if (keycode == WKEY)
 	{
 		my_mlx->cam->s.y = my_mlx->cam->s.y + 5.0;
 		printf("Y+5: %f\n", my_mlx->cam->s.y);
 		newframe(my_mlx);
 	}
-	if (keycode == DOWN_ARROW)
+	if (keycode == SKEY)
 	{
 		my_mlx->cam->s.y = my_mlx->cam->s.y - 5.0;
 		printf("Y-5: %f\n", my_mlx->cam->s.y);
@@ -60,6 +60,34 @@ int		keyinput(int keycode, t_data *my_mlx)
 	{
 		my_mlx->cam->s.z = my_mlx->cam->s.z - 5.0;
 		printf("Z-5: %f\n", my_mlx->cam->s.z);
+		newframe(my_mlx);
+	}
+	if (keycode == LEFT_ARROW)
+	{
+		my_mlx->cam->v.x += 0.10f;
+		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
+		newframe(my_mlx);
+	}
+	if (keycode == RIGHT_ARROW)
+	{
+		my_mlx->cam->v.x -= 0.10f;
+		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
+		newframe(my_mlx);
+	}
+	if (keycode == UP_ARROW)
+	{
+		my_mlx->cam->v.y += 0.10f;
+		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
+		newframe(my_mlx);
+	}
+	if (keycode == DOWN_ARROW)
+	{
+		my_mlx->cam->v.y -= 0.10f;
+		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
 		newframe(my_mlx);
 	}
 	return (1);

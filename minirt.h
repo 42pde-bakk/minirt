@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 19:28:55 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 23:38:10 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,22 +39,6 @@
 #  define MAX_RESY 420
 # endif
 
-typedef	struct	s_row
-{
-	double	x;
-	double	y;
-	double	z;
-	double	w;
-}				t_row;
-
-typedef	struct	s_matrix
-{
-	t_row	r;
-	t_row	up;
-	t_row	fw;
-	t_row	t;
-}				t_matrix;
-
 typedef	struct	s_col
 {
 	double	r;
@@ -68,6 +52,14 @@ typedef struct	s_vec3
 	double	y;
 	double	z;
 }				t_vec3;
+
+typedef	struct	s_matrix
+{
+	t_vec3	r;
+	t_vec3	up;
+	t_vec3	fw;
+	t_vec3	t;
+}				t_matrix;
 
 typedef struct	s_sphere
 {
@@ -174,22 +166,23 @@ typedef struct	s_data
 /*
 **Extra functions
 */
-int		ft_amount(long int nb);
-int		ft_iswhitespace(char c);
-int		ft_objectcheck(const char *id);
-double	ft_atof_peer(const char *str, int *i);
-int		ft_atoi_peer(const char *str, int *i);
+int					ft_amount(long int nb);
+int					ft_iswhitespace(char c);
+int					ft_objectcheck(const char *id);
+double				ft_atof_peer(const char *str, int *i);
+int					ft_atoi_peer(const char *str, int *i);
 /*
 **Vector mathematics
 */
-t_vec3	vector_sub(t_vec3 v1, t_vec3 v2);
-t_vec3	vector_add(t_vec3 v1, t_vec3 v2);
-double	dotproduct(t_vec3 v1, t_vec3 v2);
-t_vec3	vec_mult(t_vec3 v1, double d);
-double	find_length(t_vec3 s, t_vec3 p);
-t_vec3	vec3_new(double x, double y, double z);
-double	vec3_sqr(t_vec3 vec);
-t_vec3	crossproduct(t_vec3 v1, t_vec3 v2);
+t_vec3				vec3_sub(t_vec3 v1, t_vec3 v2);
+t_vec3				vec3_add(t_vec3 v1, t_vec3 v2);
+double				dotproduct(t_vec3 v1, t_vec3 v2);
+t_vec3				vec3_mult(t_vec3 v1, double d);
+double				find_length(t_vec3 s, t_vec3 p);
+t_vec3				vec3_new(double x, double y, double z);
+double				vec3_sqr(t_vec3 vec);
+t_vec3				vec3_normalize(t_vec3 ray);
+t_vec3				crossproduct(t_vec3 v1, t_vec3 v2);
 /*
 **Objects
 */
@@ -203,22 +196,21 @@ int					find_objects(t_data *my_mlx);
 /*
 **Rays
 */
-t_vec3				normalize_ray(t_vec3 ray);
 void				ray(t_data *my_mlx);
 /*
 **Parsing
 */
 // unsigned		createhexcolour(char *line, int *i);
-t_col			parse_tcol(char *line, int *i);
-void			ft_parser(t_data *my_mlx, int fd);
-int				parse_objects(t_data *my_mlx, char *line, int *i);
+t_col				parse_tcol(char *line, int *i);
+void				ft_parser(t_data *my_mlx, int fd);
+int					parse_objects(t_data *my_mlx, char *line, int *i);
 
-void			put_pixel(t_data *my_mlx, int x, int y, unsigned color);
-int				newframe(t_data *my_mlx);
-t_data			*init_my_mlx(int fd);
+void				put_pixel(t_data *my_mlx, int x, int y, unsigned color);
+int					newframe(t_data *my_mlx);
+t_data				*init_my_mlx(int fd);
 
-int				keyinput(int keycode, t_data *my_mlx);
-int				mouseinput(int keycode, t_data *my_mlx);
+int					keyinput(int keycode, t_data *my_mlx);
+int					mouseinput(int keycode, t_data *my_mlx);
 /*
 **obstacles.c
 */
@@ -241,5 +233,12 @@ t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
 t_col			light_add(t_data *my_mlx, t_vec3 dir, int ret);
 t_col			light_tracing(t_data *my_mlx);
+/*
+matrices.c
+*/
+t_vec3			vec3multmatrix(t_vec3 v, t_matrix m);
+t_vec3			multdirmatrix(t_vec3 src, t_matrix mat);
+t_matrix		setmatrix(t_data *my_mlx);
+void			setcamera(t_data *my_mlx, double pndcx, double pndcy, t_matrix camtoworld);
 
 #endif

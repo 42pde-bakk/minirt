@@ -6,25 +6,12 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/15 23:48:34 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 23:39:06 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 #include "includes/gnl/get_next_line.h"
-
-// unsigned		createhexcolour(char *line, int *i)
-// {
-// 	int	r;
-// 	int g;
-// 	int b;
-
-// 	(*i) += 1;
-// 	r = ft_atoi_peer(line, i);
-// 	g = ft_atoi_peer(line, i);
-// 	b = ft_atoi_peer(line, i);
-// 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
-// }
 
 t_col			parse_tcol(char *line, int *i)
 {

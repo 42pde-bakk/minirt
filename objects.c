@@ -6,31 +6,11 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 19:24:04 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 23:43:57 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-// unsigned				remap01(t_data *my_mlx, double t1)
-// {
-// 	double		spherez;
-// 	double		coll;
-// 	double		ret;
-// 	unsigned	col;
-
-// 	t1 = fabs(t1);
-// 	spherez = my_mlx->sphere->s.z;
-// 	coll = my_mlx->sphere->s.z - my_mlx->sphere->diameter / 2;
-// 	ret = fabs((t1 - spherez) / (coll - spherez));
-// //	if (ret < 0 || ret > 1)
-// //		printf("ret=%f, spherez=%f, t1=%f, collision=%f\n", ret, spherez, t1, coll);
-// 	if (ret > 1.0f)
-// 		ret = ret - 1.0f;
-// 	col = colourremap01(my_mlx, ret);
-// //	printf("col=%lX\n", col);
-// 	return (col);
-// }
 
 int			find_triangle(t_data *my_mlx)
 {
@@ -39,15 +19,15 @@ int			find_triangle(t_data *my_mlx)
 	t_vec3	pvec;
 	double	det;
 
-	edge0 = vector_sub(my_mlx->triangle->s1, my_mlx->triangle->s0);
-	edge1 = vector_sub(my_mlx->triangle->s2, my_mlx->triangle->s0);
+	edge0 = vec3_sub(my_mlx->triangle->s1, my_mlx->triangle->s0);
+	edge1 = vec3_sub(my_mlx->triangle->s2, my_mlx->triangle->s0);
 	pvec = crossproduct(my_mlx->ray->v, edge1);
 	det = dotproduct(edge0, pvec);
 
 	if (fabs(det) < EPSILON)
 		return (0);
 	double	invdet = 1 / det;
-	t_vec3	tvec = vector_sub(my_mlx->cam->s, my_mlx->triangle->s0);
+	t_vec3	tvec = vec3_sub(my_mlx->cam->s, my_mlx->triangle->s0);
 	double	u = dotproduct(tvec, pvec) * invdet;
 	if (u < 0 || u > 1)
 		return (0);
@@ -78,7 +58,7 @@ int			find_plane(t_data *my_mlx)
 	double	denom;
 	double	t;
 
-	sub = vector_sub(my_mlx->plane->s, my_mlx->cam->s);
+	sub = vec3_sub(my_mlx->plane->s, my_mlx->cam->s);
 	denom = dotproduct(my_mlx->plane->normal, my_mlx->ray->v);
 	if (denom > 0.000001)
 	{
@@ -106,9 +86,9 @@ int		find_sphere(t_data *my_mlx)
 	double	t2;
 	t_vec3	p;
 
-	tmp = vector_sub(my_mlx->sphere->s, my_mlx->cam->s);
+	tmp = vec3_sub(my_mlx->sphere->s, my_mlx->cam->s);
 	t = dotproduct(tmp, my_mlx->ray->v);
-	p = vector_add(my_mlx->cam->s, vec_mult(my_mlx->ray->v, t));
+	p = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray->v, t));
 	y = find_length(p, my_mlx->sphere->s);
 	if (y < my_mlx->sphere->diameter / 2)
 	{
@@ -124,8 +104,8 @@ int		find_sphere(t_data *my_mlx)
 			else
 				my_mlx->ray->length = t1;
 			my_mlx->ray->colour = my_mlx->sphere->colour;
-			my_mlx->ray->hitnormal = vector_sub(my_mlx->sphere->s, vec_mult(my_mlx->ray->v, t1));
-			my_mlx->ray->hitnormal = normalize_ray(my_mlx->ray->hitnormal);
+			my_mlx->ray->hitnormal = vec3_sub(my_mlx->sphere->s, vec3_mult(my_mlx->ray->v, t1));
+			my_mlx->ray->hitnormal = vec3_normalize(my_mlx->ray->hitnormal);
 		}
 		return (1);
 	}

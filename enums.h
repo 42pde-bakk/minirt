@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   enums.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/07 21:09:45 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/17 23:45:41 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,8 @@ typedef enum		e_key_code
 	ESCAPE = 53,
 	NUMONE = 83,
 	NUMZERO = 82,
+	WKEY = 13,
+	AKEY = 0,
+	SKEY = 1,
+	DKEY = 2,
 }					t_key_code;
