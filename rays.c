@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/15 10:41:42 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 16:22:47 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ void	ray(t_data *my_mlx)
 				put_rgb(my_mlx, x, y, my_mlx->ray->colour);
 				my_mlx->ray->length = 0.0;
 				my_mlx->ray->colour = colour_new();
-				my_mlx->ray->hitnormal = vec_reset();
+				my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
 			}
 			x++;
 		}

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/14 17:18:41 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 16:22:20 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,10 +44,10 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
 
-	new->v.x = ft_atof_peer(line, i);
-	new->v.y = ft_atof_peer(line, i);
-//	new->v.y = new->v.y * -1;
-	new->v.z = ft_atof_peer(line, i);
+	new->normal.x = ft_atof_peer(line, i);
+	new->normal.y = ft_atof_peer(line, i);
+	new->normal.y = new->normal.y * -1;
+	new->normal.z = ft_atof_peer(line, i);
 
 	new->size = ft_atof_peer(line, i);
 	new->colour = parse_tcol(line, i);

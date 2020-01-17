@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/14 11:00:45 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 16:22:59 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,13 +74,13 @@ double	find_length(t_vec3 s, t_vec3 p)
 	return (ret);
 }
 
-t_vec3	vec_reset(void)
+t_vec3	vec3_new(double x, double y, double z)
 {
 	t_vec3 ret;
 
-	ret.x = 0.f;
-	ret.y = 0.f;
-	ret.z = 0.f;
+	ret.x = x;
+	ret.y = y;
+	ret.z = z;
 	return (ret);	
 }
 

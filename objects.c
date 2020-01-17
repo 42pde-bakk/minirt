@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 12:46:06 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 19:24:04 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,30 +65,11 @@ int			find_triangle(t_data *my_mlx)
     return (1); // this ray hits the triangle 
 }
 
-int			find_square(t_data *my_mlx)
-{
-	t_vec3	sub;
-	double	a;
-	double	denom;
-	double	t;
-
-	sub = vector_sub(my_mlx->square->s, my_mlx->cam->s);
-	denom = dotproduct(my_mlx->square->v, my_mlx->ray->v);
-	if (denom > 0.000001)
-	{
-		a = dotproduct(sub, my_mlx->square->v);
-		t = a / denom;
-		t_vec3	hit = vec_mult(my_mlx->ray->v, t);
-		if (find_length(hit, my_mlx->square->s) <= my_mlx->square->size / 2 && t > 0)
-			if (t < my_mlx->ray->length || my_mlx->ray->length == 0)
-			{
-				my_mlx->ray->length = t;
-				my_mlx->ray->colour = my_mlx->square->colour;
-				return (1);
-			}
-	}
-	return (0);
-}
+// int			find_square(t_data *my_mlx)
+// {
+// 	t_vec3	perpplane1;
+// 	t_vec3	perpplane2;
+// }
 
 int			find_plane(t_data *my_mlx)
 {

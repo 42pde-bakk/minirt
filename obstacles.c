@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/17 14:12:24 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 14:47:07 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,6 @@ int		sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
 		return (0);
 	else
 		return (1);
-	// t = dotproduct(dir, my_mlx->ray->v);
-	// p = vector_add(pos, vec_mult(dir, t));
-	// y = find_length(p, my_mlx->sphere->s);
 }
 
 int			find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)

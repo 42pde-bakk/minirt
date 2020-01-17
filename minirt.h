@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 13:21:43 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 19:28:55 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,22 @@
 # ifndef MAX_RESY
 #  define MAX_RESY 420
 # endif
+
+typedef	struct	s_row
+{
+	double	x;
+	double	y;
+	double	z;
+	double	w;
+}				t_row;
+
+typedef	struct	s_matrix
+{
+	t_row	r;
+	t_row	up;
+	t_row	fw;
+	t_row	t;
+}				t_matrix;
 
 typedef	struct	s_col
 {
@@ -73,7 +89,7 @@ typedef struct	s_plane
 typedef struct	s_square
 {
 	t_vec3			s;
-	t_vec3			v;
+	t_vec3			normal;
 	double			size;
 	t_col			colour;
 	struct s_square	*next;
@@ -171,7 +187,7 @@ t_vec3	vector_add(t_vec3 v1, t_vec3 v2);
 double	dotproduct(t_vec3 v1, t_vec3 v2);
 t_vec3	vec_mult(t_vec3 v1, double d);
 double	find_length(t_vec3 s, t_vec3 p);
-t_vec3	vec_reset(void);
+t_vec3	vec3_new(double x, double y, double z);
 double	vec3_sqr(t_vec3 vec);
 t_vec3	crossproduct(t_vec3 v1, t_vec3 v2);
 /*
