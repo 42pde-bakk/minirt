@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/15 23:52:32 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 13:21:43 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ int					parse_sphere(t_data *my_mlx, char *line, int *i);
 int					parse_square(t_data *my_mlx, char *line, int *i);
 int					parse_plane(t_data *my_mlx, char *line, int *i);
 
-unsigned			find_sphere(t_data *my_mlx);
-unsigned			find_objects(t_data *my_mlx);
+int					find_sphere(t_data *my_mlx);
+int					find_objects(t_data *my_mlx);
 /*
 **Rays
 */
@@ -206,10 +206,9 @@ int				mouseinput(int keycode, t_data *my_mlx);
 /*
 **obstacles.c
 */
-t_vec3			unsigned_to_vec(unsigned col);
-unsigned		vec_to_unsigned(t_vec3 vec);
 int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
-int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
+int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
+int				find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
 /*
 **colour.c
 */
@@ -223,7 +222,6 @@ t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 /*
 **lighting.c
 */
-int				find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
 t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
 t_col			light_add(t_data *my_mlx, t_vec3 dir, int ret);
 t_col			light_tracing(t_data *my_mlx);

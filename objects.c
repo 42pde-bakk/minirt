@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/15 23:25:35 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/17 12:46:06 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ int			find_plane(t_data *my_mlx)
 	return (0);
 }
 
-unsigned		find_sphere(t_data *my_mlx)
+int		find_sphere(t_data *my_mlx)
 {
 	t_vec3	tmp;
 	double	t;
@@ -151,7 +151,7 @@ unsigned		find_sphere(t_data *my_mlx)
 	return (0);
 }
 
-unsigned		find_objects(t_data *my_mlx)
+int		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
 	t_plane		*phead;
