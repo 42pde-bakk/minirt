@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 23:38:10 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/18 18:36:34 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@
 # ifndef MAX_RESY
 #  define MAX_RESY 420
 # endif
+
+# define CAM_SPEED 0.5
+# define CAM_ROT_SPEED 5.0
+# define CAM_FOV_STEP 2.0
+# define ROT_DEGREES 90.0
+# define TRANSLATE_STEP 1.0
 
 typedef	struct	s_col
 {
@@ -112,6 +118,7 @@ typedef struct	s_cam
 	t_vec3			s;
 	t_vec3			v;
 	int				fov;
+	t_matrix		camtoworld;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -236,9 +243,19 @@ t_col			light_tracing(t_data *my_mlx);
 /*
 matrices.c
 */
-t_vec3			vec3multmatrix(t_vec3 v, t_matrix m);
 t_vec3			multdirmatrix(t_vec3 src, t_matrix mat);
-t_matrix		setmatrix(t_data *my_mlx);
-void			setcamera(t_data *my_mlx, double pndcx, double pndcy, t_matrix camtoworld);
+void			printvec(t_vec3 v, char *s);
+void			setmatrix(t_data *my_mlx);
+void			setcamera(t_data *my_mlx, double pndcx, double pndcy);
+t_matrix		rotx(double camrot);
+t_matrix		roty(double camrot);
+t_matrix		rotz(double camrot);
+t_matrix		multmatrix(t_matrix a, t_matrix b);
+t_matrix		addmatrix(t_matrix a, t_matrix b);
+/*
+degrad.c
+*/
+double			deg2rad(double degrees);
+double			rad2deg(double radians);
 
 #endif

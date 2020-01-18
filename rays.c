@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 23:34:29 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/18 16:16:19 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ void	ray(t_data *my_mlx)
 	double		pndcy;
 	unsigned	ret;
 
-	t_matrix camtoworld = setmatrix(my_mlx);
+	// t_matrix camtoworld = setmatrix(my_mlx);
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);
 		while (x < my_mlx->scene->width)
 		{
 			pndcx = ndcx(my_mlx, x);
-			setcamera(my_mlx, pndcx, pndcy, camtoworld);
+			setcamera(my_mlx, pndcx, pndcy);
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length > 0)
 			{
