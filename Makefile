@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/17 23:34:47 by Peer de Bak   ########   odam.nl          #
+#    Updated: 2020/01/18 14:00:32 by Peer de Bak   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -84,7 +84,7 @@ bonus: re
 	@echo "$(PINK)Linking bonus files"
 
 run: re
-	gcc $(FLAGS) $(MAGIC) miniRT libft.a
+	gcc $(FLAGS) $(MAGIC) -o miniRT miniRT libft.a
 	@make clean
 	@echo "$(PINK)bitch"
-	./a.out example.rt
+	./miniRT example.rt

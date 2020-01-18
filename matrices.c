@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/17 23:38:44 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/18 14:15:59 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,21 @@ t_vec3		multdirmatrix(t_vec3 src, t_matrix mat)
 	return (out);
 }
 
+void		printvec(t_vec3	v, char *s)
+{
+	printf("vector %s={%f, %f, %f}\n", s, v.x, v.y, v.z);
+}
+
 t_matrix	setmatrix(t_data *my_mlx)
 {
 	t_matrix	camtoworld;
 	t_vec3		tmp;
 
 	tmp = vec3_add(my_mlx->cam->s, my_mlx->cam->v);
+	printvec(my_mlx->cam->s, "cam->s");
+	printvec(my_mlx->cam->v, "cam->v");
 	camtoworld.fw = vec3_normalize(vec3_sub(my_mlx->cam->s, tmp));
+	printvec(camtoworld.fw, "c2w.fw");
 	camtoworld.r = crossproduct(vec3_new(0.0, 1.0, 0.0), camtoworld.fw);
 	camtoworld.up = crossproduct(camtoworld.fw, camtoworld.r);
 	camtoworld.t = my_mlx->cam->s;
@@ -48,6 +56,7 @@ t_matrix	setmatrix(t_data *my_mlx)
 void	setcamera(t_data *my_mlx, double pndcx, double pndcy, t_matrix camtoworld)
 {
 	t_vec3	tmp;
+
 	tmp = vec3_new(pndcx, pndcy, -1.0);
 	my_mlx->ray->v = multdirmatrix(tmp, camtoworld);
 	my_mlx->ray->v.x *= -1;
