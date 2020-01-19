@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/18 18:36:34 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/19 09:04:44 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -252,10 +252,21 @@ t_matrix		roty(double camrot);
 t_matrix		rotz(double camrot);
 t_matrix		multmatrix(t_matrix a, t_matrix b);
 t_matrix		addmatrix(t_matrix a, t_matrix b);
+
+t_vec3			pleurmatrix(t_vec3 v, t_matrix mat);
 /*
 degrad.c
 */
 double			deg2rad(double degrees);
 double			rad2deg(double radians);
-
+t_vec3			rad2degvec(t_vec3 v);
+t_vec3			deg2radvec(t_vec3 v);
+/*
+rotation.c
+*/
+t_vec3			rx(t_vec3 v, double x);
+t_vec3			ry(t_vec3 v, double y);
+t_vec3			rz(t_vec3 v, double z);
+t_vec3			rot(t_vec3 v, t_vec3 angle);
+t_vec3			antirot(t_vec3, t_vec3 angle);
 #endif

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/18 18:38:29 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/19 09:06:53 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,18 @@ t_matrix	roty(double camrot)
 	return (mat);
 }
 
+// t_matrix	roty(double camrot)
+// {
+// 	double		rot;
+// 	t_matrix	mat;
+
+// 	rot = deg2rad(camrot);
+// 	mat.r = vec3_new(cos(rot), 0, sin(rot));
+// 	mat.up = vec3_new(0, 1, 0);
+// 	mat.fw = vec3_new(-sin(rot), 0, cos(rot));
+// 	return (mat);
+// }
+
 t_matrix	rotz(double camrot)
 {
 	double		rot;
@@ -137,3 +149,14 @@ t_matrix	addmatrix(t_matrix a, t_matrix b)
 	out.fw = vec3_normalize(vec3_add(a.fw, b.fw));
 	return (out);
 }
+
+t_vec3	pleurmatrix(t_vec3 v, t_matrix mat)
+{
+	t_vec3	new;
+
+	new.x = v.x * mat.r.x + v.y * mat.up.x + v.z * mat.fw.x;
+	new.y = v.x * mat.r.y + v.y * mat.up.y + v.z * mat.fw.y;
+	new.z = v.x * mat.r.z + v.y * mat.up.z + v.z * mat.fw.z;
+	return (new);
+}
+

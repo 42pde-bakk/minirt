@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/18 18:36:25 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/19 10:13:51 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,34 +64,30 @@ int		keyinput(int keycode, t_data *my_mlx)
 	}
 	if (keycode == LEFT_ARROW)
 	{
-		my_mlx->cam->camtoworld = addmatrix(my_mlx->cam->camtoworld, roty(CAM_ROT_SPEED));
-		// printvec(my_mlx->cam->s, "cam->s");
-		// printvec(my_mlx->cam->v, "cam->v");
-		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
-		// printvec(my_mlx->cam->v, "cam->v");
+		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, roty(2 * CAM_ROT_SPEED * -1));
 		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
+		// my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
+		setmatrix(my_mlx);
 		newframe(my_mlx);
 	}
 	if (keycode == RIGHT_ARROW)
 	{
-		my_mlx->cam->v.x -= 0.10f;
-		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, roty(2 * CAM_ROT_SPEED));
 		setmatrix(my_mlx);
 		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
 		newframe(my_mlx);
 	}
 	if (keycode == UP_ARROW)
 	{
-		my_mlx->cam->v.y += 0.10f;
-		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, rotx(2 * CAM_ROT_SPEED));
 		setmatrix(my_mlx);
 		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
 		newframe(my_mlx);
 	}
 	if (keycode == DOWN_ARROW)
 	{
-		my_mlx->cam->v.y -= 0.10f;
-		my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
+		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, rotx(2 * CAM_ROT_SPEED * -1));
 		setmatrix(my_mlx);
 		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
 		newframe(my_mlx);
