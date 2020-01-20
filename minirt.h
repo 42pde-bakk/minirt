@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/20 20:03:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/20 23:13:07 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,15 @@ typedef struct	s_vec3
 	double	y;
 	double	z;
 }				t_vec3;
+
+typedef struct s_quat
+{
+	double	w;
+	double	x;
+	double	y;
+	double	z;
+}				t_quat;
+
 
 typedef	struct	s_matrix
 {
