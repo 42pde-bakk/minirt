@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/18 16:16:19 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/20 19:51:29 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ray(t_data *my_mlx)
 	double		pndcy;
 	unsigned	ret;
 
-	// t_matrix camtoworld = setmatrix(my_mlx);
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);

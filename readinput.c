@@ -6,13 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/19 10:13:51 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/20 20:26:49 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	arrowkeys(int keycode, t_data *my_mlx)
+void	wasd(int keycode, t_data *my_mlx)
 {
 	if (keycode == AKEY)
 	{
@@ -38,10 +38,61 @@ void	arrowkeys(int keycode, t_data *my_mlx)
 		printf("Y-5: %f\n", my_mlx->cam->s.y);
 		newframe(my_mlx);
 	}
+	if (keycode == QKEY)
+	{
+		my_mlx->cam->s.z = my_mlx->cam->s.z + 5.0;
+		printf("Z+5: %f\n", my_mlx->cam->s.z);
+		newframe(my_mlx);
+	}
+	if (keycode == EKEY)
+	{
+		my_mlx->cam->s.z = my_mlx->cam->s.z - 5.0;
+		printf("Z-5: %f\n", my_mlx->cam->s.z);
+		newframe(my_mlx);
+	}
+}
+
+void	arrowkeys(int keycode, t_data *my_mlx)
+{
+	t_vec3		adjust;
+	t_matrix	angles;
+
+	adjust = vec3_new(0.0, 0.0, 0.0);
+	if (keycode == LEFT_ARROW)
+	{
+		adjust = vec3_sub(adjust, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+	}
+	if (keycode == RIGHT_ARROW)
+	{
+		adjust = vec3_add(adjust, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+	}
+	if (keycode == UP_ARROW)
+	{
+		adjust = vec3_add(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+	}
+	if (keycode == DOWN_ARROW)
+	{
+		adjust = vec3_sub(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+	}
+//	adjust = deg2radvec(adjust);
+	/* do angle shit */
+	// printmatrix(my_mlx->cam->c2w);
+	// printf("\n");
+	// printvec(adjust, "adjust=");
+	angles = mat4_angles(adjust);
+	// printf("angles be:\n");
+	// printmatrix(angles);
+	// printf("\n");
+	my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, rotate(adjust));
+	my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
+//	my_mlx->cam->c2w = multmatrix(my_mlx->cam->c2w, angles);
+	// printmatrix(my_mlx->cam->c2w);
+	newframe(my_mlx);
 }
 
 int		keyinput(int keycode, t_data *my_mlx)
 {
+	wasd(keycode, my_mlx);
 	arrowkeys(keycode, my_mlx);
 	if (keycode == ESCAPE)
 	{
@@ -52,44 +103,16 @@ int		keyinput(int keycode, t_data *my_mlx)
 	}
 	if (keycode == NUMONE)
 	{
-		my_mlx->cam->s.z = my_mlx->cam->s.z + 5.0;
-		printf("Z+5: %f\n", my_mlx->cam->s.z);
+		printmatrix(my_mlx->cam->c2w);
+		printf("\n");
+		my_mlx->cam->c2w = multmatrix(my_mlx->cam->c2w, rotz(CAM_ROT_SPEED));
+		printmatrix(my_mlx->cam->c2w);
+		// my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
 		newframe(my_mlx);
 	}
 	if (keycode == NUMZERO)
 	{
-		my_mlx->cam->s.z = my_mlx->cam->s.z - 5.0;
-		printf("Z-5: %f\n", my_mlx->cam->s.z);
-		newframe(my_mlx);
-	}
-	if (keycode == LEFT_ARROW)
-	{
-		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, roty(2 * CAM_ROT_SPEED * -1));
-		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
-		// my_mlx->cam->v = vec3_normalize(my_mlx->cam->v);
-		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
-		setmatrix(my_mlx);
-		newframe(my_mlx);
-	}
-	if (keycode == RIGHT_ARROW)
-	{
-		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, roty(2 * CAM_ROT_SPEED));
-		setmatrix(my_mlx);
-		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
-		newframe(my_mlx);
-	}
-	if (keycode == UP_ARROW)
-	{
-		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, rotx(2 * CAM_ROT_SPEED));
-		setmatrix(my_mlx);
-		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
-		newframe(my_mlx);
-	}
-	if (keycode == DOWN_ARROW)
-	{
-		my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, rotx(2 * CAM_ROT_SPEED * -1));
-		setmatrix(my_mlx);
-		printf("cam.v=[%f, %f, %f]\n", my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z);
+		my_mlx->cam->c2w = multmatrix(my_mlx->cam->c2w, rotz(-CAM_ROT_SPEED));
 		newframe(my_mlx);
 	}
 	return (1);

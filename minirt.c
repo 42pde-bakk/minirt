@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/18 15:42:13 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/20 17:32:37 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ t_data	*init_my_mlx(int fd)
 
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-	setmatrix(my_mlx);
+	// setmatrix(my_mlx);
 	ray(my_mlx);
 	printf("linelength=%i, bpp=%d\n", my_mlx->line_length, my_mlx->bpp);
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height, "Printing RONDJES like a motherfucking boss bitch");
