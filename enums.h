@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/20 19:55:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 22:24:19 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,4 +60,6 @@ typedef enum		e_key_code
 	DKEY = 2,
 	EKEY = 14,
 	QKEY = 12,
+	PLUS = 69,
+	MINUS = 78,
 }					t_key_code;

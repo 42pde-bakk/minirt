@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 19:04:16 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 22:29:30 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,10 +77,23 @@ void	arrowkeys(int keycode, t_data *my_mlx)
 	}
 }
 
+void	swapcameras(int keycode, t_data *my_mlx)
+{
+	if (keycode == PLUS)
+	{
+		if (my_mlx->cam->next == NULL)
+			my_mlx->cam = my_mlx->camhead;
+		else
+			my_mlx->cam = my_mlx->cam->next;
+		newframe(my_mlx);
+	}	
+}
+
 int		keyinput(int keycode, t_data *my_mlx)
 {
 	wasd(keycode, my_mlx);
 	arrowkeys(keycode, my_mlx);
+	swapcameras(keycode, my_mlx);
 	if (keycode == ESCAPE)
 	{
 		(void)my_mlx;

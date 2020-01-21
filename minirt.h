@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 20:17:16 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 22:21:30 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,7 @@ typedef struct	s_data
 	t_scene		*scene;
 	t_light		*light;
 	t_cam		*cam;
+	t_cam		*camhead;
 	t_ray		*ray;
 	t_sphere	*sphere;
 	t_plane		*plane;
@@ -207,6 +208,8 @@ void				loopspheres(t_data *my_mlx);
 int					parse_sphere(t_data *my_mlx, char *line, int *i);
 int					parse_square(t_data *my_mlx, char *line, int *i);
 int					parse_plane(t_data *my_mlx, char *line, int *i);
+
+int					find_camera(t_data *my_mlx, char *line, int *i);
 
 int					find_sphere(t_data *my_mlx);
 int					find_objects(t_data *my_mlx);

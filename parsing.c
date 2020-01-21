@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 18:54:06 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 22:12:51 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,37 +59,6 @@ int				find_light(t_data *my_mlx, char *line, int *i)
 	new->next = NULL;
 	ft_lstadd_back_light(&my_mlx->light, new);
 	printf("Light:coords={%f, %f, %f}, brightness=%f, colour={%f, %f, %f}\n", new->s.x, new->s.y, new->s.z, new->brightness, new->colour.r, new->colour.g, new->colour.b);
-	return (1);
-}
-
-int				find_camera(t_data *my_mlx, char *line, int *i)
-{
-	t_cam	*head;
-
-	head = my_mlx->cam;
-	while (my_mlx->cam != NULL)
-		my_mlx->cam = my_mlx->cam->next;
-	my_mlx->cam = malloc(sizeof(t_cam));
-	if (!my_mlx->cam)
-		return (0);
-	my_mlx->cam->s.x = ft_atof_peer(line, i);
-	my_mlx->cam->s.y = ft_atof_peer(line, i);
-	my_mlx->cam->s.z = ft_atof_peer(line, i);
-
-	my_mlx->cam->v.x = ft_atof_peer(line, i);
-	my_mlx->cam->v.y = ft_atof_peer(line, i);
-	my_mlx->cam->v.z = ft_atof_peer(line, i);
-
-	my_mlx->cam->fov = ft_atoi_peer(line, i);
-	my_mlx->cam->next = NULL;
-	my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
-	my_mlx->cam->quat = quat_init(1.0, 0.0, 0.0, 0);
-	my_mlx->cam->quat = quat_mult(quat_lookat(vec3_new(1, 0, 0),
-                my_mlx->cam->v), my_mlx->cam->quat);
-	my_mlx->cam->c2w = quat_to_matrix(my_mlx->cam->quat);
-	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->s.x, my_mlx->cam->s.y, my_mlx->cam->s.z, my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z, my_mlx->cam->fov);
-	if (head != NULL)
-		my_mlx->cam = head;
 	return (1);
 }
 

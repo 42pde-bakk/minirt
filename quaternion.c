@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 18:53:44 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 22:41:23 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ t_quat	quat_norm(t_quat quat)
 t_quat	quat_mult(t_quat a, t_quat b)
 {
     t_quat  new;
+	printquat(a, "quatA is");
+	printquat(b, "quatB is");
 
     new.w = a.w * b.w - a.x * b.x - a.y * b.y - a.z * b.z;
     new.x = a.w * b.x + a.x * b.w + a.y * b.z - a.z * b.y;
