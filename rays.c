@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/20 19:51:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 20:46:51 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,12 @@ void	ray(t_data *my_mlx)
 		{
 			pndcx = ndcx(my_mlx, x);
 			setcamera(my_mlx, pndcx, pndcy);
+			if (x == 0 && y == 0)
+			{
+				printvec(my_mlx->ray->v, "ray->v gotcha bitch");
+			}
 			ret = find_objects(my_mlx);
-			if (my_mlx->ray->length > 0)
+			if (my_mlx->ray->length != 0.0)
 			{
 				my_mlx->ray->colour = light_tracing(my_mlx);
 				put_rgb(my_mlx, x, y, my_mlx->ray->colour);

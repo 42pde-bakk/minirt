@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/20 23:52:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 19:04:16 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,30 +55,26 @@ void	wasd(int keycode, t_data *my_mlx)
 void	arrowkeys(int keycode, t_data *my_mlx)
 {
 	t_vec3		adjust;
-	t_matrix	angles;
 
 	adjust = vec3_new(0.0, 0.0, 0.0);
-	if (keycode == LEFT_ARROW)
-		adjust = vec3_sub(adjust, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
-	if (keycode == RIGHT_ARROW)
-		adjust = vec3_add(adjust, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
-	if (keycode == UP_ARROW)
-		adjust = vec3_add(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
-	if (keycode == DOWN_ARROW)
-		adjust = vec3_sub(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
-	if (keycode == NUMONE)
-		adjust = vec3_add(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
-	if (keycode == NUMZERO)
-		adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
-	angles = mat4_angles(adjust);
-	// printf("angles be:\n");
-	// printmatrix(angles);
-	// printf("\n");
-	my_mlx->cam->v = pleurmatrix(my_mlx->cam->v, rotate(adjust));
-	my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
-//	my_mlx->cam->c2w = multmatrix(my_mlx->cam->c2w, angles);
-	// printmatrix(my_mlx->cam->c2w);
-	newframe(my_mlx);
+	if (keycode == LEFT_ARROW || keycode == RIGHT_ARROW || keycode == UP_ARROW
+		|| keycode == DOWN_ARROW || keycode == NUMZERO || keycode == NUMONE)
+	{
+		if (keycode == LEFT_ARROW)
+			adjust = vec3_sub(adjust, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+		if (keycode == RIGHT_ARROW)
+			adjust = vec3_add(adjust, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+		if (keycode == UP_ARROW)
+			adjust = vec3_add(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+		if (keycode == DOWN_ARROW)
+			adjust = vec3_sub(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+		if (keycode == NUMONE)
+			adjust = vec3_add(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+		if (keycode == NUMZERO)
+			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+		my_mlx->cam->c2w = ft_newrotate(my_mlx, adjust);
+		newframe(my_mlx);
+	}
 }
 
 int		keyinput(int keycode, t_data *my_mlx)

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 23:43:57 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/21 20:48:48 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ int		find_sphere(t_data *my_mlx)
 
 	tmp = vec3_sub(my_mlx->sphere->s, my_mlx->cam->s);
 	t = dotproduct(tmp, my_mlx->ray->v);
+	if (t < 0)
+		return (0);
 	p = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray->v, t));
 	y = find_length(p, my_mlx->sphere->s);
 	if (y < my_mlx->sphere->diameter / 2)

@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/20 17:31:28 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/21 17:39:33 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = miniRT
 
 SRC = minirt.c parsing.c objects.c parseobjects.c vectors.c rays.c \
 sphere.c planesquare.c readinput.c lighting.c colour.c obstacles.c matrices.c \
-vectors_adv.c degrad.c boat.c mat4_angles.c
+vectors_adv.c degrad.c quaternion.c mat4_angles.c
 
 MAX_RESX := $(shell displayplacer list | grep "current mode" | awk -F '[:x]' '/mode/{print$$3}')
 MAX_RESY := $(shell displayplacer list | grep "current mode" | awk -F '[:xc]' '/mode/{print$$4}')

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/20 23:13:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 20:17:16 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,7 @@ typedef struct	s_cam
 	t_vec3			v;
 	int				fov;
 	t_matrix		c2w;
+	t_quat			quat;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -252,7 +253,6 @@ t_col			light_tracing(t_data *my_mlx);
 /*
 matrices.c
 */
-t_vec3			multdirmatrix(t_vec3 src, t_matrix mat);
 void			printvec(t_vec3 v, char *s);
 void			printmatrix(t_matrix v);
 void			setmatrix(t_data *my_mlx);
@@ -272,9 +272,17 @@ double			rad2deg(double radians);
 t_vec3			rad2degvec(t_vec3 v);
 t_vec3			deg2radvec(t_vec3 v);
 /*
-boat.c
+quaternion.c
 */
 t_matrix		mat4_lookat(t_vec3 position, t_vec3 target);
 t_matrix		mat4_new(t_vec3	right, t_vec3 up, t_vec3 forward, t_vec3 t);
 t_matrix		mat4_angles(t_vec3 angles);
+
+void			printquat(t_quat quat, char *str);
+t_matrix		quat_to_matrix(t_quat quat);
+t_quat			quat_mult(t_quat a, t_quat b);
+t_quat			quat_init(double w, double x, double y, double z);
+t_quat     		quat_new(double x, double y, double z, double angle);
+t_quat   		quat_lookat(t_vec3 to, t_vec3 from);
+t_matrix   		ft_newrotate(t_data *my_mlx, t_vec3 angle);
 #endif

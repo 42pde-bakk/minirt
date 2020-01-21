@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/20 17:31:06 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 18:54:06 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,13 @@ int				find_camera(t_data *my_mlx, char *line, int *i)
 	my_mlx->cam->fov = ft_atoi_peer(line, i);
 	my_mlx->cam->next = NULL;
 	my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
+	my_mlx->cam->quat = quat_init(1.0, 0.0, 0.0, 0);
+	my_mlx->cam->quat = quat_mult(quat_lookat(vec3_new(1, 0, 0),
+                my_mlx->cam->v), my_mlx->cam->quat);
+	my_mlx->cam->c2w = quat_to_matrix(my_mlx->cam->quat);
+	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->s.x, my_mlx->cam->s.y, my_mlx->cam->s.z, my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z, my_mlx->cam->fov);
 	if (head != NULL)
 		my_mlx->cam = head;
-	
-	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\n", my_mlx->cam->s.x, my_mlx->cam->s.y, my_mlx->cam->s.z, my_mlx->cam->v.x, my_mlx->cam->v.y, my_mlx->cam->v.z, my_mlx->cam->fov);
 	return (1);
 }
 
