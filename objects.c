@@ -6,13 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 20:48:48 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/22 15:21:42 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int			find_triangle(t_data *my_mlx)
+int			find_triangle(t_triangle tri, t_data *my_mlx)
 {
 	t_vec3	edge0;
 	t_vec3	edge1;
@@ -45,11 +45,40 @@ int			find_triangle(t_data *my_mlx)
     return (1); // this ray hits the triangle 
 }
 
-// int			find_square(t_data *my_mlx)
+// int			triangle_intersection(t_triangle tri, t_data *my_mlx)
 // {
-// 	t_vec3	perpplane1;
-// 	t_vec3	perpplane2;
+// 	t_vec3	edge0;
+// 	t_vec3	edge1;
+// 	t_vec3	pvec;
+// 	double	det;
+// 	double	invdet;
+// 	t_vec3	tvec;
+	
+
+// 	edge0 = vec3_sub(tri.s1, tri.s0);
+// 	edge1 = vec3_sub(tri.s2, tri.s0);
+// 	pvec = crossproduct(my_mlx->ray->v, edge1);
+// 	det = dotproduct(edge0, pvec);
+
+// 	if (fabs(det) < EPSILON)
+// 		return (0);
+	
 // }
+
+int			find_square(t_data *my_mlx)
+{
+	if (find_triangle(my_mlx->square->tri[0], my_mlx) == 1)
+	{
+		return (1);
+	}
+	else if (find_triangle(my_mlx->square->tri[1], my_mlx) == 1)
+		return (1);
+	else
+	{
+		return (0);
+	}
+	
+}
 
 int			find_plane(t_data *my_mlx)
 {
@@ -141,7 +170,7 @@ int		find_objects(t_data *my_mlx)
 	thead = my_mlx->triangle;
 	while (my_mlx->triangle)
 	{
-		ret = find_triangle(my_mlx);
+		ret = find_triangle(*my_mlx->triangle, my_mlx);
 		my_mlx->triangle = my_mlx->triangle->next;
 	}
 	my_mlx->triangle = thead;

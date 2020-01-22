@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 22:12:23 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 22:40:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/22 13:53:09 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ int				find_camera(t_data *my_mlx, char *line, int *i)
 	new->quat = quat_init(1.0, 0.0, 0.0, 0);
 	new->quat = quat_mult(quat_lookat(vec3_new(1, 0, 0),
                 new->v), new->quat);
-	printquat(new->quat, "we on that new quat shit");
 	new->c2w = quat_to_matrix(new->quat);
 	ft_lstadd_back_camera(&my_mlx->cam, new);
 	if (headcheck == 0)

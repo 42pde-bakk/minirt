@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 22:21:30 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/22 15:14:27 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,10 @@ typedef struct	s_square
 	t_vec3			normal;
 	double			size;
 	t_col			colour;
+	t_matrix		localmat;
+	t_vec3			upvec;
+	t_vec3			rightvec;
+	t_triangle		tri[2];
 	struct s_square	*next;
 }				t_square;
 
@@ -286,6 +290,7 @@ t_matrix		quat_to_matrix(t_quat quat);
 t_quat			quat_mult(t_quat a, t_quat b);
 t_quat			quat_init(double w, double x, double y, double z);
 t_quat     		quat_new(double x, double y, double z, double angle);
+t_quat   		quat_lookat_peer(t_vec3 position, t_vec3 dirv);
 t_quat   		quat_lookat(t_vec3 to, t_vec3 from);
 t_matrix   		ft_newrotate(t_data *my_mlx, t_vec3 angle);
 #endif

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/21 20:52:10 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/21 23:35:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	setcamera(t_data *my_mlx, double pndcx, double pndcy)
 	tmp = vec3_new(pndcx, pndcy, -1.0);
 	tmp = vec3_normalize(tmp);
 	my_mlx->ray->v = pleurmatrix(tmp, camtoworld);
-	// my_mlx->ray->v.x *= -1;
+	my_mlx->ray->v.x *= -1;
 	my_mlx->ray->v = vec3_normalize(my_mlx->ray->v);
 }
 

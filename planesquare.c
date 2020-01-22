@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/17 16:22:20 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/22 15:14:10 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,15 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 	new->size = ft_atof_peer(line, i);
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;
+	new->localmat = mat4_lookat(new->s, vec3_add(new->s, new->normal));
+	new->upvec = vec3_mult(new->localmat.up, new->size / 2);
+	new->rightvec = vec3_mult(new->localmat.r, new->size / 2);
+	new->tri[0].s0 = vec3_add(vec3_sub(new->s, new->upvec), new->rightvec);
+	new->tri[0].s1 = vec3_add(vec3_add(new->s, new->upvec), new->rightvec);
+	new->tri[0].s2 = vec3_sub(vec3_sub(new->s, new->upvec), new->rightvec);
+	new->tri[1].s0 = new->tri[0].s0;
+	new->tri[1].s1 = vec3_sub(vec3_sub(new->s, new->upvec), new->rightvec);
+	new->tri[1].s2 = new->tri[0].s2;
 	ft_lstadd_back_square(&my_mlx->square, new);
 	return (1);
 }
