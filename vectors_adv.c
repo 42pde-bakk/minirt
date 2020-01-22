@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 23:32:34 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/17 23:35:29 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/22 21:13:47 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,11 @@ double	vec3_sqr(t_vec3 vec)
 {
 	return (pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
 }
+
+// t_vec3	vec3_perpendicular(t_vec3 v1)
+// {
+// 	t_vec3	v2;
+// 	int		imin;
+
+// 	if (fmax(v1.x, fmax(v1.y, v2.y)) == v1.x)
+// }

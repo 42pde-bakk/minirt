@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/21 23:35:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/22 15:29:24 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static t_matrix	lookat_by_matrix(t_vec3 position, t_vec3 target)
 	forward = vec3_normalize(vec3_sub(position, target));
 	right = crossproduct(stdup, forward);
 	up = crossproduct(forward, right);
-	printvec(up, "lookat by matrix upvector");
+	// printvec(up, "lookat by matrix upvector");
 	return (mat4_new(right, up, forward, position));
 }
 

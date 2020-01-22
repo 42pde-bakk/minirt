@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/22 13:49:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/22 21:33:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,12 +127,16 @@ t_quat		quat_lookat(t_vec3 to, t_vec3 from)
 {
     double  angle;
     t_vec3   up;
+	double	len;
 
     angle = acos(dotproduct(vec3_normalize(to), vec3_normalize(from)));
     up = vec3_normalize(crossproduct(from, to));
-	if (nancheck(up) == 1)
+	len = vec3_sqr(up);
+	if (len < EPSILON && len > -EPSILON)
 		up = vec3_new(0.0, 1.0, 0.0);
-	printvec(up, "vecUP");
+	// if (nancheck(up) == 1)
+	// 	up = vec3_new(0.0, 1.0, 0.0);
+	// printvec(up, "vecUP");
     return (quat_new(up.x, up.y, up.z, rad2deg(angle)));
 }
 

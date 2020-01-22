@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 22:12:23 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/22 13:53:09 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/22 15:29:32 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int				find_camera(t_data *my_mlx, char *line, int *i)
 	new->next = NULL;
 	new->c2w = mat4_lookat(new->s, vec3_add(new->s, new->v));
 	printf("camera: coords={%f, %f, %f}, vector={%f, %f, %f}, fov=%i\nWith matrix being:\n", new->s.x, new->s.y, new->s.z, new->v.x, new->v.y, new->v.z, new->fov);
-	printmatrix(new->c2w);
+	// printmatrix(new->c2w);
 	new->quat = quat_init(1.0, 0.0, 0.0, 0);
 	new->quat = quat_mult(quat_lookat(vec3_new(1, 0, 0),
                 new->v), new->quat);
