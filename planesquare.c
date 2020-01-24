@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/22 21:25:57 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/23 22:55:40 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_lstadd_back_square(t_square **alst, t_square *new)
 int		parse_square(t_data *my_mlx, char *line, int *i)
 {
 	t_square	*new;
+	t_quat		quat;
 
 	new = malloc(sizeof(t_square));
 	if (new == NULL)
@@ -46,13 +47,21 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 
 	new->normal.x = ft_atof_peer(line, i);
 	new->normal.y = ft_atof_peer(line, i);
+	new->normal.y *= -1;
 	new->normal.z = ft_atof_peer(line, i);
 	new->size = ft_atof_peer(line, i);
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;
-	new->localmat = mat4_lookat(new->s, vec3_add(new->s, new->normal));
-	new->normal.y = new->normal.y * -1;
-	printmatrix(new->localmat);
+	if (new->normal.y == 1.0 || new->normal.y == -1.0)
+	{
+		quat = quat_init(1.0, 0.0, 0.0, 0);
+		quat = quat_mult(quat_lookat(vec3_new(1, 0, 0),
+   	             new->normal), quat);
+		new->localmat = quat_to_matrix(quat);
+	}
+	else
+		new->localmat = mat4_lookat(new->s, vec3_add(new->s, new->normal));
+	// printmatrix(new->localmat);
 	new->upvec = vec3_mult(new->localmat.up, new->size / 2);
 	new->rightvec = vec3_mult(new->localmat.r, new->size / 2);
 	new->tri[0].s0 = vec3_sub(vec3_add(new->s, new->upvec), new->rightvec);
@@ -63,15 +72,6 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 	new->tri[1].s1 = vec3_add(vec3_add(new->s, new->upvec), new->rightvec);
 	new->tri[1].s0 = new->tri[0].s2;
 	new->tri[1].colour = new->colour;
-
-	printvec(new->s, "square location");
-	printvec(new->tri[0].s0, "tri[0].s0");
-	printvec(new->tri[0].s1, "tri[0].s1");
-	printvec(new->tri[0].s2, "tri[0].s2");
-	printvec(new->tri[1].s0, "tri[1].s0");
-	printvec(new->tri[1].s1, "tri[1].s1");
-	printvec(new->tri[1].s2, "tri[1].s2");
-
 	ft_lstadd_back_square(&my_mlx->square, new);
 	return (1);
 }

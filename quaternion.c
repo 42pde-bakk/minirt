@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/22 21:33:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/23 19:18:50 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,29 +91,29 @@ t_quat		quat_new(double x, double y, double z, double angle)
     return (new);
 }
 
-t_quat		quat_lookat_peer(t_vec3 position, t_vec3 dirv)
-{
-	t_vec3	axis;
-	t_quat	quat;
-	double	angle;
-	double	normal;
+// t_quat		quat_lookat_peer(t_vec3 position, t_vec3 dirv)
+// {
+// 	t_vec3	axis;
+// 	t_quat	quat;
+// 	double	angle;
+// 	double	normal;
 
-	(void)position;
-	angle = acos(dotproduct(vec3_new(0.0, 0.0, 1.0), dirv));
-	// printf("angle = %f\n", angle);
-	axis = crossproduct(vec3_new(0.0, 0.0, 1.0), dirv);
-	axis = vec3_normalize(axis);
-	// printf("axis_sqr=%f\n", vec3_sqr(axis));
-	if (vec3_sqr(axis) > -EPSILON && vec3_sqr(axis) < EPSILON)
-		axis = vec3_new(0.0, 1.0, 0.0);
-	normal = sqrt(1.0 / (pow(cos(angle * 0.5), 2.0) + pow(axis.x \
-			* sin(angle * 0.5), 2.0) + pow(axis.y * sin(angle * 0.5), 2.0) \
-			+ pow(axis.z * sin(angle * 0.5), 2.0)));
+// 	(void)position;
+// 	angle = acos(dotproduct(vec3_new(0.0, 0.0, 1.0), dirv));
+// 	// printf("angle = %f\n", angle);
+// 	axis = crossproduct(vec3_new(0.0, 0.0, 1.0), dirv);
+// 	axis = vec3_normalize(axis);
+// 	// printf("axis_sqr=%f\n", vec3_sqr(axis));
+// 	if (vec3_sqr(axis) > -EPSILON && vec3_sqr(axis) < EPSILON)
+// 		axis = vec3_new(0.0, 1.0, 0.0);
+// 	normal = sqrt(1.0 / (pow(cos(angle * 0.5), 2.0) + pow(axis.x \
+// 			* sin(angle * 0.5), 2.0) + pow(axis.y * sin(angle * 0.5), 2.0) \
+// 			+ pow(axis.z * sin(angle * 0.5), 2.0)));
 
-	// quat = quat_new(axis.x, axis.y, axis.z, rad2deg(angle));
-	quat = quat_new(axis.x * normal, axis.y * normal, axis.z * normal, rad2deg(angle));
-	return (quat);
-}
+// 	// quat = quat_new(axis.x, axis.y, axis.z, rad2deg(angle));
+// 	quat = quat_new(axis.x * normal, axis.y * normal, axis.z * normal, rad2deg(angle));
+// 	return (quat);
+// }
 
 int			nancheck(t_vec3 vec)
 {

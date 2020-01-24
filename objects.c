@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/22 21:44:41 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/23 23:28:50 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,65 @@ int			find_plane(t_data *my_mlx)
 	return (0);
 }
 
+// int		find_cylinder(t_data *my_mlx)
+// {
+// 	double	a;
+// 	double	b;
+// 	double	c;
+// 	double	discriminant;
+
+// 	// R(t) = o + td
+// 	// x² + z² = r²
+// 	// (ox+tdx)² + (oz+tdz)² = r²
+// 	// (ox)² + 2oxtdx + (tdx)² + (oz)² + 2oztdz + (tdz)² = r²
+// 	// t²(dx + dz) + 2t(oxdx + ozdz) + (ox)² + (oz)² - r² = 0
+// 	// a=(dx + dz); b = 2(oxdx + ozdz); c = (ox)² + (oz)² - r²
+
+// 	a = pow(my_mlx->ray->v.x, 2) + pow(my_mlx->ray->v.z, 2);
+// 	b = 2 * pow(my_mlx->ray->v.x, 2) + 2 * pow(my_mlx->ray->v.y, 2);
+// 	c = a - 1;
+// 	discriminant = pow(b, 2) - (4 * a * c);
+
+// }
+
+int		visualize_lightsource(t_data *my_mlx)
+{
+	t_vec3	tmp;
+	double	t;
+	double	x;
+	double	y;
+	double	t1;
+	double	t2;
+	t_vec3	p;
+
+	tmp = vec3_sub(my_mlx->light->s, my_mlx->cam->s);
+	t = dotproduct(tmp, my_mlx->ray->v);
+	if (t < 0)
+		return (0);
+	p = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray->v, t));
+	y = find_length(p, my_mlx->light->s);
+	if (y < 1)
+	{
+		if (pow(2, 2) - (y * y) < 0)
+			return (0);
+		x = sqrt(pow(1, 2) - pow(y, 2));
+		t1 = (t - x);
+		t2 = t + x;
+		if (t1 < my_mlx->ray->length || my_mlx->ray->length == 0)
+		{
+			if (my_mlx->cam->s.z > t1 * my_mlx->ray->v.z)
+				my_mlx->ray->length = t2;
+			else
+				my_mlx->ray->length = t1;
+			my_mlx->ray->colour = my_mlx->light->colour;
+			// my_mlx->ray->hitnormal = vec3_sub(my_mlx->sphere->s, vec3_mult(my_mlx->ray->v, t1));
+			// my_mlx->ray->hitnormal = vec3_normalize(my_mlx->ray->hitnormal);
+		}
+		return (1);
+	}
+	return (0);	
+}
+
 int		find_sphere(t_data *my_mlx)
 {
 	t_vec3	tmp;
@@ -167,8 +226,17 @@ int		find_objects(t_data *my_mlx)
 	t_plane		*phead;
 	t_triangle	*thead;
 	t_square	*shead;
+	t_light		*lighthead;
 	int			ret;
 
+	lighthead = my_mlx->light;
+	while (my_mlx->light)
+	{
+		ret = visualize_lightsource(my_mlx);
+		my_mlx->light = my_mlx->light->next;
+	}
+	my_mlx->light = lighthead;
+	
 	phead = my_mlx->plane;
 	while (my_mlx->plane)
 	{

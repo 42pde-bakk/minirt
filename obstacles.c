@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/17 23:40:35 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/24 15:47:43 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,9 @@ int		sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
 		return (0);
 	double thc = sqrt(my_mlx->sphere->diameter / 2 - d2);
 	if (distance < tca - thc)
-		return (0);
-	else
 		return (1);
+	else
+		return (0);
 }
 
 int			find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)

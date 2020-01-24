@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/17 23:37:46 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/24 15:45:18 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_col		light_add(t_data *my_mlx, t_vec3 dir, int ret)
 	{	
 		r2 = vec3_sqr(dir);
 		double tmp = dotproduct(my_mlx->ray->hitnormal, vec3_normalize(dir));
-		intensity = fmin((light.brightness * 80 / (4.0 * M_PI * r2)) * fmax(tmp, 0.0) * ALBEDO, 1.0);
+		intensity = fmin((light.brightness * 200 / (4.0 * M_PI * r2)) * fmax(tmp, 0.0) * ALBEDO, 1.0);
 		out = colour_mul(hitcol, light.colour, intensity);
 //		printf("hitcol={%f, %f, %f} & tmp=%f || intens=%f, out={%f, %f, %f}\n", hitcol.r, hitcol.g, hitcol.b, tmp, intensity, out.r, out.g, out.b);
 		return (out);
@@ -54,6 +54,9 @@ t_col	light_tracing(t_data *my_mlx)
 		pos = vec3_sub(pos, vec3_mult(dir, EPSILON));
 		dir = vec3_sub(my_mlx->light->s, pos);
 		distance = find_length(pos, my_mlx->light->s);
+		// printf("distance = %f\n", distance);
+		if (my_mlx->ray->colour.b == 20)
+			printf("yellow ball: distance=%f\n", distance);
 		ret = find_obstacles(my_mlx, pos, dir, distance);
 //		printf("totalfirst={%f,%f,%f} (so not really total tbh)\n", total.r, total.g, total.b);
 		total = colour_add(total, light_add(my_mlx, dir, ret));
