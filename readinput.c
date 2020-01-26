@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 22:29:30 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/25 18:28:54 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	arrowkeys(int keycode, t_data *my_mlx)
 		if (keycode == DOWN_ARROW)
 			adjust = vec3_sub(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
 		if (keycode == NUMONE)
-			adjust = vec3_add(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+			adjust = vec3_add(adjust, vec3_new(0.0, 0.0, 2 * CAM_ROT_SPEED));
 		if (keycode == NUMZERO)
-			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, 2 * CAM_ROT_SPEED));
 		my_mlx->cam->c2w = ft_newrotate(my_mlx, adjust);
 		newframe(my_mlx);
 	}

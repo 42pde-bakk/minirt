@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/24 15:47:43 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/26 01:02:08 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,18 +44,22 @@ int		sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
 	if (d2 > pow(my_mlx->sphere->diameter / 2, 2))
 		return (0);
 	double thc = sqrt(my_mlx->sphere->diameter / 2 - d2);
-	if (distance < tca - thc)
-		return (1);
-	else
+	if (distance < fabs(tca - thc))
 		return (0);
+	else
+		return (1);
 }
 
-int			find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
+int			find_obstacles(t_data *my_mlx, double distance)
 {
 	t_sphere	*head;
 	int			ret;
+	t_vec3		dir;
+	t_vec3		pos;
 
 	ret =  0;
+	pos = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray->v, my_mlx->ray->length - EPSILON));
+	dir = vec3_sub(my_mlx->light->s, pos);
 	head = my_mlx->sphere;
 //	pos = vector_sub(pos, vec_mult(dir, EPSILON));
 	dir = vec3_normalize(dir);

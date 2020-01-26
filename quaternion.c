@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/23 19:18:50 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/25 19:11:18 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,30 +91,6 @@ t_quat		quat_new(double x, double y, double z, double angle)
     return (new);
 }
 
-// t_quat		quat_lookat_peer(t_vec3 position, t_vec3 dirv)
-// {
-// 	t_vec3	axis;
-// 	t_quat	quat;
-// 	double	angle;
-// 	double	normal;
-
-// 	(void)position;
-// 	angle = acos(dotproduct(vec3_new(0.0, 0.0, 1.0), dirv));
-// 	// printf("angle = %f\n", angle);
-// 	axis = crossproduct(vec3_new(0.0, 0.0, 1.0), dirv);
-// 	axis = vec3_normalize(axis);
-// 	// printf("axis_sqr=%f\n", vec3_sqr(axis));
-// 	if (vec3_sqr(axis) > -EPSILON && vec3_sqr(axis) < EPSILON)
-// 		axis = vec3_new(0.0, 1.0, 0.0);
-// 	normal = sqrt(1.0 / (pow(cos(angle * 0.5), 2.0) + pow(axis.x \
-// 			* sin(angle * 0.5), 2.0) + pow(axis.y * sin(angle * 0.5), 2.0) \
-// 			+ pow(axis.z * sin(angle * 0.5), 2.0)));
-
-// 	// quat = quat_new(axis.x, axis.y, axis.z, rad2deg(angle));
-// 	quat = quat_new(axis.x * normal, axis.y * normal, axis.z * normal, rad2deg(angle));
-// 	return (quat);
-// }
-
 int			nancheck(t_vec3 vec)
 {
 	if (vec.x != vec.x || vec.y != vec.y || vec.z != vec.z)
@@ -183,19 +159,40 @@ void		printquat(t_quat quat, char *str)
 	printf("quat.y=%f\n", quat.y);
 	printf("quat.z=%f\n", quat.z);
 }
+
+t_matrix	lookat_by_matrix(t_vec3 position, t_vec3 target)
+{
+	t_vec3	forward;
+	t_vec3	right;
+	t_vec3	up;
+
+	forward = vec3_normalize(vec3_sub(position, target));
+	right = crossproduct(vec3_new(0.0, 1.0, 0.0), forward);
+	up = crossproduct(forward, right);
+	return (mat4_new(right, up, forward, position));
+}
+
 t_matrix    ft_newrotate(t_data *my_mlx, t_vec3 angle)
 {
     t_quat  res;
-	if (angle.x > 0.0 || angle.x < 0)
-		res = quat_new(1.0, 0.0, 0.0, angle.x);
-	else if (angle.y > 0.0 || angle.y < 0)
-		res = quat_new(0.0, 1.0, 0.0, angle.y);
-	else if (angle.z > 0.0 || angle.z < 0)
-		res = quat_new(0.0, 0.0, 1.0, angle.z);
-	else
+	t_vec3	unit;
+
+	unit = vec3_normalize(vec3_sub(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v)));
+	if (unit.x == 0.0 && unit.z == 0.0 && (unit.y == 1.0 || unit.y == -1.0))
+	{
 		res = quat_new(0.0, 0.0, 0.0, 0.0);
-    my_mlx->cam->quat = quat_mult(res, my_mlx->cam->quat);
-	// printvec(my_mlx->cam->v, "cam->v in quatrot");
-	// printquat(my_mlx->cam->quat, "quat after rotation is");
-    return (quat_to_matrix(my_mlx->cam->quat));
+		if (angle.x > 0.0 || angle.x < 0)
+			res = quat_new(1.0, 0.0, 0.0, angle.x);
+		if (angle.y > 0.0 || angle.y < 0)
+			res = quat_new(0.0, 1.0, 0.0, angle.y);
+		if (angle.z > 0.0 || angle.z < 0)
+			res = quat_new(0.0, 0.0, 1.0, angle.z);
+	    my_mlx->cam->quat = quat_mult(res, my_mlx->cam->quat);
+    	return (quat_to_matrix(my_mlx->cam->quat));
+	}
+	else
+	{
+		my_mlx->cam->v = addrotation(my_mlx->cam->v, angle);
+		return (lookat_by_matrix(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v)));
+	}
 }

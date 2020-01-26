@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/23 00:20:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/26 01:02:45 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdio.h>
 
 # ifndef ALBEDO
-#  define ALBEDO 2
+#  define ALBEDO 40
 # endif
 
 # ifndef EPSILON
@@ -224,7 +224,6 @@ void				ray(t_data *my_mlx);
 /*
 **Parsing
 */
-// unsigned		createhexcolour(char *line, int *i);
 t_col				parse_tcol(char *line, int *i);
 void				ft_parser(t_data *my_mlx, int fd);
 int					parse_objects(t_data *my_mlx, char *line, int *i);
@@ -240,22 +239,23 @@ int					mouseinput(int keycode, t_data *my_mlx);
 */
 int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
 int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
-int				find_obstacles(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
+int				find_obstacles(t_data *my_mlx, double distance);
 /*
 **colour.c
 */
 t_col			colour_mult(t_col col, double c1, double c2);
 t_col			coltimescol(t_col a, t_col b);
-t_col			colour_new(void);
+t_col			colour_new(double r, double g, double b);
 t_col			colour_add(t_col v1, t_col v2);
 t_col			colour_check(t_col col);
 t_col			col_times_lightratio(t_col col, t_col light, double max);
 t_col			colour_mul(t_col coloura, t_col colourb, double mul);
+t_col			colour_cap(t_col colour);
 /*
 **lighting.c
 */
 t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
-t_col			light_add(t_data *my_mlx, t_vec3 dir, int ret);
+t_col			light_add(t_data *my_mlx, int ret);
 t_col			light_tracing(t_data *my_mlx);
 /*
 matrices.c
@@ -264,10 +264,6 @@ void			printvec(t_vec3 v, char *s);
 void			printmatrix(t_matrix v);
 void			setmatrix(t_data *my_mlx);
 void			setcamera(t_data *my_mlx, double pndcx, double pndcy);
-t_matrix		rotx(double camrot);
-t_matrix		roty(double camrot);
-t_matrix		rotz(double camrot);
-t_matrix		rotate(t_vec3 angle);
 t_matrix		multmatrix(t_matrix a, t_matrix b);
 t_matrix		addmatrix(t_matrix a, t_matrix b);
 t_vec3			pleurmatrix(t_vec3 v, t_matrix mat);
@@ -278,6 +274,13 @@ double			deg2rad(double degrees);
 double			rad2deg(double radians);
 t_vec3			rad2degvec(t_vec3 v);
 t_vec3			deg2radvec(t_vec3 v);
+/*
+rotations.c
+*/
+t_matrix		rotate_xaxis(double camrot);
+t_matrix		rotate_yaxis(double camrot);
+t_matrix		rotate_zaxis(double camrot);
+t_vec3			addrotation(t_vec3 lookdir, t_vec3 angle);
 /*
 quaternion.c
 */
