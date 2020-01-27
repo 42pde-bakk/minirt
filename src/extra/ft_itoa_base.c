@@ -6,11 +6,11 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/28 18:29:13 by pde-bakk       #+#    #+#                */
-/*   Updated: 2019/12/30 17:04:27 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 17:53:45 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
+#include "libft.h"
 
 static int	ft_amount(long long nb, long long base)
 {

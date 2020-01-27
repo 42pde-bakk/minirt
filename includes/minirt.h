@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 14:10:43 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 18:31:14 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 # define FT_MINIRT_H
 
 # include <math.h>
-# include "minilibx_mms_20191025_beta/mlx.h"
-# include "includes/libft/libft.h"
-# include "includes/gnl/get_next_line.h"
+# include "mlx.h"
+# include "libft.h"
+# include "get_next_line.h"
 # include "enums.h"
 # include <stdlib.h>
 # include <unistd.h>
@@ -185,62 +185,26 @@ typedef struct	s_data
 }				t_data;
 
 /*
-**Extra functions
+**../src/extra:
 */
-int					ft_amount(long int nb);
-int					ft_iswhitespace(char c);
-int					ft_objectcheck(const char *id);
-double				ft_atof_peer(const char *str, int *i);
-int					ft_atoi_peer(const char *str, int *i);
-/*
-**Vector mathematics
-*/
-t_vec3				vec3_sub(t_vec3 v1, t_vec3 v2);
-t_vec3				vec3_add(t_vec3 v1, t_vec3 v2);
-double				dotproduct(t_vec3 v1, t_vec3 v2);
-t_vec3				vec3_mult(t_vec3 v1, double d);
-double				find_length(t_vec3 s, t_vec3 p);
-t_vec3				vec3_new(double x, double y, double z);
-double				vec3_sqr(t_vec3 vec);
-t_vec3				vec3_normalize(t_vec3 ray);
-t_vec3				crossproduct(t_vec3 v1, t_vec3 v2);
-t_vec3				vec3_perpendicular(t_vec3 v1);
-/*
-**Objects
-*/
-void				loopspheres(t_data *my_mlx);
-int					parse_sphere(t_data *my_mlx, char *line, int *i);
-int					parse_square(t_data *my_mlx, char *line, int *i);
-int					parse_plane(t_data *my_mlx, char *line, int *i);
+int				ft_amount(long int nb);
+char			*ft_itoa_base(long long nb, long long base);
+int				ft_iswhitespace(char c);
+double			ft_atof_peer(const char *str, int *i);
+int				ft_atoi_peer(const char *str, int *i);
 
-int					find_camera(t_data *my_mlx, char *line, int *i);
-
-int					find_sphere(t_data *my_mlx);
-int					find_objects(t_data *my_mlx);
 /*
-**Rays
+**../src/lighting:
 */
-void				ray(t_data *my_mlx);
-/*
-**Parsing
-*/
-t_col				parse_tcol(char *line, int *i);
-void				ft_parser(t_data *my_mlx, int fd);
-int					parse_objects(t_data *my_mlx, char *line, int *i);
+t_col			light_add(t_data *my_mlx, int ret);
+t_col			light_tracing(t_data *my_mlx);
 
-void				put_pixel(t_data *my_mlx, int x, int y, unsigned color);
-int					newframe(t_data *my_mlx);
-t_data				*init_my_mlx(int fd);
-
-int					keyinput(int keycode, t_data *my_mlx);
-int					mouseinput(int keycode, t_data *my_mlx);
-/*
-**obstacles.c
-*/
 int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
 int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
 int				find_obstacles(t_data *my_mlx, double distance);
+
 /*
+**../src/math:
 **colour.c
 */
 t_col			colour_mult(t_col col, double c1, double c2);
@@ -251,12 +215,6 @@ t_col			colour_check(t_col col);
 t_col			col_times_lightratio(t_col col, t_col light, double max);
 t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 t_col			colour_cap(t_col colour);
-/*
-**lighting.c
-*/
-t_col			ambient_lighting(t_data *my_mlx, t_col	colour);
-t_col			light_add(t_data *my_mlx, int ret);
-t_col			light_tracing(t_data *my_mlx);
 /*
 matrices.c
 */
@@ -296,4 +254,57 @@ t_quat     		quat_new(double x, double y, double z, double angle);
 t_quat   		quat_lookat_peer(t_vec3 position, t_vec3 dirv);
 t_quat   		quat_lookat(t_vec3 to, t_vec3 from);
 t_matrix   		ft_newrotate(t_data *my_mlx, t_vec3 angle);
+/*
+**Vector mathematics
+*/
+t_vec3				vec3_sub(t_vec3 v1, t_vec3 v2);
+t_vec3				vec3_add(t_vec3 v1, t_vec3 v2);
+double				dotproduct(t_vec3 v1, t_vec3 v2);
+t_vec3				vec3_mult(t_vec3 v1, double d);
+double				find_length(t_vec3 s, t_vec3 p);
+t_vec3				vec3_new(double x, double y, double z);
+double				vec3_sqr(t_vec3 vec);
+t_vec3				vec3_normalize(t_vec3 ray);
+t_vec3				crossproduct(t_vec3 v1, t_vec3 v2);
+t_vec3				vec3_perpendicular(t_vec3 v1);
+/*
+**Parsing
+*/
+int					parse_camera(t_data *my_mlx, char *line, int *i);
+int					parse_light(t_data *my_mlx, char *line, int *i);
+int					parse_cylinder(t_data *my_mlx, char *line, int *i);
+int					parse_plane(t_data *my_mlx, char *line, int *i);
+int					parse_sphere(t_data *my_mlx, char *line, int *i);
+int					parse_square(t_data *my_mlx, char *line, int *i);
+int					parse_triangle(t_data *my_mlx, char *line, int *i);
+
+t_col				parse_tcol(char *line, int *i);
+int					parse_objects(t_data *my_mlx, char *line, int *i);
+int					find_res_amb_cam_light(t_data *my_mlx, char *line, int *i);
+void				ft_parser(t_data *my_mlx, int fd);
+
+/*
+**Objects
+*/
+int					find_cylinder(t_data *my_mlx);
+int					find_plane(t_data *my_mlx);
+int					find_sphere(t_data *my_mlx);
+int					find_square(t_data *my_mlx);
+int					find_triangle(t_triangle *tri, t_data *my_mlx);
+
+int					find_objects(t_data *my_mlx);
+
+/*
+**And scene:
+*/
+
+void				put_pixel(t_data *my_mlx, int x, int y, unsigned color);
+int					newframe(t_data *my_mlx);
+t_data				*init_my_mlx(int fd);
+
+void				ray(t_data *my_mlx);
+
+int					keyinput(int keycode, t_data *my_mlx);
+int					mouseinput(int keycode, t_data *my_mlx);
+
 #endif

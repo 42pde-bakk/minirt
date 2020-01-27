@@ -6,11 +6,9 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/29 16:22:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/14 16:45:25 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/01/27 17:53:36 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <stdio.h>
 
 int			ft_iswhitespace(char c)
 {
