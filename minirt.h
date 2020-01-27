@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/26 01:02:45 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 14:10:43 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,7 @@ int					mouseinput(int keycode, t_data *my_mlx);
 /*
 **obstacles.c
 */
-int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir);
+int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
 int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
 int				find_obstacles(t_data *my_mlx, double distance);
 /*

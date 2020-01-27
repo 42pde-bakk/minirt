@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/25 18:28:54 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 15:00:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int		keyinput(int keycode, t_data *my_mlx)
 	swapcameras(keycode, my_mlx);
 	if (keycode == ESCAPE)
 	{
-		(void)my_mlx;
+		// (void)my_mlx;
 		free(my_mlx->mlx_img);
 		free(my_mlx->mlx_ptr);
 		exit(0);

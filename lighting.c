@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/26 01:03:25 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 14:43:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ t_col		light_add(t_data *my_mlx, int ret)
 		double r2 = vec3_sqr(dir);
 		dir = vec3_normalize(dir);
 		tmp = fmax(dotproduct(my_mlx->ray->hitnormal, dir), 0.0);
-		intensity = fmin((10 * ALBEDO * light.brightness * 1/*tmp*/) / (4 * M_PI * r2), 1.0);
+		intensity = fmin((10.0 * ALBEDO * light.brightness * 1) / (4.0 * M_PI * r2), 1.0);
 		return (colour_mul(hitcol, light.colour, intensity));
 	}
 	else
