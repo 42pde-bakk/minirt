@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:08:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 00:32:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,21 @@ int		visualize_lightsource(t_data *my_mlx)
 	return (0);	
 }
 
+int		loop_cylinders(t_data *my_mlx)
+{
+	t_cylinder	*tmp;
+	int			ret;
+	
+	ret = 0;
+	tmp = my_mlx->cylinder;
+	while (tmp)
+	{
+		ret = find_cylinder(tmp, my_mlx);
+		tmp = tmp->next;
+	}
+	return (ret);
+}
+
 int		find_objects(t_data *my_mlx)
 {
 	t_sphere	*head;
@@ -74,6 +89,8 @@ int		find_objects(t_data *my_mlx)
 		my_mlx->plane = my_mlx->plane->next;
 	}
 	my_mlx->plane = phead;
+
+	ret = loop_cylinders(my_mlx);
 
 	head = my_mlx->sphere;
 	while (my_mlx->sphere)

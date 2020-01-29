@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 22:12:23 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:22:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 19:51:25 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,10 @@ int				parse_camera(t_data *my_mlx, char *line, int *i)
 	new->v.x = ft_atof_peer(line, i);
 	new->v.y = ft_atof_peer(line, i);
 	new->v.z = ft_atof_peer(line, i);
-
+	if (vec3_sqr(new->v) == 0)
+		new->v.z = 1.0;
+	else
+		new->v = vec3_normalize(new->v);
 	new->fov = ft_atoi_peer(line, i);
 	new->next = NULL;
 	// new->c2w = mat4_lookat(new->s, vec3_add(new->s, new->v));

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/27 14:55:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 19:55:39 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,14 @@ int		plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
 	double	denom;
 	double	t;
 
-	(void)distance;
 	tmp = vec3_sub(my_mlx->plane->s, pos);
 	denom = dotproduct(my_mlx->plane->normal, dir);
 	if (denom > 0.000001)
 	{
 		a = dotproduct(tmp, my_mlx->plane->normal);
 		t = a / denom;
-		if (t > 0)
+		if (t > 0 && t < distance)
 		{
-			// printf("light distance = %f, plane distance = %f\n", distance, t);
 			return (1);
 		}
 	}

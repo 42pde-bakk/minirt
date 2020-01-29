@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 17:59:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 17:59:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/28 20:13:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,6 @@ int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_cylinder(&my_mlx->cylinder, new);
+//	printf("cylinder: pos={%f, %f, %f}, v={%f, %f, %f}, diam=%f, height=%f\n", new->s.x, new->s.y, new->s.z, new->v.x, new->v.y, new->v.z, new->diameter, new->height);
 	return (1);
 }

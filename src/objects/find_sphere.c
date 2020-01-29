@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:07:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 20:04:10 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		find_sphere(t_data *my_mlx)
 			else
 				my_mlx->ray->length = t1;
 			my_mlx->ray->colour = my_mlx->sphere->colour;
-			my_mlx->ray->hitnormal = vec3_sub(my_mlx->sphere->s, vec3_mult(my_mlx->ray->v, t1));
+			my_mlx->ray->hitnormal = vec3_sub(my_mlx->sphere->s, vec3_mult(my_mlx->ray->v, my_mlx->ray->length));
 			my_mlx->ray->hitnormal = vec3_normalize(my_mlx->ray->hitnormal);
 		}
 		return (1);

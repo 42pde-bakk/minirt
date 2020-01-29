@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/27 18:31:51 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/27 21:41:53 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,14 +91,8 @@ $(NAME):
 	@cp $(LIBFT_DIR)/libft.a .
 	@echo "$(YELLOW)Making MiniLibX"
 	@make -C $(MLX_DIR)
-	cp $(MLX_DIR)/libmlx.dylib .
-	@echo MY_RESX is $(MAX_RESX)
-	@echo MY_RESY is $(MAX_RESY)
-
-	gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME)
-	#gcc -c -D MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY) $(FLAGS) $(HEADER) $(SRC) $(INCLUDES)
-	#ar -rcs $(NAME) $(OBJ) $(INCOBJ) libft.a
-	@echo "$(GREEN)Done!$(RESET)"
+	@cp $(MLX_DIR)/libmlx.dylib .
+	@gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME)
 
 clean:
 	@echo "$(RED)Cleaning..."

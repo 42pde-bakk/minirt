@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:31:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/28 22:29:46 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,24 @@ typedef struct	s_square
 	t_triangle		tri[2];
 	struct s_square	*next;
 }				t_square;
+
+typedef struct	s_cylhelp
+{
+	t_vec3	rayorigin;
+	t_vec3	raydir;
+	t_vec3	cylcenter;
+	t_vec3	cylrot;
+	t_vec3	dist;
+	t_vec3	c1;
+	t_vec3	c2;
+	double	abc1;
+	double	abc2;
+	double	abc3;
+	t_vec3	p1;
+	t_vec3	p2;
+	double	y0;
+	double	y1;
+}				t_cylhelp;
 
 typedef struct	s_cylinder
 {
@@ -286,7 +304,7 @@ void				ft_parser(t_data *my_mlx, int fd);
 /*
 **Objects
 */
-int					find_cylinder(t_data *my_mlx);
+int					find_cylinder(t_cylinder *cyl, t_data *my_mlx);
 int					find_plane(t_data *my_mlx);
 int					find_sphere(t_data *my_mlx);
 int					find_square(t_data *my_mlx);

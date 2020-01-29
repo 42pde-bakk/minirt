@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 15:00:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/27 21:40:16 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,24 @@ int		keyinput(int keycode, t_data *my_mlx)
 	return (1);
 }
 
-int		mouseinput(int keycode, t_data *my_mlx)
+int		mouseinput(int mlxhook, t_data *my_mlx)
 {
-	if (keycode == LEFT_CLICK)
+	static int	hidemouse;
+
+	if (mlxhook == 17)
 	{
-		printf("Newframe\n");
-		my_mlx->win_ptr = my_mlx->win_ptr;
-//		newframe(my_mlx);
+		free(my_mlx->mlx_img);
+		free(my_mlx->mlx_ptr);
+		exit(0);
+	}
+	if (mlxhook == MOUSE_PRESS_HOOK)
+	{
+		if (hidemouse % 2 == 0)
+			mlx_mouse_hide();
+		else
+			mlx_mouse_show();
+		hidemouse++;		
+		return (0);
 	}
 	return (1);
 }

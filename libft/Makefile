@@ -6,7 +6,7 @@
 #    By: pde-bakk <marvin@codam.nl>                   +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/10/31 13:45:00 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/04 18:47:16 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/27 21:42:27 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,17 +34,17 @@ FLAGS = -Wall -Werror -Wextra
 all: $(NAME)
 
 $(NAME):
-	gcc -c $(FLAGS) $(HEADER) $(SRC)
-	ar -rc $(NAME) $(OBJ)
+	@gcc -c $(FLAGS) $(HEADER) $(SRC)
+	@ar -rc $(NAME) $(OBJ)
 
 clean:
-	/bin/rm -f *.o *~ *.gch
+	@/bin/rm -f *.o *~ *.gch
 
 fclean: clean
-	/bin/rm -f $(NAME)
+	@/bin/rm -f $(NAME)
 
 re: fclean all
 
 bonus:
-	gcc -c $(FLAGS) $(SRC) $(BONUS) $(HEADER)
-	ar -rc $(NAME) $(OBJ) $(BONUSOBJ)
+	@gcc -c $(FLAGS) $(SRC) $(BONUS) $(HEADER)
+	@ar -rc $(NAME) $(OBJ) $(BONUSOBJ)
