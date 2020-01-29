@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/28 22:29:46 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 17:41:49 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,9 +124,9 @@ typedef struct	s_cylhelp
 	t_vec3	dist;
 	t_vec3	c1;
 	t_vec3	c2;
+	double	abc0;
 	double	abc1;
 	double	abc2;
-	double	abc3;
 	t_vec3	p1;
 	t_vec3	p2;
 	double	y0;
@@ -324,5 +324,5 @@ void				ray(t_data *my_mlx);
 
 int					keyinput(int keycode, t_data *my_mlx);
 int					mouseinput(int keycode, t_data *my_mlx);
-
+int					ripwindow(t_data *my_mlx);
 #endif

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/25 19:11:18 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 17:53:54 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,8 @@ t_matrix    ft_newrotate(t_data *my_mlx, t_vec3 angle)
     t_quat  res;
 	t_vec3	unit;
 
-	unit = vec3_normalize(vec3_sub(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v)));
+//	unit = vec3_normalize(vec3_sub(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v)));
+	unit = my_mlx->cam->v;
 	if (unit.x == 0.0 && unit.z == 0.0 && (unit.y == 1.0 || unit.y == -1.0))
 	{
 		res = quat_new(0.0, 0.0, 0.0, 0.0);

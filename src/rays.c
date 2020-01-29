@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/25 20:39:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 17:54:39 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ void	ray(t_data *my_mlx)
 	double		pndcy;
 	unsigned	ret;
 
+	printvec(my_mlx->cam->v, "cam->v");
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 21:40:16 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 17:41:25 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,14 @@ int		keyinput(int keycode, t_data *my_mlx)
 		exit(0);
 	}
 	return (1);
+}
+
+int	ripwindow(t_data *my_mlx)
+{
+	free(my_mlx->mlx_img);
+	free(my_mlx->mlx_img2);
+	free(my_mlx->mlx_ptr);
+	exit(0);
 }
 
 int		mouseinput(int mlxhook, t_data *my_mlx)

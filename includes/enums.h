@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/21 22:24:19 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 17:38:43 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ typedef enum		e_event_code
 	KEY_PRESS_CODE = 2,
 	KEY_RELEASE_CODE = 3,
 	RED_BUTTON_CODE = 17,
+	DESTROY_EVENT = 1L<<17,
 }					t_event_code;
 
 typedef enum		e_ft_mlx_hooks
