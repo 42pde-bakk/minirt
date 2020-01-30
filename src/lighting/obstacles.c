@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/27 19:55:39 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 00:12:06 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@ int		plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
 	return (0);
 }
 
-int		sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance)
+int		sphere_obs(t_data *my_mlx, t_vec3 hitpos, t_vec3 dir, double distance)
 {
 	t_vec3	l;
 	double	tca;
 
-	l = vec3_sub(my_mlx->sphere->s, pos);
+	l = vec3_sub(my_mlx->sphere->s, hitpos);
 	tca = dotproduct(l, dir);
 	if (tca < 0)
 		return (0);

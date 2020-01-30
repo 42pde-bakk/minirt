@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 22:06:16 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:26:30 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/29 18:57:05 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		parse_sphere(t_data *my_mlx, char *line, int *i)
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
-
 	new->diameter = ft_atof_peer(line, i);
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;

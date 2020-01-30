@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:24:02 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 00:11:49 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ void			ft_parser(t_data *my_mlx, int fd)
 	char	*line;
 	int		start;
 	int		i;
+	int		ret;
 
-	while (get_next_line(fd, &line) > 0)
+	ret = 1;
+	while (ret > 0)
 	{
+		ret = get_next_line(fd, &line);
 		i = 0;
 		while (ft_iswhitespace(line[i]) == 1)
 			i++;

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/29 17:54:39 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 00:34:01 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ void	ray(t_data *my_mlx)
 	double		pndcy;
 	unsigned	ret;
 
-	printvec(my_mlx->cam->v, "cam->v");
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);
@@ -87,7 +86,7 @@ void	ray(t_data *my_mlx)
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length != 0.0)
 			{
-				// my_mlx->ray->length = fabs(my_mlx->ray->length);
+				my_mlx->ray->length = fabs(my_mlx->ray->length);
 				my_mlx->ray->colour = light_tracing(my_mlx);
 				put_rgb(my_mlx, x, y, my_mlx->ray->colour);
 				my_mlx->ray->length = 0.0;

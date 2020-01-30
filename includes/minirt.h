@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/29 17:41:49 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 01:11:14 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,8 +269,8 @@ t_matrix		quat_to_matrix(t_quat quat);
 t_quat			quat_mult(t_quat a, t_quat b);
 t_quat			quat_init(double w, double x, double y, double z);
 t_quat     		quat_new(double x, double y, double z, double angle);
-t_quat   		quat_lookat_peer(t_vec3 position, t_vec3 dirv);
 t_quat   		quat_lookat(t_vec3 to, t_vec3 from);
+t_matrix		lookat_by_matrix(t_vec3 position, t_vec3 target);
 t_matrix   		ft_newrotate(t_data *my_mlx, t_vec3 angle);
 /*
 **Vector mathematics

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/29 17:53:54 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 01:10:21 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,24 +132,24 @@ t_quat		quat_lookat(t_vec3 to, t_vec3 from)
 // 	return (out);
 // }
 
-t_matrix	quaternion_rotation_matrix(t_quat q)
-{
-	t_matrix	quatmat;
+// t_matrix	quaternion_rotation_matrix(t_quat q)
+// {
+// 	t_matrix	quatmat;
 
-	q = quat_norm(q);
-	quatmat.r.x = 1 - 2 * (q.y * q.y + q.z * q.z);
-	quatmat.r.y = 2 * (q.x * q.y - q.z * q.w);
-	quatmat.r.z = 2 * (q.x * q.z + q.y * q.w);
+// 	q = quat_norm(q);
+// 	quatmat.r.x = 1 - 2 * (q.y * q.y + q.z * q.z);
+// 	quatmat.r.y = 2 * (q.x * q.y - q.z * q.w);
+// 	quatmat.r.z = 2 * (q.x * q.z + q.y * q.w);
 
-	quatmat.up.x = 2 * (q.x * q.y + q.z * q.w);
-	quatmat.up.y = 1 - 2 * (q.x * q.x + q.z * q.z);
-	quatmat.up.z = 2 * (q.y * q.z - q.x * q.w);
+// 	quatmat.up.x = 2 * (q.x * q.y + q.z * q.w);
+// 	quatmat.up.y = 1 - 2 * (q.x * q.x + q.z * q.z);
+// 	quatmat.up.z = 2 * (q.y * q.z - q.x * q.w);
 
-	quatmat.fw.x = 2 * (q.x * q.z - q.y * q.w);
-	quatmat.fw.y = 2 * (q.y * q.z + q.x * q.w);
-	quatmat.fw.z = 1 - 2 * (q.x * q.x + q.y * q.y);
-	return (quatmat);
-}
+// 	quatmat.fw.x = 2 * (q.x * q.z - q.y * q.w);
+// 	quatmat.fw.y = 2 * (q.y * q.z + q.x * q.w);
+// 	quatmat.fw.z = 1 - 2 * (q.x * q.x + q.y * q.y);
+// 	return (quatmat);
+// }
 
 void		printquat(t_quat quat, char *str)
 {
@@ -158,18 +158,6 @@ void		printquat(t_quat quat, char *str)
 	printf("quat.x=%f\n", quat.x);
 	printf("quat.y=%f\n", quat.y);
 	printf("quat.z=%f\n", quat.z);
-}
-
-t_matrix	lookat_by_matrix(t_vec3 position, t_vec3 target)
-{
-	t_vec3	forward;
-	t_vec3	right;
-	t_vec3	up;
-
-	forward = vec3_normalize(vec3_sub(position, target));
-	right = crossproduct(vec3_new(0.0, 1.0, 0.0), forward);
-	up = crossproduct(forward, right);
-	return (mat4_new(right, up, forward, position));
 }
 
 t_matrix    ft_newrotate(t_data *my_mlx, t_vec3 angle)

@@ -6,13 +6,13 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:07:01 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 00:52:55 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int			find_triangle(t_triangle *tri, t_data *my_mlx)
+int			triangle_intersect(t_triangle *tri, t_data *my_mlx)
 {
 	t_vec3	edge0;
 	t_vec3	edge1;
@@ -44,4 +44,27 @@ int			find_triangle(t_triangle *tri, t_data *my_mlx)
 		my_mlx->ray->hitnormal = tri->normal;
 	}
     return (1); // this ray hits the triangle 
+}
+
+t_triangle	tri_rev(t_triangle t)
+{
+	t_triangle	out;
+
+	out = t;
+	out.s0 = t.s2;
+	out.s2 = t.s0;
+	return (out);
+}
+
+int	find_triangle(t_triangle *tri, t_data *my_mlx)
+{
+	t_triangle	rev;
+
+	rev = tri_rev(*tri);
+	if (triangle_intersect(tri, my_mlx) == 1)
+		return (1);
+	else if (triangle_intersect(&rev, my_mlx) == 1)
+		return (1);
+	else
+		return (0);
 }
