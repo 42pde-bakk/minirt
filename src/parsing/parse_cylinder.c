@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 17:59:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/28 20:13:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/31 19:22:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,15 @@ int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
-
 	new->v.x = ft_atof_peer(line, i);
 	new->v.y = ft_atof_peer(line, i);
 	new->v.z = ft_atof_peer(line, i);
-
-	new->diameter = ft_atof_peer(line, i);
-	new->height = ft_atof_peer(line, i);
-
+	if (vec3_sqr(new->v) == 0)
+		new->v.z = 1;
+	new->diameter = fmax(0.0, ft_atof_peer(line, i));
+	new->height = fmax(0.0, ft_atof_peer(line, i));
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_cylinder(&my_mlx->cylinder, new);
-//	printf("cylinder: pos={%f, %f, %f}, v={%f, %f, %f}, diam=%f, height=%f\n", new->s.x, new->s.y, new->s.z, new->v.x, new->v.y, new->v.z, new->diameter, new->height);
 	return (1);
 }

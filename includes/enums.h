@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/29 17:38:43 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 21:33:19 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,10 @@ typedef enum		e_ft_mlx_hooks
 
 typedef enum		e_key_code
 {
-	LEFT_CLICK = 1,
-	RIGHT_CLICK = 2,
-	SCROLL_UP = 4,
-	SCROLL_DOWN = 5,
+	// LEFT_CLICK = 1,
+	// RIGHT_CLICK = 2,
+	// SCROLL_UP = 4,
+	// SCROLL_DOWN = 5,
 	ZOOM_IN = 69,
 	ZOOM_OUT = 78,
 	SPACE = 49,
@@ -55,12 +55,12 @@ typedef enum		e_key_code
 	ESCAPE = 53,
 	NUMONE = 83,
 	NUMZERO = 82,
-	WKEY = 13,
 	AKEY = 0,
 	SKEY = 1,
 	DKEY = 2,
-	EKEY = 14,
 	QKEY = 12,
+	WKEY = 13,
+	EKEY = 14,
 	PLUS = 69,
 	MINUS = 78,
 }					t_key_code;

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 01:11:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/01 18:53:59 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,10 @@
 # endif
 
 # define CAM_SPEED 0.5
-# define CAM_ROT_SPEED 5.0
+# define CAM_ROT_SPEED -5.0
 # define CAM_FOV_STEP 2.0
 # define ROT_DEGREES 90.0
-# define TRANSLATE_STEP 1.0
+# define MOVE_SPEED -5.0
 
 typedef	struct	s_col
 {
@@ -91,6 +91,21 @@ typedef struct	s_plane
 	t_col			colour;
 	struct s_plane	*next;
 }				t_plane;
+
+typedef struct	s_trihelp
+{
+	t_vec3			edge0;
+	t_vec3			edge1;
+	t_vec3			edge2;
+	t_vec3			pvec;
+	t_vec3			qvec;
+	t_vec3			tvec;
+	double			u;
+	double			v;
+	double			det;
+	double			invdet;
+	double			t;
+}				t_trihelp;
 
 typedef struct	s_triangle
 {
@@ -214,12 +229,9 @@ int				ft_atoi_peer(const char *str, int *i);
 /*
 **../src/lighting:
 */
-t_col			light_add(t_data *my_mlx, int ret);
 t_col			light_tracing(t_data *my_mlx);
 
-int				plane_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
-int				sphere_obs(t_data *my_mlx, t_vec3 pos, t_vec3 dir, double distance);
-int				find_obstacles(t_data *my_mlx, double distance);
+int				find_obstacles(t_data *my_mlx, t_vec3 ldir, t_vec3 hitpos);
 
 /*
 **../src/math:
@@ -271,7 +283,7 @@ t_quat			quat_init(double w, double x, double y, double z);
 t_quat     		quat_new(double x, double y, double z, double angle);
 t_quat   		quat_lookat(t_vec3 to, t_vec3 from);
 t_matrix		lookat_by_matrix(t_vec3 position, t_vec3 target);
-t_matrix   		ft_newrotate(t_data *my_mlx, t_vec3 angle);
+//t_matrix   		ft_newrotate(t_data *my_mlx, t_vec3 angle);
 /*
 **Vector mathematics
 */
@@ -306,7 +318,7 @@ void				ft_parser(t_data *my_mlx, int fd);
 */
 int					find_cylinder(t_cylinder *cyl, t_data *my_mlx);
 int					find_plane(t_data *my_mlx);
-int					find_sphere(t_data *my_mlx);
+int					find_sphere(t_sphere *sp, t_data *my_mlx);
 int					find_square(t_data *my_mlx);
 int					find_triangle(t_triangle *tri, t_data *my_mlx);
 

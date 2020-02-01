@@ -6,19 +6,19 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 00:11:49 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/31 19:25:57 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_col			parse_tcol(char *line, int *i)
+t_col	parse_tcol(char *line, int *i)
 {
 	t_col	new;
 
-	new.r = ft_atof_peer(line, i);
-	new.g = ft_atof_peer(line, i);
-	new.b = ft_atof_peer(line, i);
+	new.r = fmax(0.0, fmin(255.0, ft_atof_peer(line, i)));
+	new.g = fmax(0.0, fmin(255.0, ft_atof_peer(line, i)));
+	new.b = fmax(0.0, fmin(255.0, ft_atof_peer(line, i)));
 	return (new);
 }
 
@@ -38,21 +38,21 @@ int		parse_objects(t_data *my_mlx, char *line, int *i)
 		return (0);
 }
 
-int				find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
+int		find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
 {
 	if (ft_strncmp(line, "R ", 2) == 0)
 	{
-		my_mlx->scene->width = fmin(2560.0, ft_atof_peer(line, i));
-		my_mlx->scene->height = fmin(1440.0, ft_atof_peer(line, i));
-		printf("Resolution= W%f by H%f\n", my_mlx->scene->width, my_mlx->scene->height);
-		printf("Max_res=[%i, %i]\n", MAX_RESX, MAX_RESY);
+		my_mlx->scene->width = fmax(0.0,
+		fmin(MAX_RESX, ft_atof_peer(line, i)));
+		my_mlx->scene->height = fmax(0.0,
+		fmin(MAX_RESY, ft_atof_peer(line, i)));
 		return (1);
 	}
 	else if (ft_strncmp(line, "A ", 2) == 0)
 	{
-		my_mlx->scene->ambintensity = ft_atof_peer(line, i);
+		my_mlx->scene->ambintensity = fmax(0.0, fmin(1.0,
+		ft_atof_peer(line, i)));
 		my_mlx->scene->amblightcolour = parse_tcol(line, i);
-		printf("Ambient lighting: %f, color={%f, %f, %f}\n", my_mlx->scene->ambintensity, my_mlx->scene->amblightcolour.r, my_mlx->scene->amblightcolour.g, my_mlx->scene->amblightcolour.b);
 		return (1);
 	}
 	else if (ft_strncmp(line, "c ", 2) == 0)
@@ -63,7 +63,7 @@ int				find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
 		return (parse_objects(my_mlx, line, i));
 }
 
-void			ft_parser(t_data *my_mlx, int fd)
+void	ft_parser(t_data *my_mlx, int fd)
 {
 	char	*line;
 	int		start;

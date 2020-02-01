@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:01:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:22:39 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/31 19:24:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,9 @@ int				parse_light(t_data *my_mlx, char *line, int *i)
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
-
 	new->brightness = fmax(0.0, fmin(1.0, ft_atof_peer(line, i)));
 	new->colour = parse_tcol(line, i);
 	new->next = NULL;
 	ft_lstadd_back_light(&my_mlx->light, new);
-	printf("Light:coords={%f, %f, %f}, brightness=%f, colour={%f, %f, %f}\n", new->s.x, new->s.y, new->s.z, new->brightness, new->colour.r, new->colour.g, new->colour.b);
 	return (1);
 }

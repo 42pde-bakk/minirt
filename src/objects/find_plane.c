@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:05 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:06:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 15:48:13 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int			find_plane(t_data *my_mlx)
 		a = dotproduct(sub, my_mlx->plane->normal);
 		t = a / denom;
 		if (t > 0)
-			if (t < my_mlx->ray->length || my_mlx->ray->length == 0)
+			if (t < my_mlx->ray->length)
 			{
 				my_mlx->ray->length = t;
 				my_mlx->ray->colour = my_mlx->plane->colour;

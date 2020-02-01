@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/29 17:20:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 21:20:45 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx)
 {
 	t_cylhelp	help;
 
-	help.rayorigin = my_mlx->cam->s; //rayorigin
-	help.raydir = my_mlx->ray->v; //raydirection
-	help.cylcenter = cyl->s; //cylinder center
-	help.cylrot = cyl->v; //cyl
+	help.rayorigin = my_mlx->cam->s;
+	help.raydir = my_mlx->ray->v;
+	help.cylcenter = cyl->s;
+	help.cylrot = cyl->v;
 	help.dist = vec3_sub(help.rayorigin, help.cylcenter);
 	help.c1 = vec3_sub(help.raydir, vec3_mult(help.cylrot, dotproduct(help.raydir, help.cylrot)));
 	help.c2 = vec3_sub(help.dist, vec3_mult(help.cylrot, dotproduct(help.dist, help.cylrot)));
@@ -28,7 +28,6 @@ t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx)
 	help.abc2 = vec3_sqr(help.c2) - pow((cyl->diameter / 2), 2);
 	help.p1 = vec3_sub(help.cylcenter, vec3_mult(help.cylrot, cyl->height / 2.0));
 	help.p2 = vec3_add(help.cylcenter, vec3_mult(help.cylrot, cyl->height / 2.0));
-
 	return (help);
 }
 
@@ -79,7 +78,7 @@ int		find_cylinder(t_cylinder *cyl, t_data *my_mlx)
 				res = fmin(help.y0, help.y1);
 			else
 				res = help.y1;
-			if ((res < my_mlx->ray->length || my_mlx->ray->length == 0.0))
+			if (res < my_mlx->ray->length)
 			{
 				my_mlx->ray->length = res;
 				my_mlx->ray->colour = cyl->colour;

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:03:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:03:34 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/31 15:46:02 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,36 +32,19 @@ void	ft_lstadd_back_square(t_square **alst, t_square *new)
 	}
 }
 
-int		parse_square(t_data *my_mlx, char *line, int *i)
+int		parse_square_2(t_square *new)
 {
-	t_square	*new;
-	t_quat		quat;
+	t_quat	quat;
 
-	new = malloc(sizeof(t_square));
-	if (new == NULL)
-		return (0);
-
-	new->s.x = ft_atof_peer(line, i);
-	new->s.y = ft_atof_peer(line, i);
-	new->s.z = ft_atof_peer(line, i);
-
-	new->normal.x = ft_atof_peer(line, i);
-	new->normal.y = ft_atof_peer(line, i);
-	new->normal.y *= -1;
-	new->normal.z = ft_atof_peer(line, i);
-	new->size = ft_atof_peer(line, i);
-	new->colour = parse_tcol(line, i);
-	new->next = NULL;
 	if (new->normal.y == 1.0 || new->normal.y == -1.0)
 	{
 		quat = quat_init(1.0, 0.0, 0.0, 0);
 		quat = quat_mult(quat_lookat(vec3_new(1, 0, 0),
-   	             new->normal), quat);
+		new->normal), quat);
 		new->localmat = quat_to_matrix(quat);
 	}
 	else
 		new->localmat = mat4_lookat(new->s, vec3_add(new->s, new->normal));
-	// printmatrix(new->localmat);
 	new->upvec = vec3_mult(new->localmat.up, new->size / 2);
 	new->rightvec = vec3_mult(new->localmat.r, new->size / 2);
 	new->tri[0].s0 = vec3_sub(vec3_add(new->s, new->upvec), new->rightvec);
@@ -72,6 +55,30 @@ int		parse_square(t_data *my_mlx, char *line, int *i)
 	new->tri[1].s1 = vec3_add(vec3_add(new->s, new->upvec), new->rightvec);
 	new->tri[1].s0 = new->tri[0].s2;
 	new->tri[1].colour = new->colour;
+	return (1);
+}
+
+int		parse_square(t_data *my_mlx, char *line, int *i)
+{
+	t_square	*new;
+
+	new = malloc(sizeof(t_square));
+	if (new == NULL)
+		return (0);
+	new->s.x = ft_atof_peer(line, i);
+	new->s.y = ft_atof_peer(line, i);
+	new->s.z = ft_atof_peer(line, i);
+	new->normal.x = ft_atof_peer(line, i);
+	new->normal.y = ft_atof_peer(line, i);
+	new->normal.y *= -1;
+	new->normal.z = ft_atof_peer(line, i);
+	if (vec3_sqr(new->normal) == 0)
+		new->normal.z = 1.0;
+	new->normal = vec3_normalize(new->normal);
+	new->size = fmax(0.0, ft_atof_peer(line, i));
+	new->colour = parse_tcol(line, i);
+	new->next = NULL;
+	parse_square_2(new);
 	ft_lstadd_back_square(&my_mlx->square, new);
 	return (1);
 }

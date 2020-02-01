@@ -6,44 +6,44 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 00:52:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/30 19:13:25 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
+t_trihelp	tri_calc(t_triangle *tri, t_data *my_mlx)
+{
+	t_trihelp	th;
+
+	th.edge0 = vec3_sub(tri->s1, tri->s0);
+	th.edge1 = vec3_sub(tri->s2, tri->s0);
+	th.pvec = crossproduct(my_mlx->ray->v, th.edge1);
+	th.det = dotproduct(th.edge0, th.pvec);
+	th.invdet = 1 / th.det;
+	th.tvec = vec3_sub(my_mlx->cam->s, tri->s0);
+	th.u = dotproduct(th.tvec, th.pvec) * th.invdet;
+	th.qvec = crossproduct(th.tvec, th.edge0);
+	th.v = dotproduct(my_mlx->ray->v, th.qvec) * th.invdet;
+	th.t = dotproduct(th.edge1, th.qvec) * th.invdet;
+	return (th);
+}
+
 int			triangle_intersect(t_triangle *tri, t_data *my_mlx)
 {
-	t_vec3	edge0;
-	t_vec3	edge1;
-	t_vec3	pvec;
-	double	det;
+	t_trihelp	th;
 
-	edge0 = vec3_sub(tri->s1, tri->s0);
-	edge1 = vec3_sub(tri->s2, tri->s0);
-	pvec = crossproduct(my_mlx->ray->v, edge1);
-	det = dotproduct(edge0, pvec);
-	if (det > 0)
+	th = tri_calc(tri, my_mlx);
+	if (th.det > 0 || fabs(th.det) < EPSILON ||
+		th.u < 0 || th.u > 1 || th.v < 0 || th.u + th.v > 1)
 		return (0);
-	if (fabs(det) < EPSILON)
-		return (0);
-	double	invdet = 1 / det;
-	t_vec3	tvec = vec3_sub(my_mlx->cam->s, tri->s0);
-	double	u = dotproduct(tvec, pvec) * invdet;
-	if (u < 0 || u > 1)
-		return (0);
-	t_vec3	qvec = crossproduct(tvec, edge0);
-	double	v = dotproduct(my_mlx->ray->v, qvec) * invdet;
-	if (v < 0 || u + v > 1)
-		return (0);
-	double	t = dotproduct(edge1, qvec) * invdet;
-	if (t < my_mlx->ray->length || my_mlx->ray->length == 0)
+	if (th.t < my_mlx->ray->length && th.t > 0)
 	{
-		my_mlx->ray->length = t;
+		my_mlx->ray->length = th.t;
 		my_mlx->ray->colour = tri->colour;
 		my_mlx->ray->hitnormal = tri->normal;
 	}
-    return (1); // this ray hits the triangle 
+	return (1);
 }
 
 t_triangle	tri_rev(t_triangle t)
@@ -56,7 +56,7 @@ t_triangle	tri_rev(t_triangle t)
 	return (out);
 }
 
-int	find_triangle(t_triangle *tri, t_data *my_mlx)
+int			find_triangle(t_triangle *tri, t_data *my_mlx)
 {
 	t_triangle	rev;
 

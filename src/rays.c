@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 00:34:01 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/02 00:53:19 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void	ray(t_data *my_mlx)
 			pndcx = ndcx(my_mlx, x);
 			setcamera(my_mlx, pndcx, pndcy);
 			ret = find_objects(my_mlx);
-			if (my_mlx->ray->length != 0.0)
+			if (my_mlx->ray->length < __INT_MAX__)
 			{
 				my_mlx->ray->length = fabs(my_mlx->ray->length);
 				my_mlx->ray->colour = light_tracing(my_mlx);
 				put_rgb(my_mlx, x, y, my_mlx->ray->colour);
-				my_mlx->ray->length = 0.0;
+				my_mlx->ray->length = __INT_MAX__;
 				my_mlx->ray->colour = colour_new(0, 0, 0);
 				my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
 			}

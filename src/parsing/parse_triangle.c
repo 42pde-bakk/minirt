@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/27 18:26:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/01/31 19:22:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	ft_lstadd_back_triangle(t_triangle **alst, t_triangle *new)
 int		parse_triangle(t_data *my_mlx, char *line, int *i)
 {
 	t_triangle	*new;
-	t_vec3	tmp1;
-	t_vec3	tmp2;
+	t_vec3		tmp1;
+	t_vec3		tmp2;
 
 	new = malloc(sizeof(t_triangle));
 	if (new == NULL)
@@ -44,15 +44,12 @@ int		parse_triangle(t_data *my_mlx, char *line, int *i)
 	new->s0.x = ft_atof_peer(line, i);
 	new->s0.y = ft_atof_peer(line, i);
 	new->s0.z = ft_atof_peer(line, i);
-
 	new->s1.x = ft_atof_peer(line, i);
 	new->s1.y = ft_atof_peer(line, i);
 	new->s1.z = ft_atof_peer(line, i);
-
 	new->s2.x = ft_atof_peer(line, i);
 	new->s2.y = ft_atof_peer(line, i);
 	new->s2.z = ft_atof_peer(line, i);
-
 	new->colour = parse_tcol(line, i);
 	tmp1 = vec3_sub(new->s1, new->s0);
 	tmp2 = vec3_sub(new->s2, new->s0);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/29 17:41:25 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/01 17:49:42 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,27 @@
 
 void	wasd(int keycode, t_data *my_mlx)
 {
-	if (keycode == AKEY)
+	t_vec3	movement;
+
+	movement = vec3_new(0.0, 0.0, 0.0);
+	if ((keycode >= AKEY && keycode <= DKEY) || (keycode >= QKEY && keycode <= EKEY))
 	{
-		my_mlx->cam->s.x = my_mlx->cam->s.x - 5.0;
-		printf("X-5: %f\n", my_mlx->cam->s.x);
-		newframe(my_mlx);
-	}
-	if (keycode == DKEY)
-	{
-		my_mlx->cam->s.x = my_mlx->cam->s.x + 5.0;
-		printf("X-5: %f\n", my_mlx->cam->s.x);
-		newframe(my_mlx);
-	}
-	if (keycode == WKEY)
-	{
-		my_mlx->cam->s.y = my_mlx->cam->s.y + 5.0;
-		printf("Y+5: %f\n", my_mlx->cam->s.y);
-		newframe(my_mlx);
-	}
-	if (keycode == SKEY)
-	{
-		my_mlx->cam->s.y = my_mlx->cam->s.y - 5.0;
-		printf("Y-5: %f\n", my_mlx->cam->s.y);
-		newframe(my_mlx);
-	}
-	if (keycode == QKEY)
-	{
-		my_mlx->cam->s.z = my_mlx->cam->s.z + 5.0;
-		printf("Z+5: %f\n", my_mlx->cam->s.z);
-		newframe(my_mlx);
-	}
-	if (keycode == EKEY)
-	{
-		my_mlx->cam->s.z = my_mlx->cam->s.z - 5.0;
-		printf("Z-5: %f\n", my_mlx->cam->s.z);
+		printmatrix(my_mlx->cam->c2w);
+		printf("\n");
+		//	movement = vec3_add(movement, vec3_new(0.0, MOVE_SPEED, 0.0));
+		if (keycode == WKEY)
+			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
+		if (keycode == AKEY)
+			my_mlx->cam->s = vec3_sub(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
+		if (keycode == SKEY)
+			my_mlx->cam->s = vec3_sub(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
+		if (keycode == DKEY)
+			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
+		if (keycode == QKEY)
+			my_mlx->cam->s = vec3_sub(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.up, MOVE_SPEED));
+		if (keycode == EKEY)
+			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.up, MOVE_SPEED));
+		//my_mlx->cam->s = vec3_add(my_mlx->cam->s, pleurmatrix(movement, my_mlx->cam->c2w));
 		newframe(my_mlx);
 	}
 }
@@ -69,10 +56,11 @@ void	arrowkeys(int keycode, t_data *my_mlx)
 		if (keycode == DOWN_ARROW)
 			adjust = vec3_sub(adjust, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
 		if (keycode == NUMONE)
-			adjust = vec3_add(adjust, vec3_new(0.0, 0.0, 2 * CAM_ROT_SPEED));
+			adjust = vec3_add(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
 		if (keycode == NUMZERO)
-			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, 2 * CAM_ROT_SPEED));
-		my_mlx->cam->c2w = ft_newrotate(my_mlx, adjust);
+			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+		my_mlx->cam->v = addrotation(my_mlx->cam->v, adjust);
+		my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
 		newframe(my_mlx);
 	}
 }
@@ -125,7 +113,7 @@ int		mouseinput(int mlxhook, t_data *my_mlx)
 	if (mlxhook == MOUSE_PRESS_HOOK)
 	{
 		if (hidemouse % 2 == 0)
-			mlx_mouse_hide();
+			mlx_mouse_show();
 		else
 			mlx_mouse_show();
 		hidemouse++;		

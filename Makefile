@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/27 21:41:53 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/01/31 15:29:28 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -92,7 +92,7 @@ $(NAME):
 	@echo "$(YELLOW)Making MiniLibX"
 	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/libmlx.dylib .
-	@gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME)
+	@gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME) -D MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY)
 
 clean:
 	@echo "$(RED)Cleaning..."

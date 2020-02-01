@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/30 00:12:06 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/02 00:50:55 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,47 +37,49 @@ int		sphere_obs(t_data *my_mlx, t_vec3 hitpos, t_vec3 dir, double distance)
 {
 	t_vec3	l;
 	double	tca;
+	double	d2;
+	double	thc;
 
-	l = vec3_sub(my_mlx->sphere->s, hitpos);
+	l = vec3_sub(hitpos, my_mlx->sphere->s);
 	tca = dotproduct(l, dir);
 	if (tca < 0)
 		return (0);
-	double	d2 = dotproduct(l, l) - tca * tca;
+	d2 = dotproduct(l, l) - tca * tca;
 	if (d2 > pow(my_mlx->sphere->diameter / 2, 2))
 		return (0);
-	double thc = sqrt(my_mlx->sphere->diameter / 2 - d2);
-	if (distance < fabs(tca - thc))
-		return (0);
-	else
+	thc = sqrt(my_mlx->sphere->diameter / 2 - d2);
+	if (tca - thc < distance)
+	{
+//		printf("obj found\n");
 		return (1);
+	}
+	else
+		return (0);
 }
 
-int			find_obstacles(t_data *my_mlx, double distance)
+int		find_objects1(t_data *my_mlx, t_vec3 hitpos, t_vec3 ldir, double lhdist)
 {
-	t_sphere	*head;
 	int			ret;
-	t_vec3		dir;
-	t_vec3		pos;
+	t_sphere	*spherehead;
 
-	ret =  0;
-	pos = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray->v, my_mlx->ray->length - EPSILON));
-	dir = vec3_sub(my_mlx->light->s, pos);
-	head = my_mlx->sphere;
-//	pos = vector_sub(pos, vec_mult(dir, EPSILON));
-	dir = vec3_normalize(dir);
+	spherehead = my_mlx->sphere;
+	ret = 0;
 	while (my_mlx->sphere && ret == 0)
 	{
-		ret = sphere_obs(my_mlx, pos, dir, distance);
+		ret = sphere_obs(my_mlx, hitpos, ldir, lhdist);
 		my_mlx->sphere = my_mlx->sphere->next;
-// gotta add a check to see if the obstacle is further away than raydir
 	}
-	my_mlx->sphere = head;
-	t_plane	*planehead = my_mlx->plane;
-	while (my_mlx->plane && ret == 0)
-	{
-		ret = plane_obs(my_mlx, pos, dir, distance);
-		my_mlx->plane = my_mlx->plane->next;
-	}
-	my_mlx->plane = planehead;
+	my_mlx->sphere = spherehead;
+	return (ret);
+}
+
+int		find_obstacles(t_data *my_mlx, t_vec3 ldir, t_vec3 hitpos)
+{
+	int	ret;
+	double	lhdist;
+
+	ldir = vec3_normalize(ldir);
+	lhdist = find_length(hitpos, my_mlx->light->s);
+	ret = find_objects1(my_mlx, hitpos, ldir, lhdist);
 	return (ret);
 }
