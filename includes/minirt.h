@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/01 18:53:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/03 16:07:14 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <stdio.h>
 
 # ifndef ALBEDO
-#  define ALBEDO 40
+#  define ALBEDO 40.0
 # endif
 
 # ifndef EPSILON

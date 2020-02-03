@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 12:06:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/25 23:13:00 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/03 18:24:13 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,6 @@ unsigned		vec_to_unsigned(t_vec3 vec)
 	g = (int)vec.y;
 	b = (int)vec.z;
 	return (((r & 0xff) << 16) + ((g & 0xff) << 8) + (b & 0xff));
-}
-
-t_col		colour_mult(t_col col, double c1, double c2)
-{
-	col.r *= c1 * c2;
-	col.g *= c1 * c2;
-	col.b *= c1 * c2;
-	return (col);
 }
 
 t_col		coltimescol(t_col a, t_col b)

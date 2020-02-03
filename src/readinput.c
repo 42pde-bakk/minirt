@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/01 17:49:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/03 16:55:13 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	wasd(int keycode, t_data *my_mlx)
 	movement = vec3_new(0.0, 0.0, 0.0);
 	if ((keycode >= AKEY && keycode <= DKEY) || (keycode >= QKEY && keycode <= EKEY))
 	{
-		printmatrix(my_mlx->cam->c2w);
-		printf("\n");
+		// printmatrix(my_mlx->cam->c2w);
+		// printf("\n");
 		//	movement = vec3_add(movement, vec3_new(0.0, MOVE_SPEED, 0.0));
 		if (keycode == WKEY)
 			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
