@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/03 16:55:13 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/04 00:26:08 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,24 +100,33 @@ int	ripwindow(t_data *my_mlx)
 	exit(0);
 }
 
-int		mouseinput(int mlxhook, t_data *my_mlx)
+t_vec3	lookingdir(t_data *my_mlx, double x, double y)
 {
-	static int	hidemouse;
+	t_vec3	out;
 
-	if (mlxhook == 17)
+	out = vec3_new(-x, y, -1.0);
+	out = vec3_normalize(out);
+	out = pleurmatrix(out, my_mlx->cam->c2w);
+	out = vec3_normalize(out);
+	return (out);
+}
+
+int		mouseinput(int button, int x, int y, t_data *my_mlx)
+{
+	t_vec3	ray;
+	char	*object;
+	int		index;
+
+	if (button == 1)
 	{
-		free(my_mlx->mlx_img);
-		free(my_mlx->mlx_ptr);
-		exit(0);
-	}
-	if (mlxhook == MOUSE_PRESS_HOOK)
-	{
-		if (hidemouse % 2 == 0)
-			mlx_mouse_show();
-		else
-			mlx_mouse_show();
-		hidemouse++;		
-		return (0);
+		object = "object";
+		index = -1;
+		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		printf("x=%d, y=%d\n", x, y);
+		ray = lookingdir(my_mlx, ndcx(my_mlx, x), ndcy(my_mlx, y));
+		printvec(ray, "lookingdir");
+		click_object(my_mlx, &object, &index, ray);
+		printf("obj=%s, index=%i\n", object, index);
 	}
 	return (1);
 }

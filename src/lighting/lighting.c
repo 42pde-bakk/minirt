@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/03 18:30:11 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/03 19:39:25 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_col	light_add(t_data *my_mlx, t_col out, t_vec3 ldir)
 	invdir = vec3_normalize(vec3_mult(ldir, -1.0));
 	dotnormal = fmax(0.0, dotproduct(my_mlx->ray->hitnormal, invdir));
 	intensity = fmin(1.0, my_mlx->light->brightness / (4.0 * M_PI * r2) * dotnormal * ALBEDO * 10);
-//	intensity = 10 * ALBEDO * my_mlx->light->brightness * dotnormal / (4.0 * M_PI * r2);
+//	printf("intensity=%f cus dotnormal =%f, with r2=%f\n", intensity, dotnormal, r2);
+//	printvec(ldir, "ldir");
 	return (colour_add(out, colour_mul(my_mlx->ray->colour, my_mlx->light->colour, intensity)));
 }
 

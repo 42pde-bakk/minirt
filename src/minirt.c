@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 15:47:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/03 20:24:15 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,8 @@ int		main(int argc, char **argv)
 	my_mlx = init_my_mlx(fd);
 	mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr, my_mlx->mlx_img, 0, 0);
 	mlx_hook(my_mlx->win_ptr, RED_BUTTON_CODE, DESTROY_EVENT, &ripwindow, my_mlx);
-	mlx_mouse_hook(my_mlx->win_ptr, &mouseinput, my_mlx);
+	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK, &mouseinput, my_mlx);
+//	mlx_mouse_hook(my_mlx->win_ptr, &mouseinput, my_mlx);
 	mlx_key_hook(my_mlx->win_ptr, &keyinput, my_mlx);
 	mlx_loop(my_mlx->win_ptr);
 }

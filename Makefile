@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/01/31 15:29:28 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/04 00:18:33 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20191025_beta/
 HEADER = -I ./includes/
 
-SRC = minirt.c rays.c readinput.c
+SRC = minirt.c rays.c readinput.c click_object.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 			parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
@@ -118,3 +118,13 @@ run: re
 	@make clean
 	@echo "$(PINK)bitch"
 	./miniRT ./scenes/example.rt
+
+sphere: re
+	@make clean
+	@echo "$(PINK)sphere"
+	./miniRT scenes/sphereonly.rt
+
+cyl: re
+	@make clean
+	@echo "$(PINK)cylinder"
+	./miniRT scenes/cylinder.rt

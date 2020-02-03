@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/03 16:07:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/04 00:18:16 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,9 +332,14 @@ void				put_pixel(t_data *my_mlx, int x, int y, unsigned color);
 int					newframe(t_data *my_mlx);
 t_data				*init_my_mlx(int fd);
 
+double				ndcx(t_data *my_mlx, double x);
+double				ndcy(t_data *my_mlx, double y);
 void				ray(t_data *my_mlx);
 
 int					keyinput(int keycode, t_data *my_mlx);
-int					mouseinput(int keycode, t_data *my_mlx);
 int					ripwindow(t_data *my_mlx);
+
+int					mouseinput(int button, int x, int y, t_data *my_mlx);
+int					click_object(t_data *my_mlx, char **object, int *index, t_vec3 ray);
+
 #endif
