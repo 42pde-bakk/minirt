@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/04 00:18:16 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/04 21:48:08 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,6 +193,16 @@ typedef	struct	s_scene
 	t_col			amblightcolour;
 }				t_scene;
 
+typedef struct s_click
+{
+	char	identifier;
+	char	*object;
+	int		index;
+	int		state;
+	int		x;
+	int		y;
+}				t_click;
+
 typedef struct	s_data
 {
 	void		*mlx_ptr;
@@ -215,6 +225,7 @@ typedef struct	s_data
 	t_square	*square;
 	t_cylinder	*cylinder;
 	t_triangle	*triangle;
+	t_click		*click;
 }				t_data;
 
 /*
@@ -316,6 +327,7 @@ void				ft_parser(t_data *my_mlx, int fd);
 /*
 **Objects
 */
+int					solve_quadratic_equation(t_cylhelp *help);
 int					find_cylinder(t_cylinder *cyl, t_data *my_mlx);
 int					find_plane(t_data *my_mlx);
 int					find_sphere(t_sphere *sp, t_data *my_mlx);
@@ -340,6 +352,10 @@ int					keyinput(int keycode, t_data *my_mlx);
 int					ripwindow(t_data *my_mlx);
 
 int					mouseinput(int button, int x, int y, t_data *my_mlx);
-int					click_object(t_data *my_mlx, char **object, int *index, t_vec3 ray);
+double				click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray);
+double				click_sphere(t_sphere *sp, t_data *my_mlx, t_vec3 ray);
+double				click_triangle(t_triangle *tri, t_data *my_mlx, t_vec3 ray);
+double				click_square(t_square *sq, t_data *my_mlx, t_vec3 ray);
+int					click_object(t_data *my_mlx, t_vec3 ray);
 
 #endif

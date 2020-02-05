@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/03 20:24:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/04 21:16:46 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,17 +36,6 @@ void	put_pixel(t_data *my_mlx, int x, int y, unsigned color)
 	}
 }
 
-/*
-void put_rgb(t_data *my_mlx, int x, int y, unsigned color)
-{
-    if (x >= 0 && x < data->winx && y >= 0 && y < data->winy)
-    {
-        int pos = y * data->llen + x * (data->bpp / 8);
-        *(unsigned int *)(data->mlx_addr + pos) = color;
-    }
-}
-*/
-
 t_data	*mallocmachine(t_data *my_mlx)
 {
 	my_mlx = malloc(sizeof(t_data));
@@ -58,6 +47,9 @@ t_data	*mallocmachine(t_data *my_mlx)
 	my_mlx->ray = malloc(sizeof(t_ray));
 	if (my_mlx->ray == NULL)
 		return (NULL);
+	my_mlx->click = malloc(sizeof(t_click));
+	if (my_mlx->click == NULL)
+		return (NULL);
 	my_mlx->ray->length = __INT_MAX__;
 	my_mlx->light = NULL;
 	my_mlx->cam = NULL;
@@ -67,6 +59,7 @@ t_data	*mallocmachine(t_data *my_mlx)
 	my_mlx->cylinder = NULL;
 	my_mlx->triangle = NULL;
 	my_mlx->frame = 1;
+	my_mlx->click->state = 0;
 	return (my_mlx);
 }
 
@@ -111,17 +104,12 @@ t_data	*init_my_mlx(int fd)
 	my_mlx->mlx_ptr = mlx_init();
 	ft_parser(my_mlx, fd);
 	printf("bitch ass\n\n");
-
 	my_mlx->mlx_img2 = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr2 = mlx_get_data_addr(my_mlx->mlx_img2, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height);
 	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp, &my_mlx->line_length, &my_mlx->endian);
-	// setmatrix(my_mlx);
 	ray(my_mlx);
-	printf("linelength=%i, bpp=%d\n", my_mlx->line_length, my_mlx->bpp);
-	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height, "Printing RONDJES like a motherfucking boss bitch");
-
+	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width, my_mlx->scene->height, "MiniPeeRT");
 	return (my_mlx);
 }
 

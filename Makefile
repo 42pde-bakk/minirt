@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/04 00:18:33 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/04 21:46:38 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,13 +17,14 @@ PARSING_DIR = $(SRC_DIR)/parsing/
 OBJECTS_DIR = $(SRC_DIR)/objects/
 LIGHT_DIR = $(SRC_DIR)/lighting/
 MATH_DIR = $(SRC_DIR)/math/
+INTERACTION_DIR = $(SRC_DIR)/interaction/
 GNL_DIR = ./gnl/
 LIBFT_DIR = ./libft/
 EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20191025_beta/
 HEADER = -I ./includes/
 
-SRC = minirt.c rays.c readinput.c click_object.c
+SRC = minirt.c rays.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 			parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
@@ -31,6 +32,7 @@ OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
 LIGHT = lighting.c obstacles.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternion.c rotations.c \
 		vectors_adv.c vectors.c
+INTERACTION = click_object.c click_cylinder.c click_sphere_square.c readinput.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = *.c #ft_lstmap_bonus.c ft_strjoin.c ft_atoi.c ft_lstnew_bonus.c ft_strlcat.c \
 ft_bzero.c ft_lstsize_bonus.c ft_strlcpy.c ft_calloc.c ft_memccpy.c ft_strlen.c \
@@ -53,6 +55,7 @@ FILES += $(addprefix $(LIGHT_DIR), $(LIGHT))
 FILES += $(addprefix $(GNL_DIR), $(GNL))
 FILES += $(addprefix $(LIBFT_DIR), $(LIBFT))
 FILES += $(addprefix $(EXTRA_DIR), $(EXTRA))
+FILES += $(addprefix $(INTERACTION_DIR), $(INTERACTION))
 
 MAX_RESX := $(shell displayplacer list | grep "current mode" | awk -F '[:x]' '/mode/{print$$3}')
 MAX_RESY := $(shell displayplacer list | grep "current mode" | awk -F '[:xc]' '/mode/{print$$4}')

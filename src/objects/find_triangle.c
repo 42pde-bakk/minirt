@@ -6,13 +6,13 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 19:13:25 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/04 17:35:18 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_trihelp	tri_calc(t_triangle *tri, t_data *my_mlx)
+static t_trihelp	tri_calc(t_triangle *tri, t_data *my_mlx)
 {
 	t_trihelp	th;
 
@@ -29,7 +29,7 @@ t_trihelp	tri_calc(t_triangle *tri, t_data *my_mlx)
 	return (th);
 }
 
-int			triangle_intersect(t_triangle *tri, t_data *my_mlx)
+int					triangle_intersect(t_triangle *tri, t_data *my_mlx)
 {
 	t_trihelp	th;
 
