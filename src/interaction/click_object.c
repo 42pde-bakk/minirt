@@ -6,92 +6,153 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/03 23:51:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 01:29:11 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/06 21:18:28 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		click_object(t_data *my_mlx, t_vec3 ray)
+void	click_object_triangle(t_data *my_mlx, t_vec3 ray)
 {
-	t_square	*tmpsquare;
 	t_triangle	*tmptriangle;
-	t_sphere	*tmpsphere;
-	t_cylinder	*tmpcylinder;
-	t_plane		*tmpplane;
-	double		distance;
-	double		ret;
 	int			i;
+	double		ret;
+	double		ret2;
+	t_triangle	rev;
 
-	tmpsquare = my_mlx->square;
+	i = 0;
 	tmptriangle = my_mlx->triangle;
-	tmpsphere = my_mlx->sphere;
-	tmpcylinder = my_mlx->cylinder;
-	tmpplane = my_mlx->plane;
-	distance = __INT_MAX__;
-	i = 0;
-	while (tmpsphere)
-	{
-		ret = click_sphere(tmpsphere, my_mlx, ray);
-		if (ret < distance && ret >= 0.0)
-		{
-			distance = ret;
-			my_mlx->click->distance = distance;
-			my_mlx->click->index = i;
-			my_mlx->click->object = "sphere";
-			my_mlx->click->identifier = 's';
-			my_mlx->click->pos = tmpsphere->s;
-		}
-		i++;
-		tmpsphere = tmpsphere->next;
-	}
-	i = 0;
 	while (tmptriangle)
 	{
 		ret = click_triangle(tmptriangle, my_mlx, ray);
-		if (ret < distance && ret >= 0.0)
+		rev = tri_rev(*tmptriangle);
+		ret2 = click_triangle(&rev, my_mlx, ray);
+		if (ret2 >= 0.0 && (ret2 < ret || ret < 0.0))
+			ret = ret2;
+		if (ret < my_mlx->click->distance && ret >= 0.0)
 		{
-			distance = ret;
-			my_mlx->click->distance = distance;
+			my_mlx->click->distance = ret;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "triangle";
 			my_mlx->click->identifier = 't';
-			my_mlx->click->pos = tmptriangle->s0;
 		}
 		i++;
 		tmptriangle = tmptriangle->next;
 	}
+}
+
+int		click_object_square(t_data *my_mlx, t_vec3 ray)
+{
+	t_square	*tmpsquare;
+	int			i;
+	double		ret;
+
 	i = 0;
+	tmpsquare = my_mlx->square;
 	while (tmpsquare)
 	{
 		ret = click_square(tmpsquare, my_mlx, ray);
-		if (ret < distance && ret >= 0.0)
+		if (ret < my_mlx->click->distance && ret >= 0.0)
 		{
-			distance = ret;
-			my_mlx->click->distance = distance;
+			my_mlx->click->distance = ret;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "square";
 			my_mlx->click->identifier = 'q';
-			my_mlx->click->pos = tmpsquare->s;
 		}
 		i++;
 		tmpsquare = tmpsquare->next;
 	}
+	return (1);
+}
+
+int		click_object_sphere(t_data *my_mlx, t_vec3 ray)
+{
+	t_sphere	*tmpsphere;
+	int			i;
+	double		ret;
+
+	i = 0;
+	tmpsphere = my_mlx->sphere;
+	while (tmpsphere)
+	{
+		ret = click_sphere(tmpsphere, my_mlx, ray);
+		if (ret < my_mlx->click->distance && ret >= 0.0)
+		{
+			my_mlx->click->distance = ret;
+			my_mlx->click->index = i;
+			my_mlx->click->object = "sphere";
+			my_mlx->click->identifier = 's';
+		}
+		i++;
+		tmpsphere = tmpsphere->next;
+	}
+	return (1);
+}
+
+int		click_object_cylinder(t_data *my_mlx, t_vec3 ray)
+{
+	t_cylinder	*tmpcylinder;
+	double		ret;
+	int			i;
+
+	tmpcylinder = my_mlx->cylinder;
 	i = 0;
 	while (tmpcylinder)
 	{
 		ret = click_cylinder(tmpcylinder, my_mlx, ray);
-		if (ret < distance && ret >= 0.0)
+		if (ret < my_mlx->click->distance && ret >= 0.0)
 		{
-			distance = ret;
-			my_mlx->click->distance = distance;
+			my_mlx->click->distance = ret;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "cylinder";
 			my_mlx->click->identifier = 'c';
-			my_mlx->click->pos = tmpcylinder->s;
 		}
 		i++;
 		tmpcylinder = tmpcylinder->next;
+	}
+	return (1);
+}
+
+int		click_object_plane(t_data *my_mlx, t_vec3 ray)
+{
+	t_plane	*tmpplane;
+	double	ret;
+	int		i;
+
+	tmpplane = my_mlx->plane;
+	i = 0;
+	while (tmpplane)
+	{
+		ret = click_plane(tmpplane, my_mlx, ray);
+		if (ret < my_mlx->click->distance && ret >= 0.0)
+		{
+			my_mlx->click->distance = ret;
+			my_mlx->click->index = i;
+			my_mlx->click->object = "plane";
+			my_mlx->click->identifier = 'p';
+		}
+		i++;
+		tmpplane = tmpplane->next;
+	}
+	return (1);
+}
+
+int		click_object(t_data *my_mlx, t_vec3 ray)
+{
+	int	i;
+
+	my_mlx->click->distance = __INT_MAX__;
+	i = 0;
+	click_object_cylinder(my_mlx, ray);
+	click_object_sphere(my_mlx, ray);
+	click_object_triangle(my_mlx, ray);
+	click_object_square(my_mlx, ray);
+	click_object_plane(my_mlx, ray);
+	if (my_mlx->click->index >= 0)
+	{
+		my_mlx->click->state = 1;
+		mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr,
+		0, my_mlx->scene->height - 10, 0xFFFFFF, my_mlx->click->object);
 	}
 	return (1);
 }

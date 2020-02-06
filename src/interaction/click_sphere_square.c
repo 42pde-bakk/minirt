@@ -6,13 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:24:53 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 01:16:58 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/06 18:28:39 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-double	click_sphere(t_sphere *sp, t_data *my_mlx, t_vec3 ray)
+double				click_sphere(t_sphere *sp, t_data *my_mlx, t_vec3 ray)
 {
 	double	t0;
 	t_vec3	p;
@@ -45,7 +45,7 @@ static t_trihelp	tri_calc(t_triangle *tri, t_data *my_mlx, t_vec3 ray)
 	return (th);
 }
 
-double	click_triangle(t_triangle *tri, t_data *my_mlx, t_vec3 ray)
+double				click_triangle(t_triangle *tri, t_data *my_mlx, t_vec3 ray)
 {
 	t_trihelp	th;
 
@@ -56,7 +56,7 @@ double	click_triangle(t_triangle *tri, t_data *my_mlx, t_vec3 ray)
 	return (th.t);
 }
 
-double	click_square(t_square *sq, t_data *my_mlx, t_vec3 ray)
+double				click_square(t_square *sq, t_data *my_mlx, t_vec3 ray)
 {
 	double distance1;
 	double distance2;
@@ -68,5 +68,5 @@ double	click_square(t_square *sq, t_data *my_mlx, t_vec3 ray)
 	else if (distance2 >= 0.0 && (distance2 <= distance1 || distance1 < 0.0))
 		return (distance2);
 	else
-		return (-1);	
+		return (-1);
 }

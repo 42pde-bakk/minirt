@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_triangle.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/05 20:08:10 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 20:00:19 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

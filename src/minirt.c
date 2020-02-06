@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/04 21:16:46 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 21:43:30 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ int		newframe(t_data *my_mlx)
 		my_mlx->mlx_img2, 0, 0);
 	}
 	my_mlx->frame++;
+	mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr, 0, 10, 0xFFFFFF, "use wasd for movement, q&e for up/down and arrowkeys for camera rotation");
 	return (1);
 }
 
@@ -130,5 +131,6 @@ int		main(int argc, char **argv)
 	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK, &mouseinput, my_mlx);
 //	mlx_mouse_hook(my_mlx->win_ptr, &mouseinput, my_mlx);
 	mlx_key_hook(my_mlx->win_ptr, &keyinput, my_mlx);
+	mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr, 0, 10, 0xFFFFFF, "use wasd for movement, q&e for up/down and arrowkeys for camera rotation");
 	mlx_loop(my_mlx->win_ptr);
 }

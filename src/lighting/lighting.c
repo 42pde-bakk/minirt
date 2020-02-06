@@ -6,12 +6,11 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/05 20:10:42 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 18:28:12 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <math.h>
 
 t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir)
 {

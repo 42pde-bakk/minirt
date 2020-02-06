@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_cylinder.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/30 21:20:45 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 21:13:40 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int		find_cylinder(t_cylinder *cyl, t_data *my_mlx)
 		dotp2 = dotproduct(help.cylrot, vec3_sub(q, help.p2));
 		if (help.y0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 			res = help.y0;
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y1));
+		// q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y1));
 		if (help.y1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 		{
 			if (res != -1)

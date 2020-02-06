@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/05 22:53:52 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 20:58:26 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,8 @@ double	ndcx(t_data *my_mlx, double x)
 	double	angle;
 
 	ratio = my_mlx->scene->width / my_mlx->scene->height;
-
-	pixelx = (x + 0.5) / my_mlx->scene->width; //define pixel in NDC space
-	pixelx = 2 * pixelx - 1; //remap pixel
+	pixelx = (x + 0.5) / my_mlx->scene->width;
+	pixelx = 2 * pixelx - 1;
 	angle = my_mlx->cam->fov * (M_PI / 180) / 2;
 	pixelx = pixelx * ratio * tan(angle);
 	return (pixelx);
@@ -68,14 +67,28 @@ double	ndcy(t_data *my_mlx, double y)
 	return (pixely);
 }
 
+void	ray2(t_data *my_mlx, int x, int y)
+{
+	if (my_mlx->ray->length < __INT_MAX__)
+	{
+		my_mlx->ray->colour = light_tracing(my_mlx);
+		put_rgb(my_mlx, x, y, my_mlx->ray->colour);
+		my_mlx->ray->length = __INT_MAX__;
+		my_mlx->ray->colour = colour_new(0.0, 0.0, 0.0);
+		my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
+	}
+}
+
 void	ray(t_data *my_mlx)
 {
-	double		x = 0;
-	double		y = 0;
+	int			x;
+	int			y;
 	double		pndcx;
 	double		pndcy;
 	unsigned	ret;
 
+	x = 0;
+	y = 0;
 	while (y < my_mlx->scene->height)
 	{
 		pndcy = ndcy(my_mlx, y);
@@ -84,15 +97,7 @@ void	ray(t_data *my_mlx)
 			pndcx = ndcx(my_mlx, x);
 			setcamera(my_mlx, pndcx, pndcy);
 			ret = find_objects(my_mlx);
-			if (my_mlx->ray->length < __INT_MAX__)
-			{
-//				my_mlx->ray->length = fabs(my_mlx->ray->length);
-				my_mlx->ray->colour = light_tracing(my_mlx);
-				put_rgb(my_mlx, x, y, my_mlx->ray->colour);
-				my_mlx->ray->length = __INT_MAX__;
-				my_mlx->ray->colour = colour_new(0.0, 0.0, 0.0);
-				my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
-			}
+			ray2(my_mlx, x, y);
 			x++;
 		}
 		y++;

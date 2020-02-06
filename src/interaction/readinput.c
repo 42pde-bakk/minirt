@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 01:35:14 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/06 21:42:00 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ void	arrowkeys(int keycode, t_data *my_mlx)
 			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
 		my_mlx->cam->v = addrotation(my_mlx->cam->v, adjust);
 		my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
-		my_mlx->click->state = 0;
 		newframe(my_mlx);
 	}
 }
@@ -83,7 +82,10 @@ void	swapcameras(int keycode, t_data *my_mlx)
 int		keyinput(int keycode, t_data *my_mlx)
 {
 	wasd(keycode, my_mlx);
-	arrowkeys(keycode, my_mlx);
+	if (my_mlx->click->state == 0)
+		arrowkeys(keycode, my_mlx);
+	// else
+	// 	object_add_rotation(keycode, my_mlx);
 	swapcameras(keycode, my_mlx);
 	if (keycode == ESCAPE)
 	{
@@ -103,70 +105,9 @@ int	ripwindow(t_data *my_mlx)
 	exit(0);
 }
 
-t_vec3	lookingdir(t_data *my_mlx, double x, double y)
-{
-	t_vec3	out;
-
-	out = vec3_new(-x, y, -1.0);
-	out = vec3_normalize(out);
-	out = pleurmatrix(out, my_mlx->cam->c2w);
-	out = vec3_normalize(out);
-	return (out);
-}
-
-int		object_edit_properties(t_data *my_mlx, double distancex, double distancey)
-{
-	if (my_mlx->click->identifier == 's')
-		sphere_edit_properties(my_mlx, distancex, distancey);
-	else if (my_mlx->click->identifier == 't')
-		triangle_edit_properties(my_mlx, distancex, distancey);
-	// else if (my_mlx->click->identifier == 'q')
-	// 	square_edit_properties(my_mlx, distancex, distancey);
-	// else if (my_mlx->click->identifier == 'c')
-	// 	cylinder_edit_properties(my_mlx, distancex, distancey);
-	// else if (my_mlx->click->identifier == 'p')
-	// 	plane_edit_properties(my_mlx, distancex, distancey);
-	return (1);
-}
-
 int		mouseinput(int button, int x, int y, t_data *my_mlx)
 {
-	t_vec3		ray;
-	double		distancex;
-	double		distancey;
-
-	if (button == 1 && my_mlx->click->state == 0)
-	{
-		my_mlx->click->identifier = '0';
-		my_mlx->click->index = -1;
-		my_mlx->click->pos = vec3_new(0.0, 0.0, 0.0);
-		my_mlx->click->distance = 0.0;
-		my_mlx->click->x = 0;
-		my_mlx->click->y = 0;
-		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
-		y -= 21;
-		my_mlx->click->x = x;
-		my_mlx->click->y = y;
-		printf("x=%d, y=%d\n", x, y);
-		ray = lookingdir(my_mlx, ndcx(my_mlx, x), ndcy(my_mlx, y));
-//		printvec(ray, "lookingdir");
-		click_object(my_mlx, ray);
-		printf("obj=%c, index=%i\n", my_mlx->click->identifier, my_mlx->click->index);
-		printvec(my_mlx->click->pos, "object position");
-		if (my_mlx->click->index != -1)
-			my_mlx->click->state = 1;
-	}
-	else if (button == 1 && my_mlx->click->state == 1)
-	{
-		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
-		y -= 21;
-		distancex = (x - my_mlx->click->x);
-		distancey = (y - my_mlx->click->y);
-		printf("distancex = %f, distancey = %f\n", distancex, distancey);
-		object_edit_properties(my_mlx, distancex, distancey);
-		my_mlx->click->state = 0;
-		my_mlx->click->index = -1;
-		newframe(my_mlx);
-	}
+	if (button == 1 && (my_mlx->click->state == 0 || my_mlx->click->state == 1))
+		get_click_info(x, y, my_mlx);
 	return (1);
 }

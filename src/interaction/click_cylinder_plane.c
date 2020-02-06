@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   click_cylinder.c                                   :+:    :+:            */
+/*   click_cylinder_plane.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:23:10 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/04 21:23:39 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 21:33:04 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ double	click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
 		dotp2 = dotproduct(help.cylrot, vec3_sub(q, help.p2));
 		if (help.y0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 			res = help.y0;
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y1));
 		if (help.y1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 		{
 			if (res != -1)
@@ -57,6 +56,25 @@ double	click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
 				res = help.y1;
 			return (res);
 		}
+	}
+	return (-1);
+}
+
+double	click_plane(t_plane *pl, t_data *my_mlx, t_vec3 ray)
+{
+	t_vec3	sub;
+	double	a;
+	double	denom;
+	double	t;
+
+	sub = vec3_sub(pl->s, my_mlx->cam->s);
+	denom = dotproduct(pl->normal, ray);
+	if (denom > 0.000001)
+	{
+		a = dotproduct(sub, pl->normal);
+		t = a / denom;
+		if (t > 0)
+			return (t);
 	}
 	return (-1);
 }
