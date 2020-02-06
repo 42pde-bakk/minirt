@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   click_object.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/03 23:51:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/04 21:25:11 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 01:29:11 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,11 @@ int		click_object(t_data *my_mlx, t_vec3 ray)
 		if (ret < distance && ret >= 0.0)
 		{
 			distance = ret;
+			my_mlx->click->distance = distance;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "sphere";
 			my_mlx->click->identifier = 's';
+			my_mlx->click->pos = tmpsphere->s;
 		}
 		i++;
 		tmpsphere = tmpsphere->next;
@@ -50,9 +52,11 @@ int		click_object(t_data *my_mlx, t_vec3 ray)
 		if (ret < distance && ret >= 0.0)
 		{
 			distance = ret;
+			my_mlx->click->distance = distance;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "triangle";
 			my_mlx->click->identifier = 't';
+			my_mlx->click->pos = tmptriangle->s0;
 		}
 		i++;
 		tmptriangle = tmptriangle->next;
@@ -64,9 +68,11 @@ int		click_object(t_data *my_mlx, t_vec3 ray)
 		if (ret < distance && ret >= 0.0)
 		{
 			distance = ret;
+			my_mlx->click->distance = distance;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "square";
 			my_mlx->click->identifier = 'q';
+			my_mlx->click->pos = tmpsquare->s;
 		}
 		i++;
 		tmpsquare = tmpsquare->next;
@@ -78,9 +84,11 @@ int		click_object(t_data *my_mlx, t_vec3 ray)
 		if (ret < distance && ret >= 0.0)
 		{
 			distance = ret;
+			my_mlx->click->distance = distance;
 			my_mlx->click->index = i;
 			my_mlx->click->object = "cylinder";
 			my_mlx->click->identifier = 'c';
+			my_mlx->click->pos = tmpcylinder->s;
 		}
 		i++;
 		tmpcylinder = tmpcylinder->next;

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/02 00:53:19 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/05 22:53:52 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ double	ndcx(t_data *my_mlx, double x)
 
 	pixelx = (x + 0.5) / my_mlx->scene->width; //define pixel in NDC space
 	pixelx = 2 * pixelx - 1; //remap pixel
-	angle = my_mlx->cam->fov * (M_PI / 180);
-	pixelx = pixelx * ratio * tan(angle / 2);
+	angle = my_mlx->cam->fov * (M_PI / 180) / 2;
+	pixelx = pixelx * ratio * tan(angle);
 	return (pixelx);
 }
 
@@ -63,8 +63,8 @@ double	ndcy(t_data *my_mlx, double y)
 
 	pixely = (y + 0.5) / my_mlx->scene->height;
 	pixely = 1 - 2 * pixely;
-	angle = my_mlx->cam->fov * (M_PI / 180);
-	pixely *= tan(angle / 2);
+	angle = my_mlx->cam->fov * (M_PI / 180) / 2;
+	pixely *= tan(angle);
 	return (pixely);
 }
 
@@ -86,11 +86,11 @@ void	ray(t_data *my_mlx)
 			ret = find_objects(my_mlx);
 			if (my_mlx->ray->length < __INT_MAX__)
 			{
-				my_mlx->ray->length = fabs(my_mlx->ray->length);
+//				my_mlx->ray->length = fabs(my_mlx->ray->length);
 				my_mlx->ray->colour = light_tracing(my_mlx);
 				put_rgb(my_mlx, x, y, my_mlx->ray->colour);
 				my_mlx->ray->length = __INT_MAX__;
-				my_mlx->ray->colour = colour_new(0, 0, 0);
+				my_mlx->ray->colour = colour_new(0.0, 0.0, 0.0);
 				my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
 			}
 			x++;

@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/04 21:46:38 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/06 01:35:59 by Peer de Bak   ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
 LIGHT = lighting.c obstacles.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternion.c rotations.c \
 		vectors_adv.c vectors.c
-INTERACTION = click_object.c click_cylinder.c click_sphere_square.c readinput.c
+INTERACTION = click_object.c click_cylinder.c click_sphere_square.c readinput.c \
+		obj_edit_properties.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = *.c #ft_lstmap_bonus.c ft_strjoin.c ft_atoi.c ft_lstnew_bonus.c ft_strlcat.c \
 ft_bzero.c ft_lstsize_bonus.c ft_strlcpy.c ft_calloc.c ft_memccpy.c ft_strlen.c \

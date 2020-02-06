@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/04 21:48:08 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/06 01:34:38 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,8 +199,12 @@ typedef struct s_click
 	char	*object;
 	int		index;
 	int		state;
+	t_vec3	oldray;
+	t_vec3	newray;
+	double	distance;
 	int		x;
 	int		y;
+	t_vec3	pos;
 }				t_click;
 
 typedef struct	s_data
@@ -357,5 +361,8 @@ double				click_sphere(t_sphere *sp, t_data *my_mlx, t_vec3 ray);
 double				click_triangle(t_triangle *tri, t_data *my_mlx, t_vec3 ray);
 double				click_square(t_square *sq, t_data *my_mlx, t_vec3 ray);
 int					click_object(t_data *my_mlx, t_vec3 ray);
+
+int					sphere_edit_properties(t_data *my_mlx, double distancex, double distancey);
+int					triangle_edit_properties(t_data *my_mlx, double distancex, double distancey);
 
 #endif
