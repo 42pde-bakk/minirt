@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:23:10 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 21:33:04 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 16:45:03 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,21 @@ t_cylhelp	click_cylinder_calc(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
 	help.cylcenter = cyl->s;
 	help.cylrot = cyl->v;
 	help.dist = vec3_sub(help.rayorigin, help.cylcenter);
-	help.c1 = vec3_sub(help.raydir, vec3_mult(help.cylrot, dotproduct(help.raydir, help.cylrot)));
-	help.c2 = vec3_sub(help.dist, vec3_mult(help.cylrot, dotproduct(help.dist, help.cylrot)));
+	help.c1 = vec3_sub(help.raydir, vec3_mult(help.cylrot,
+	dotproduct(help.raydir, help.cylrot)));
+	help.c2 = vec3_sub(help.dist, vec3_mult(help.cylrot,
+	dotproduct(help.dist, help.cylrot)));
 	help.abc0 = vec3_sqr(help.c1);
 	help.abc1 = 2.0 * dotproduct(help.c1, help.c2);
 	help.abc2 = vec3_sqr(help.c2) - pow((cyl->diameter / 2), 2);
-	help.p1 = vec3_sub(help.cylcenter, vec3_mult(help.cylrot, cyl->height / 2.0));
-	help.p2 = vec3_add(help.cylcenter, vec3_mult(help.cylrot, cyl->height / 2.0));
+	help.p1 = vec3_sub(help.cylcenter, vec3_mult(help.cylrot,
+	cyl->height / 2.0));
+	help.p2 = vec3_add(help.cylcenter, vec3_mult(help.cylrot,
+	cyl->height / 2.0));
 	return (help);
 }
 
-double	click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
+double		click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
 {
 	t_cylhelp	help;
 	t_vec3		q;
@@ -60,7 +64,7 @@ double	click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
 	return (-1);
 }
 
-double	click_plane(t_plane *pl, t_data *my_mlx, t_vec3 ray)
+double		click_plane(t_plane *pl, t_data *my_mlx, t_vec3 ray)
 {
 	t_vec3	sub;
 	double	a;
@@ -77,4 +81,52 @@ double	click_plane(t_plane *pl, t_data *my_mlx, t_vec3 ray)
 			return (t);
 	}
 	return (-1);
+}
+
+int		click_object_cylinder(t_data *my_mlx, t_vec3 ray)
+{
+	t_cylinder	*tmpcylinder;
+	double		ret;
+	int			i;
+
+	tmpcylinder = my_mlx->cylinder;
+	i = 0;
+	while (tmpcylinder)
+	{
+		ret = click_cylinder(tmpcylinder, my_mlx, ray);
+		if (ret < my_mlx->click->distance && ret >= 0.0)
+		{
+			my_mlx->click->distance = ret;
+			my_mlx->click->index = i;
+			my_mlx->click->object = "cylinder";
+			my_mlx->click->identifier = 'c';
+		}
+		i++;
+		tmpcylinder = tmpcylinder->next;
+	}
+	return (1);
+}
+
+int		click_object_plane(t_data *my_mlx, t_vec3 ray)
+{
+	t_plane	*tmpplane;
+	double	ret;
+	int		i;
+
+	tmpplane = my_mlx->plane;
+	i = 0;
+	while (tmpplane)
+	{
+		ret = click_plane(tmpplane, my_mlx, ray);
+		if (ret < my_mlx->click->distance && ret >= 0.0)
+		{
+			my_mlx->click->distance = ret;
+			my_mlx->click->index = i;
+			my_mlx->click->object = "plane";
+			my_mlx->click->identifier = 'p';
+		}
+		i++;
+		tmpplane = tmpplane->next;
+	}
+	return (1);
 }

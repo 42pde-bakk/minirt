@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 23:32:34 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/27 19:50:25 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 16:50:48 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ t_vec3	vec3_normalize(t_vec3 ray)
 	ret.x /= length;
 	ret.y /= length;
 	ret.z /= length;
-	// length = sqrt((ray.x * ray.x) + (ray.y * ray.y) + (ray.z * ray.z));
-	// printf("ray={%f, %f, %f} legnth=%f\n", ray.x, ray.y, ray.z, length);
 	return (ret);
 }
 
@@ -55,4 +53,3 @@ double	vec3_sqr(t_vec3 vec)
 {
 	return (pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
 }
-

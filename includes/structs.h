@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/06 16:44:36 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 22:21:57 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct	s_vec3
 	double	z;
 }				t_vec3;
 
-typedef struct s_quat
+typedef struct	s_quat
 {
 	double	w;
 	double	x;
@@ -45,19 +45,19 @@ typedef	struct	s_matrix
 
 typedef struct	s_sphere
 {
+	struct s_sphere	*next;
 	t_vec3			s;
 	t_vec3			tmp;
 	double			diameter;
 	t_col			colour;
-	struct s_sphere	*next;
 }				t_sphere;
 
 typedef struct	s_plane
 {
+	struct s_plane	*next;
 	t_vec3			s;
 	t_vec3			normal;
 	t_col			colour;
-	struct s_plane	*next;
 }				t_plane;
 
 typedef struct	s_trihelp
@@ -77,16 +77,17 @@ typedef struct	s_trihelp
 
 typedef struct	s_triangle
 {
+	struct s_triangle	*next;
 	t_vec3				s0;
 	t_vec3				s1;
 	t_vec3				s2;
 	t_vec3				normal;
 	t_col				colour;
-	struct s_triangle	*next;
 }				t_triangle;
 
 typedef struct	s_square
 {
+	struct s_square	*next;
 	t_vec3			s;
 	t_vec3			normal;
 	double			size;
@@ -95,7 +96,6 @@ typedef struct	s_square
 	t_vec3			upvec;
 	t_vec3			rightvec;
 	t_triangle		tri[2];
-	struct s_square	*next;
 }				t_square;
 
 typedef struct	s_cylhelp
@@ -118,30 +118,30 @@ typedef struct	s_cylhelp
 
 typedef struct	s_cylinder
 {
+	struct s_cylinder	*next;
 	t_vec3				s;
 	t_vec3				v;
 	double				diameter;
 	double				height;
 	t_col				colour;
-	struct s_cylinder	*next;
 }				t_cylinder;
 
 typedef struct	s_cam
 {
+	struct s_cam	*next;
 	t_vec3			s;
 	t_vec3			v;
 	int				fov;
 	t_matrix		c2w;
 	t_quat			quat;
-	struct s_cam	*next;
 }				t_cam;
 
 typedef struct	s_light
 {
+	struct s_light	*next;
 	t_vec3			s;
 	double			brightness;
 	t_col			colour;
-	struct s_light	*next;
 }				t_light;
 
 typedef	struct	s_ray
@@ -161,7 +161,7 @@ typedef	struct	s_scene
 	t_col			amblightcolour;
 }				t_scene;
 
-typedef struct s_click
+typedef struct	s_click
 {
 	char	identifier;
 	char	*object;
@@ -170,9 +170,15 @@ typedef struct s_click
 	t_vec3	oldray;
 	t_vec3	newray;
 	double	distance;
+	double	dist_r;
+	double	dist_up;
+	double	dist_fw;
 	int		x;
 	int		y;
 	t_vec3	pos;
+	double	sizemult;
+	double	heightmult;
+	t_vec3	rotation;
 }				t_click;
 
 typedef struct	s_data

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/27 11:47:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:25:57 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 21:54:30 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,29 +63,30 @@ int		find_res_amb_cam_light(t_data *my_mlx, char *line, int *i)
 		return (parse_objects(my_mlx, line, i));
 }
 
-void	ft_parser(t_data *my_mlx, int fd)
+int		ft_parser(t_data *my_mlx, int fd)
 {
 	char	*line;
-	int		start;
 	int		i;
-	int		ret;
+	int		gnlret;
+	int		parsingret;
 
-	ret = 1;
-	while (ret > 0)
+	gnlret = 1;
+	while (gnlret > 0)
 	{
-		ret = get_next_line(fd, &line);
+		gnlret = get_next_line(fd, &line);
+		if (gnlret == -1)
+			return (-1);
 		i = 0;
 		while (ft_iswhitespace(line[i]) == 1)
 			i++;
-		start = i;
 		while (ft_isalpha(line[i]) == 1)
 			i++;
-		my_mlx->scene->id = ft_substr(line, start, i - start);
 		while (ft_iswhitespace(line[i]) == 1)
 			i++;
-		find_res_amb_cam_light(my_mlx, line, &i);
+		parsingret = find_res_amb_cam_light(my_mlx, line, &i);
 		free(line);
-		free(my_mlx->scene->id);
+		if (parsingret == -1)
+			return (-1);
 	}
-	return ;
+	return (1);
 }

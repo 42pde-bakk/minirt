@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:22:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 21:48:50 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int		parse_triangle(t_data *my_mlx, char *line, int *i)
 
 	new = malloc(sizeof(t_triangle));
 	if (new == NULL)
-		return (0);
+		return (-1);
 	new->s0.x = ft_atof_peer(line, i);
 	new->s0.y = ft_atof_peer(line, i);
 	new->s0.z = ft_atof_peer(line, i);

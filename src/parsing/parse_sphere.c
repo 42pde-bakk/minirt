@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 22:06:16 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:26:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 22:22:09 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		parse_sphere(t_data *my_mlx, char *line, int *i)
 
 	new = malloc(sizeof(t_sphere));
 	if (new == NULL)
-		return (0);
+		return (-1);
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);

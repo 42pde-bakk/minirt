@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 18:36:38 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 22:49:58 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,38 @@
 # define CAM_FOV_STEP 2.0
 # define ROT_DEGREES 90.0
 # define MOVE_SPEED -5.0
+# define WHITE 0xFFFFFF
+
+# ifndef UV
+#  define UV 0
+# endif
 
 /*
 **../src/extra.c:
 */
-int				ft_amount(long int nb);
-char			*ft_itoa_base(long long nb, long long base);
-int				ft_iswhitespace(char c);
-double			ft_atof_peer(const char *str, int *i);
-int				ft_atoi_peer(const char *str, int *i);
+int		ft_amount(long int nb);
+char	*ft_itoa_base(long long nb, long long base);
+int		ft_iswhitespace(char c);
+double	ft_atof_peer(const char *str, int *i);
+int		ft_atoi_peer(const char *str, int *i);
 
 /*
 **../src/lighting:
 */
-t_col			light_tracing(t_data *my_mlx);
+t_col	light_tracing(t_data *my_mlx);
 
-int				find_obstacles(t_data *my_mlx, t_vec3 ldir, t_vec3 hitpos);
+int		find_obstacles(t_data *my_mlx, t_vec3 ldir, t_vec3 hitpos);
 
 /*
 **And scene:
 */
 
-void				put_pixel(t_data *my_mlx, int x, int y, unsigned color);
-int					newframe(t_data *my_mlx);
-t_data				*init_my_mlx(int fd);
+int		newframe(t_data *my_mlx);
+int		init_my_mlx(t_data *my_mlx, int fd);
+void	freemachine(t_data *my_mlx);
 
-double				ndcx(t_data *my_mlx, double x);
-double				ndcy(t_data *my_mlx, double y);
-void				ray(t_data *my_mlx);
-
+double	ndcx(t_data *my_mlx, double x);
+double	ndcy(t_data *my_mlx, double y);
+void	ray(t_data *my_mlx);
 
 #endif

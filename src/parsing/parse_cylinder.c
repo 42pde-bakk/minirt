@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 17:59:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:22:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 21:48:59 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 
 	new = malloc(sizeof(t_cylinder));
 	if (new == NULL)
-		return (0);
+		return (-1);
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);

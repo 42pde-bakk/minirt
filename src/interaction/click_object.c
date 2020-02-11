@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/03 23:51:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 21:18:28 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 16:45:20 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int		click_object_square(t_data *my_mlx, t_vec3 ray)
 			my_mlx->click->index = i;
 			my_mlx->click->object = "square";
 			my_mlx->click->identifier = 'q';
+			my_mlx->click->rotation = tmpsquare->normal;
 		}
 		i++;
 		tmpsquare = tmpsquare->next;
@@ -89,54 +90,6 @@ int		click_object_sphere(t_data *my_mlx, t_vec3 ray)
 	return (1);
 }
 
-int		click_object_cylinder(t_data *my_mlx, t_vec3 ray)
-{
-	t_cylinder	*tmpcylinder;
-	double		ret;
-	int			i;
-
-	tmpcylinder = my_mlx->cylinder;
-	i = 0;
-	while (tmpcylinder)
-	{
-		ret = click_cylinder(tmpcylinder, my_mlx, ray);
-		if (ret < my_mlx->click->distance && ret >= 0.0)
-		{
-			my_mlx->click->distance = ret;
-			my_mlx->click->index = i;
-			my_mlx->click->object = "cylinder";
-			my_mlx->click->identifier = 'c';
-		}
-		i++;
-		tmpcylinder = tmpcylinder->next;
-	}
-	return (1);
-}
-
-int		click_object_plane(t_data *my_mlx, t_vec3 ray)
-{
-	t_plane	*tmpplane;
-	double	ret;
-	int		i;
-
-	tmpplane = my_mlx->plane;
-	i = 0;
-	while (tmpplane)
-	{
-		ret = click_plane(tmpplane, my_mlx, ray);
-		if (ret < my_mlx->click->distance && ret >= 0.0)
-		{
-			my_mlx->click->distance = ret;
-			my_mlx->click->index = i;
-			my_mlx->click->object = "plane";
-			my_mlx->click->identifier = 'p';
-		}
-		i++;
-		tmpplane = tmpplane->next;
-	}
-	return (1);
-}
-
 int		click_object(t_data *my_mlx, t_vec3 ray)
 {
 	int	i;
@@ -152,7 +105,7 @@ int		click_object(t_data *my_mlx, t_vec3 ray)
 	{
 		my_mlx->click->state = 1;
 		mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr,
-		0, my_mlx->scene->height - 10, 0xFFFFFF, my_mlx->click->object);
+		0, my_mlx->scene->height - 10, WHITE, my_mlx->click->object);
 	}
 	return (1);
 }

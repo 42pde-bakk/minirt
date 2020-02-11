@@ -6,124 +6,94 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 01:29:43 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/06 21:31:19 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 16:46:23 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int		sphere_edit_properties(t_data *my_mlx, double distx, double disty)
+t_vec3	obj_move(t_vec3 pos, t_data *my_mlx)
 {
-	t_sphere	*spherehead;
-	int			i;
+	t_vec3	mult_r;
+	t_vec3	mult_up;
+	t_vec3	mult_fw;
 
-	i = 0;
-	spherehead = my_mlx->sphere;
-	while (i < my_mlx->click->index && my_mlx->sphere)
-	{
-		i++;
-		my_mlx->sphere = my_mlx->sphere->next;
-	}
-	my_mlx->sphere->s = vec3_sub(my_mlx->sphere->s,
-	vec3_mult(my_mlx->cam->c2w.r, distx * my_mlx->click->distance
-	/ my_mlx->scene->width));
-	my_mlx->sphere->s = vec3_sub(my_mlx->sphere->s,
-	vec3_mult(my_mlx->cam->c2w.up, disty * my_mlx->click->distance
-	/ my_mlx->scene->height));
-	my_mlx->sphere = spherehead;
+	mult_r = vec3_mult(my_mlx->cam->c2w.r, my_mlx->click->dist_r *
+	my_mlx->click->distance
+	/ my_mlx->scene->width);
+	mult_up = vec3_mult(my_mlx->cam->c2w.up, my_mlx->click->dist_up *
+	my_mlx->click->distance
+	/ my_mlx->scene->height);
+	mult_fw = vec3_mult(my_mlx->cam->c2w.fw, my_mlx->click->dist_fw);
+	pos = vec3_sub(pos, mult_r);
+	pos = vec3_sub(pos, mult_up);
+	pos = vec3_sub(pos, mult_fw);
+	return (pos);
+}
+
+int		object_edit_properties(t_data *my_mlx)
+{
+	if (my_mlx->click->identifier == 's')
+		sphere_edit_properties(my_mlx);
+	else if (my_mlx->click->identifier == 't')
+		triangle_edit_properties(my_mlx);
+	else if (my_mlx->click->identifier == 'q')
+		square_edit_properties(my_mlx);
+	else if (my_mlx->click->identifier == 'c')
+		cylinder_edit_properties(my_mlx);
+	else if (my_mlx->click->identifier == 'p')
+		plane_edit_properties(my_mlx);
 	return (1);
 }
 
-int		triangle_edit_properties(t_data *my_mlx, double distx, double disty)
+void	object_sizemult(int keycode, t_data *my_mlx)
 {
-	t_triangle	*trianglehead;
-	int			i;
-
-	i = 0;
-	trianglehead = my_mlx->triangle;
-	while (i < my_mlx->click->index && my_mlx->triangle)
-	{
-		i++;
-		my_mlx->triangle = my_mlx->triangle->next;
-	}
-	my_mlx->triangle->s0 = vec3_sub(my_mlx->triangle->s0, vec3_mult(
-my_mlx->cam->c2w.r, distx * my_mlx->click->distance / my_mlx->scene->width));
-	my_mlx->triangle->s0 = vec3_sub(my_mlx->triangle->s0, vec3_mult(
-my_mlx->cam->c2w.up, disty * my_mlx->click->distance / my_mlx->scene->height));
-	my_mlx->triangle->s1 = vec3_sub(my_mlx->triangle->s1, vec3_mult(
-my_mlx->cam->c2w.r, distx * my_mlx->click->distance / my_mlx->scene->width));
-	my_mlx->triangle->s1 = vec3_sub(my_mlx->triangle->s1, vec3_mult(
-my_mlx->cam->c2w.up, disty * my_mlx->click->distance / my_mlx->scene->height));
-	my_mlx->triangle->s2 = vec3_sub(my_mlx->triangle->s2, vec3_mult(
-my_mlx->cam->c2w.r, distx * my_mlx->click->distance / my_mlx->scene->width));
-	my_mlx->triangle->s2 = vec3_sub(my_mlx->triangle->s2, vec3_mult(
-my_mlx->cam->c2w.up, disty * my_mlx->click->distance / my_mlx->scene->height));
-	my_mlx->triangle = trianglehead;
-	return (1);
+	if (keycode == NUMPLUS)
+		my_mlx->click->sizemult *= 1.2;
+	if (keycode == NUMMINUS)
+		my_mlx->click->sizemult /= 1.2;
+	if (keycode == NUMSLASH)
+		my_mlx->click->heightmult /= 1.2;
+	if (keycode == NUMSTAR)
+		my_mlx->click->heightmult *= 1.2;
 }
 
-int	square_edit_properties(t_data *my_mlx, double distx, double disty)
+void	object_change_rotsize(int keycode, t_data *my_mlx)
 {
-	t_square	*squarehead;
-	int			i;
+	t_vec3	angle;
 
-	i = 0;
-	squarehead = my_mlx->square;
-	while (i < my_mlx->click->index && my_mlx->square)
+	object_sizemult(keycode, my_mlx);
+	angle = vec3_new(0.0, 0.0, 0.0);
+	if (keycode >= NUMTWO && keycode <= NUMNINE)
 	{
-		i++;
-		my_mlx->square = my_mlx->square->next;
+		if (keycode == NUMFOUR)
+			angle = vec3_sub(angle, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+		if (keycode == NUMSIX)
+			angle = vec3_add(angle, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+		if (keycode == NUMTWO)
+			angle = vec3_sub(angle, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+		if (keycode == NUMEIGHT)
+			angle = vec3_add(angle, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+		if (keycode == NUMSEVEN)
+			angle = vec3_sub(angle, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+		if (keycode == NUMNINE)
+			angle = vec3_add(angle, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+		my_mlx->click->rotation = addrotation(my_mlx->click->rotation, angle);
+		object_edit_properties(my_mlx);
+		newframe(my_mlx);
 	}
-	my_mlx->square->s = vec3_sub(my_mlx->square->s,
-vec3_mult(my_mlx->cam->c2w.r, distx * my_mlx->click->distance
-	/ my_mlx->scene->width));
-	my_mlx->square->s = vec3_sub(my_mlx->square->s,
-vec3_mult(my_mlx->cam->c2w.up, disty * my_mlx->click->distance
-	/ my_mlx->scene->height));
-	my_mlx->square = squarehead;
-	return (1);
-}
+ }
 
-int	plane_edit_properties(t_data *my_mlx, double distx, double disty)
+int		mouseinput(int button, int x, int y, t_data *my_mlx)
 {
-	t_plane	*planehead;
-	int		i;
-
-	i = 0;
-	planehead = my_mlx->plane;
-	while (i < my_mlx->click->index && my_mlx->plane)
+	if (my_mlx->click->state == 1 && (button == 4 || button == 5))
 	{
-		i++;
-		my_mlx->plane = my_mlx->plane->next;
+		if (button == 4)
+			my_mlx->click->dist_fw += 10;
+		else if (button == 5)
+			my_mlx->click->dist_fw -= 10;
 	}
-	my_mlx->plane->s = vec3_sub(my_mlx->plane->s,
-vec3_mult(my_mlx->cam->c2w.r, distx * my_mlx->click->distance
-	/ my_mlx->scene->width));
-	my_mlx->plane->s = vec3_sub(my_mlx->plane->s,
-vec3_mult(my_mlx->cam->c2w.up, disty * my_mlx->click->distance
-	/ my_mlx->scene->height));
-	my_mlx->plane = planehead;
-	return (1);
-}
-
-int	cylinder_edit_properties(t_data *my_mlx, double distx, double disty)
-{
-	t_cylinder	*cylinderhead;
-	int			i;
-
-	i = 0;
-	cylinderhead = my_mlx->cylinder;
-	while (i < my_mlx->click->index && my_mlx->cylinder)
-	{
-		i++;
-		my_mlx->cylinder = my_mlx->cylinder->next;
-	}
-	my_mlx->cylinder->s = vec3_sub(my_mlx->cylinder->s,
-vec3_mult(my_mlx->cam->c2w.r, distx * my_mlx->click->distance
-	/ my_mlx->scene->width));
-	my_mlx->cylinder->s = vec3_sub(my_mlx->cylinder->s,
-vec3_mult(my_mlx->cam->c2w.up, disty * my_mlx->click->distance
-	/ my_mlx->scene->height));
-	my_mlx->cylinder = cylinderhead;
+	if (button == 1)
+		get_click_info(x, y, my_mlx);
 	return (1);
 }

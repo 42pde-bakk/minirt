@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/06 21:17:07 by Peer de Bak   ########   odam.nl          #
+#    Updated: 2020/02/11 23:41:48 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,26 +24,26 @@ EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20191025_beta/
 HEADER = -I ./includes/
 
-SRC = minirt.c rays.c
+SRC = minirt.c rays.c newframe.c freebwilbers.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
-			parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
+	parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
-			find_triangle.c
+	find_triangle.c
 LIGHT = lighting.c obstacles.c
-MATH = colour.c degrad.c mat4_angles.c matrices.c quaternion.c rotations.c \
-		vectors_adv.c vectors.c
-INTERACTION = click_object.c click_cylinder_plane.c click_sphere_square.c readinput.c \
-		obj_edit_properties.c get_click_info.c
+MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \
+	rotations.c vectors_adv.c vectors.c
+INTERACTION = click_object.c click_cylinder_plane.c click_sphere_square.c \
+	readinput.c	obj_edit_properties.c get_click_info.c obj_edit_props2.c
 GNL = get_next_line.c get_next_line_utils.c
-LIBFT = *.c #ft_lstmap_bonus.c ft_strjoin.c ft_atoi.c ft_lstnew_bonus.c ft_strlcat.c \
-ft_bzero.c ft_lstsize_bonus.c ft_strlcpy.c ft_calloc.c ft_memccpy.c ft_strlen.c \
-ft_isalnum.c ft_memchr.c ft_strmapi.c ft_isalpha.c ft_memcmp.c ft_strncmp.c \
-ft_isascii.c ft_memcpy.c ft_strnstr.c ft_isdigit.c ft_memmove.c ft_strrchr.c \
-ft_isprint.c ft_memset.c ft_strtrim.c ft_itoa.c ft_putchar_fd.c ft_substr.c \
-ft_lstadd_back_bonus.c ft_putendl_fd.c ft_tolower.c ft_lstadd_front_bonus.c \
-ft_putnbr_fd.c ft_toupper.c ft_lstclear_bonus.c ft_putstr_fd.c \
-ft_lstdelone_bonus.c ft_split.c ft_lstiter_bonus.c ft_strchr.c \
-ft_lstlast_bonus.c ft_strdup.c
+LIBFT = ft_lstmap_bonus.c ft_strjoin.c ft_atoi.c ft_lstnew_bonus.c \
+ft_strlcat.c ft_bzero.c ft_lstsize_bonus.c ft_strlcpy.c ft_calloc.c \
+ft_memccpy.c ft_strlen.c ft_isalnum.c ft_memchr.c ft_strmapi.c ft_isalpha.c \
+ft_memcmp.c ft_strncmp.c ft_isascii.c ft_memcpy.c ft_strnstr.c ft_isdigit.c \
+ft_memmove.c ft_strrchr.c ft_isprint.c ft_memset.c ft_strtrim.c ft_itoa.c \
+ft_putchar_fd.c ft_substr.c ft_lstadd_back_bonus.c ft_putendl_fd.c \
+ft_tolower.c ft_lstadd_front_bonus.c ft_putnbr_fd.c ft_toupper.c \
+ft_lstclear_bonus.c ft_putstr_fd.c ft_lstdelone_bonus.c ft_split.c \
+ft_lstiter_bonus.c ft_strchr.c ft_lstlast_bonus.c ft_strdup.c
 
 
 EXTRA = ft_itoa_base.c ft_atox_peer.c
@@ -58,10 +58,11 @@ FILES += $(addprefix $(LIBFT_DIR), $(LIBFT))
 FILES += $(addprefix $(EXTRA_DIR), $(EXTRA))
 FILES += $(addprefix $(INTERACTION_DIR), $(INTERACTION))
 
-MAX_RESX := $(shell displayplacer list | grep "current mode" | awk -F '[:x]' '/mode/{print$$3}')
-MAX_RESY := $(shell displayplacer list | grep "current mode" | awk -F '[:xc]' '/mode/{print$$4}')
+MAX_RESX := $(shell displayplacer list | grep "current mode" | \
+awk -F '[:x]' '/mode/{print$$3}')
+MAX_RESY := $(shell displayplacer list | grep "current mode" | \
+awk -F '[:xc]' '/mode/{print$$4}')
 
-# OBJ = $(SRC:.c=.o)
 FLAGS = -Wall -Werror -Wextra -g
 ifdef SPEED
 FLAGS += -O3
@@ -69,13 +70,11 @@ endif
 ifdef DEBUG
  FLAGS += -fsanitize=address
 endif
+ifdef UV
+ FLAGS += -D UV=1
+endif
 
-#INCLUDES = includes/extra.c includes/ft_itoa_base.c includes/ft_atox_peer.c \
-includes/gnl/get_next_line.c includes/gnl/get_next_line_utils.c
-
-#INCOBJ = extra.o ft_itoa_base.o ft_atox_peer.o get_next_line.o get_next_line_utils.o
-
-MAGIC = -I minilibx_mms_20191025_beta -L minilibx_mms_20191025_beta -lmlx -framework OpenGL -framework AppKit libmlx.dylib
+MAGIC = -L minilibx_mms_20191025_beta -lmlx -framework AppKit
 
 # COLORS
 PINK = \x1b[35;01m
@@ -94,9 +93,12 @@ $(NAME):
 	@make re -C $(LIBFT_DIR)
 	@cp $(LIBFT_DIR)/libft.a .
 	@echo "$(YELLOW)Making MiniLibX"
+	@chmod +x $(MLX_DIR)mlx.h
+	@cp $(MLX_DIR)/mlx.h includes/
 	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/libmlx.dylib .
-	@gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME) -D MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY)
+	@gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME) -D \
+	MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY)
 
 clean:
 	@echo "$(RED)Cleaning..."
@@ -105,6 +107,7 @@ clean:
 fclean: clean
 	@make clean -C ./libft
 	/bin/rm -f libft.a
+	/bin/rm -f includes/mlx.h
 	/bin/rm -f $(NAME) libmlx.dylib
 
 re: fclean all
@@ -118,7 +121,6 @@ bonus: re
 	@echo "$(PINK)Linking bonus files"
 
 run: re
-	#gcc $(FLAGS) $(MAGIC) -o miniRT miniRT libft.a
 	@make clean
 	@echo "$(PINK)bitch"
 	./miniRT ./scenes/example.rt

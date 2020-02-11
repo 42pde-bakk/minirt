@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:01:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:24:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 21:49:07 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int				parse_light(t_data *my_mlx, char *line, int *i)
 
 	new = malloc(sizeof(t_light));
 	if (new == NULL)
-		return (0);
+		return (-1);
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);

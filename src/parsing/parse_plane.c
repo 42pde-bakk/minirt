@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:26:24 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 21:49:04 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		parse_plane(t_data *my_mlx, char *line, int *i)
 
 	new = malloc(sizeof(t_plane));
 	if (new == NULL)
-		return (0);
+		return (-1);
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);

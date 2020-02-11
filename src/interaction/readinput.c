@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 21:42:00 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 16:42:20 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,24 +17,24 @@ void	wasd(int keycode, t_data *my_mlx)
 	t_vec3	movement;
 
 	movement = vec3_new(0.0, 0.0, 0.0);
-	if ((keycode >= AKEY && keycode <= DKEY) || (keycode >= QKEY && keycode <= EKEY))
+	if ((keycode >= AKEY && keycode <= DKEY) ||
+		(keycode >= QKEY && keycode <= EKEY))
 	{
-		// printmatrix(my_mlx->cam->c2w);
-		// printf("\n");
-		//	movement = vec3_add(movement, vec3_new(0.0, MOVE_SPEED, 0.0));
 		if (keycode == WKEY)
-			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
-		if (keycode == AKEY)
-			my_mlx->cam->s = vec3_sub(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
+			my_mlx->cam->s = vec3_add(my_mlx->cam->s,
+			vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
 		if (keycode == SKEY)
-			my_mlx->cam->s = vec3_sub(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
+			my_mlx->cam->s = vec3_sub(my_mlx->cam->s,
+			vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
 		if (keycode == DKEY)
-			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
+			my_mlx->cam->s = vec3_add(my_mlx->cam->s,
+			vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
 		if (keycode == QKEY)
-			my_mlx->cam->s = vec3_sub(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.up, MOVE_SPEED));
+			my_mlx->cam->s = vec3_sub(my_mlx->cam->s,
+			vec3_mult(my_mlx->cam->c2w.up, MOVE_SPEED));
 		if (keycode == EKEY)
-			my_mlx->cam->s = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->cam->c2w.up, MOVE_SPEED));
-		//my_mlx->cam->s = vec3_add(my_mlx->cam->s, pleurmatrix(movement, my_mlx->cam->c2w));
+			my_mlx->cam->s = vec3_add(my_mlx->cam->s,
+			vec3_mult(my_mlx->cam->c2w.up, MOVE_SPEED));
 		my_mlx->click->state = 0;
 		newframe(my_mlx);
 	}
@@ -61,7 +61,8 @@ void	arrowkeys(int keycode, t_data *my_mlx)
 		if (keycode == NUMZERO)
 			adjust = vec3_sub(adjust, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
 		my_mlx->cam->v = addrotation(my_mlx->cam->v, adjust);
-		my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
+		my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s,
+		vec3_add(my_mlx->cam->s, my_mlx->cam->v));
 		newframe(my_mlx);
 	}
 }
@@ -76,7 +77,7 @@ void	swapcameras(int keycode, t_data *my_mlx)
 			my_mlx->cam = my_mlx->cam->next;
 		my_mlx->click->state = 0;
 		newframe(my_mlx);
-	}	
+	}
 }
 
 int		keyinput(int keycode, t_data *my_mlx)
@@ -84,12 +85,11 @@ int		keyinput(int keycode, t_data *my_mlx)
 	wasd(keycode, my_mlx);
 	if (my_mlx->click->state == 0)
 		arrowkeys(keycode, my_mlx);
-	// else
-	// 	object_add_rotation(keycode, my_mlx);
+	else
+		object_change_rotsize(keycode, my_mlx);
 	swapcameras(keycode, my_mlx);
 	if (keycode == ESCAPE)
 	{
-		// (void)my_mlx;
 		free(my_mlx->mlx_img);
 		free(my_mlx->mlx_ptr);
 		exit(0);
@@ -103,11 +103,4 @@ int	ripwindow(t_data *my_mlx)
 	free(my_mlx->mlx_img2);
 	free(my_mlx->mlx_ptr);
 	exit(0);
-}
-
-int		mouseinput(int button, int x, int y, t_data *my_mlx)
-{
-	if (button == 1 && (my_mlx->click->state == 0 || my_mlx->click->state == 1))
-		get_click_info(x, y, my_mlx);
-	return (1);
 }

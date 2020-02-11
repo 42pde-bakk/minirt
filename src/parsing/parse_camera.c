@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 22:12:23 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/31 19:27:18 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 23:52:29 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ void			ft_lstadd_back_camera(t_cam **alst, t_cam *new)
 	if (tmp)
 	{
 		while (tmp->next)
+		{
 			tmp = tmp->next;
+		}
 		tmp->next = new;
 	}
 	else
@@ -39,7 +41,7 @@ int				parse_camera(t_data *my_mlx, char *line, int *i)
 
 	new = malloc(sizeof(t_cam));
 	if (new == NULL)
-		return (0);
+		return (-1);
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
@@ -49,7 +51,7 @@ int				parse_camera(t_data *my_mlx, char *line, int *i)
 	if (vec3_sqr(new->v) == 0)
 		new->v.z = 1.0;
 	new->v = vec3_normalize(new->v);
-	new->fov = fmin(180.0, fmax(30.0, ft_atoi_peer(line, i)));
+	new->fov = fmin(60.0, fmax(30.0, ft_atoi_peer(line, i)));
 	new->next = NULL;
 	new->c2w = mat4_lookat(new->s, vec3_add(new->s, new->v));
 	ft_lstadd_back_camera(&my_mlx->cam, new);

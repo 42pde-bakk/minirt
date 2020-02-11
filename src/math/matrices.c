@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/01/31 20:53:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 16:57:38 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,10 @@ t_matrix	lookat_by_matrix(t_vec3 position, t_vec3 target)
 	forward = vec3_normalize(vec3_sub(position, target));
 	right = crossproduct(stdup, forward);
 	up = crossproduct(forward, right);
-	// printvec(up, "lookat by matrix upvector");
 	return (mat4_new(right, up, forward, position));
 }
 
-t_matrix			mat4_lookat(t_vec3 position, t_vec3 target)
+t_matrix	mat4_lookat(t_vec3 position, t_vec3 target)
 {
 	t_vec3	norm;
 
@@ -47,20 +46,6 @@ t_matrix			mat4_lookat(t_vec3 position, t_vec3 target)
 		return (quat_to_matrix(quat_lookat(position, target)));
 	else
 		return (lookat_by_matrix(position, target));
-}
-
-void		printvec(t_vec3	v, char *s)
-{
-	printf("vector %s={%f, %f, %f}\n", s, v.x, v.y, v.z);
-	// moet er uit (check ook op #include <stdio.h> aub)
-}
-
-void		printmatrix(t_matrix v)
-{
-	printvec(v.r, "right");
-	printvec(v.up, "up");
-	printvec(v.fw, "forward");
-	printvec(v.t, "t");
 }
 
 void	setcamera(t_data *my_mlx, double pndcx, double pndcy)

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/06 18:29:12 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/11 16:15:24 by Peer de Bak   ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_col			col_times_lightratio(t_col col, t_col light, double max);
 t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 t_col			colour_cap(t_col colour);
 /*
-matrices.c
+**matrices.c
 */
 void			printvec(t_vec3 v, char *s);
 void			printmatrix(t_matrix v);
@@ -38,21 +38,21 @@ t_matrix		multmatrix(t_matrix a, t_matrix b);
 t_matrix		addmatrix(t_matrix a, t_matrix b);
 t_vec3			pleurmatrix(t_vec3 v, t_matrix mat);
 /*
-degrad.c
+**degrad.c
 */
 double			deg2rad(double degrees);
 double			rad2deg(double radians);
 t_vec3			rad2degvec(t_vec3 v);
 t_vec3			deg2radvec(t_vec3 v);
 /*
-rotations.c
+**rotations.c
 */
 t_matrix		rotate_xaxis(double camrot);
 t_matrix		rotate_yaxis(double camrot);
 t_matrix		rotate_zaxis(double camrot);
 t_vec3			addrotation(t_vec3 lookdir, t_vec3 angle);
 /*
-quaternion.c
+**quaternion.c
 */
 t_matrix		mat4_lookat(t_vec3 position, t_vec3 target);
 t_matrix		mat4_new(t_vec3	right, t_vec3 up, t_vec3 forward, t_vec3 t);
@@ -62,10 +62,9 @@ void			printquat(t_quat quat, char *str);
 t_matrix		quat_to_matrix(t_quat quat);
 t_quat			quat_mult(t_quat a, t_quat b);
 t_quat			quat_init(double w, double x, double y, double z);
-t_quat     		quat_new(double x, double y, double z, double angle);
-t_quat   		quat_lookat(t_vec3 to, t_vec3 from);
+t_quat			quat_new(double x, double y, double z, double angle);
+t_quat			quat_lookat(t_vec3 to, t_vec3 from);
 t_matrix		lookat_by_matrix(t_vec3 position, t_vec3 target);
-//t_matrix   	ft_newrotate(t_data *my_mlx, t_vec3 angle);
 /*
 **Vector mathematics
 */
