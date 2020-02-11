@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 23:51:58 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/11 23:56:02 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ int		main(int argc, char **argv)
 	}
 	if (init_my_mlx(my_mlx, fd) == -1)
 		freemachine(my_mlx);
-	printf("nope\n");
 	newframe(my_mlx);
 	mlx_hook(my_mlx->win_ptr, RED_BUTTON_CODE, DESTROY_EVENT, &ripwindow, my_mlx);
 	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK, &mouseinput, my_mlx);

@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/11 23:41:48 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/12 00:02:17 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -116,6 +116,7 @@ fuckingclean: fclean
 	/bin/rm -f \#*\# a.out
 	/bin/rm -rf *.dSYM
 	@make fclean -C ./libft
+	@make clean -C ./minilibx_mms_20191025_beta
 
 bonus: re
 	@echo "$(PINK)Linking bonus files"
