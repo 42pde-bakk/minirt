@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 16:42:20 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/12 18:40:21 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,13 @@ void	wasd(int keycode, t_data *my_mlx)
 	{
 		if (keycode == WKEY)
 			my_mlx->cam->s = vec3_add(my_mlx->cam->s,
-			vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
+			vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
 		if (keycode == SKEY)
 			my_mlx->cam->s = vec3_sub(my_mlx->cam->s,
 			vec3_mult(my_mlx->cam->c2w.fw, MOVE_SPEED));
+		if (keycode == AKEY)
+			my_mlx->cam->s = vec3_sub(my_mlx->cam->s,
+			vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
 		if (keycode == DKEY)
 			my_mlx->cam->s = vec3_add(my_mlx->cam->s,
 			vec3_mult(my_mlx->cam->c2w.r, MOVE_SPEED));
@@ -89,18 +92,6 @@ int		keyinput(int keycode, t_data *my_mlx)
 		object_change_rotsize(keycode, my_mlx);
 	swapcameras(keycode, my_mlx);
 	if (keycode == ESCAPE)
-	{
-		free(my_mlx->mlx_img);
-		free(my_mlx->mlx_ptr);
-		exit(0);
-	}
+		freemachine(my_mlx);
 	return (1);
-}
-
-int	ripwindow(t_data *my_mlx)
-{
-	free(my_mlx->mlx_img);
-	free(my_mlx->mlx_img2);
-	free(my_mlx->mlx_ptr);
-	exit(0);
 }

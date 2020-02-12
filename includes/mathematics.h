@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/11 16:15:24 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/12 16:07:34 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ t_col			colour_cap(t_col colour);
 /*
 **matrices.c
 */
-void			printvec(t_vec3 v, char *s);
-void			printmatrix(t_matrix v);
+void	        printvec(t_vec3 v, char *str);
+void        	printmatrix(t_matrix m, char *str);
 void			setmatrix(t_data *my_mlx);
 void			setcamera(t_data *my_mlx, double pndcx, double pndcy);
 t_matrix		multmatrix(t_matrix a, t_matrix b);

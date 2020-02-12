@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 22:46:36 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/12 18:39:09 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	freeplane(void *in)
 	}
 }
 
-void	freemachine(t_data *my_mlx)
+int	freemachine(t_data *my_mlx)
 {
 	freeplane(my_mlx->plane);
 	freeplane(my_mlx->sphere);

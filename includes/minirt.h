@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 22:49:58 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/12 18:39:29 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ int		find_obstacles(t_data *my_mlx, t_vec3 ldir, t_vec3 hitpos);
 
 int		newframe(t_data *my_mlx);
 int		init_my_mlx(t_data *my_mlx, int fd);
-void	freemachine(t_data *my_mlx);
+int 	freemachine(t_data *my_mlx);
 
 double	ndcx(t_data *my_mlx, double x);
 double	ndcy(t_data *my_mlx, double y);
