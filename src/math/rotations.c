@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/25 19:08:55 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/01/25 19:11:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/13 12:34:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_matrix	rotate_xaxis(double camrot)
 
 	rot = deg2rad(camrot);
 	mat.r = vec3_new(1, 0, 0);
-	mat.up = vec3_new(0, cos(rot), -sin(rot));
-	mat.fw = vec3_new(0, sin(rot), cos(rot));
+	mat.up = vec3_new(0, cos(rot), sin(rot));
+	mat.fw = vec3_new(0, -sin(rot), cos(rot));
 	return (mat);
 }
 
@@ -30,9 +30,9 @@ t_matrix	rotate_yaxis(double camrot)
 	t_matrix	mat;
 
 	rot = deg2rad(camrot);
-	mat.r = vec3_new(cos(rot), 0, sin(rot));
+	mat.r = vec3_new(cos(rot), 0, -sin(rot));
 	mat.up = vec3_new(0, 1, 0);
-	mat.fw = vec3_new(-sin(rot), 0, cos(rot));
+	mat.fw = vec3_new(sin(rot), 0, cos(rot));
 	return (mat);
 }
 
@@ -42,8 +42,8 @@ t_matrix	rotate_zaxis(double camrot)
 	t_matrix	mat;
 
 	rot = deg2rad(camrot);
-	mat.r = vec3_new(cos(rot), -sin(rot), 0);
-	mat.up = vec3_new(sin(rot), cos(rot), 0);
+	mat.r = vec3_new(cos(rot), sin(rot), 0);
+	mat.up = vec3_new(-sin(rot), cos(rot), 0);
 	mat.fw = vec3_new(0, 0, 1);
 	return (mat);
 }

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/12 18:39:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/13 12:39:20 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@
 #  define MAX_RESY 420
 # endif
 # define CAM_SPEED 0.5
-# define CAM_ROT_SPEED -5.0
+# define CAM_ROT_SPEED 5.0
 # define CAM_FOV_STEP 2.0
 # define ROT_DEGREES 90.0
 # define MOVE_SPEED -5.0
