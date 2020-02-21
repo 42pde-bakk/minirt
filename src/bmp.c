@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   find_square.c                                      :+:    :+:            */
+/*   bmp.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:06:32 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:30:51 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/02/21 23:07:26 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/02/21 23:11:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-int	find_square(t_square *sq, t_data *my_mlx)
+int	bmp(void)
 {
-	if (find_triangle(&sq->tri[0], my_mlx) == 1)
-	{
-		return (1);
-	}
-	else if (find_triangle(&sq->tri[1], my_mlx) == 1)
-	{
-		return (1);
-	}
-	else
-		return (0);
+	return (0);
 }

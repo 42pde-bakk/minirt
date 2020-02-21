@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:23:10 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/16 16:35:10 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 22:10:11 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ double		click_plane(t_plane *pl, t_data *my_mlx, t_vec3 ray)
 	return (-1);
 }
 
-int		get_object_cylinder(t_data *my_mlx, t_vec3 ray)
+int			get_object_cylinder(t_data *my_mlx, t_vec3 ray)
 {
 	t_cylinder	*tmpcylinder;
 	double		ret;
@@ -108,7 +108,7 @@ int		get_object_cylinder(t_data *my_mlx, t_vec3 ray)
 	return (1);
 }
 
-int		get_object_plane(t_data *my_mlx, t_vec3 ray)
+int			get_object_plane(t_data *my_mlx, t_vec3 ray)
 {
 	t_plane	*tmpplane;
 	double	ret;

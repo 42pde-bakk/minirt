@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 19:22:55 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/19 22:20:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 23:05:34 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,12 @@
 int		newframe(t_data *my_mlx)
 {
 	ray(my_mlx);
+	if (my_mlx->bmp == 1)
+	{
+		bmp();
+		freemachine(my_mlx);
+		return (0);
+	}
 	mlx_clear_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	if (my_mlx->frame % 2 == 0)
 		mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr,

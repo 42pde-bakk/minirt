@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/20 20:20:33 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 23:07:03 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,7 @@ int		argcheck(int argc, char **argv)
 			ret = 2;
 			if (ft_strncmp(argv[1], "--save", 6) != 0)
 				return (-1);
+			my_mlx->bmp = 1;
 		}
 	}
 	return (ret);

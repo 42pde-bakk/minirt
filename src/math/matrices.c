@@ -6,65 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/19 17:31:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 20:29:04 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrix	mat4_new(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 t)
-{
-	t_matrix newmatrix;
-
-	newmatrix.r = right;
-	newmatrix.up = up;
-	newmatrix.fw = forward;
-	newmatrix.t = t;
-	return (newmatrix);
-}
-
-t_matrix	lookat_by_matrix(t_vec3 position, t_vec3 target)
-{
-	t_vec3	forward;
-	t_vec3	right;
-	t_vec3	up;
-	t_vec3	stdup;
-
-	stdup = vec3_new(0.0, 1.0, 0.0);
-	forward = vec3_normalize(vec3_sub(position, target));
-	right = crossproduct(stdup, forward);
-	up = crossproduct(forward, right);
-	return (mat4_new(right, up, forward, position));
-}
-
-t_matrix	mat4_lookat(t_vec3 position, t_vec3 target)
-{
-	t_vec3		norm;
-	t_matrix	mat;
-
-	norm = vec3_normalize(vec3_sub(target, position));
-	if (norm.x == 0.0 && norm.z == 0.0 && fabs(norm.y) == 1.0)
-	{
-		if (norm.y == 1.0)
-		{
-			mat.r = vec3_new(1.0, 0.0, 0.0);
-			mat.up = vec3_new(0.0, 0.0, 1.0);
-			mat.fw = vec3_new(0.0, 1.0, 0.0);
-		}
-		else
-		{
-			mat.r = vec3_new(0.0, 0.0, 1.0);
-			mat.up = vec3_new(1.0, 0.0, 0.0);
-			mat.fw = vec3_new(0.0, -1.0, 0.0);
-		}
-		mat.t = position;
-		return (mat);
-	}
-	else
-		return (lookat_by_matrix(position, target));
-}
-
-void	setcamera(t_data *my_mlx, double pndcx, double pndcy)
+void		setcamera(t_data *my_mlx, double pndcx, double pndcy)
 {
 	t_vec3		tmp;
 	t_matrix	camtoworld;
@@ -93,17 +41,7 @@ t_matrix	multmatrix(t_matrix a, t_matrix b)
 	return (new);
 }
 
-t_matrix	addmatrix(t_matrix a, t_matrix b)
-{
-	t_matrix	out;
-
-	out.r = vec3_normalize(vec3_add(a.r, b.r));
-	out.up = vec3_normalize(vec3_add(a.up, b.up));
-	out.fw = vec3_normalize(vec3_add(a.fw, b.fw));
-	return (out);
-}
-
-t_vec3	pleurmatrix(t_vec3 v, t_matrix mat)
+t_vec3		pleurmatrix(t_vec3 v, t_matrix mat)
 {
 	t_vec3	new;
 
@@ -113,12 +51,12 @@ t_vec3	pleurmatrix(t_vec3 v, t_matrix mat)
 	return (new);
 }
 
-void	printvec(t_vec3 v, char *str)
+void		printvec(t_vec3 v, char *str) //remove this bitch
 {
 	printf("%s: %f %f %f\n", str, v.x, v.y, v.z);
 }
 
-void	printmatrix(t_matrix m, char *str)
+void		printmatrix(t_matrix m, char *str) //remove this bitch
 {
 	printf("%s:\n", str);
 	printvec(m.r, "rvec");

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/20 20:04:28 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 20:33:32 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,8 @@
 **colour.c
 */
 t_col			colour_mult(t_col col, double c1, double c2);
-t_col			coltimescol(t_col a, t_col b);
 t_col			colour_new(double r, double g, double b);
 t_col			colour_add(t_col v1, t_col v2);
-t_col			col_times_lightratio(t_col col, t_col light, double max);
 t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 t_col			colour_cap(t_col colour);
 int				colour_check(t_col colour);
@@ -31,12 +29,11 @@ int				between_check(double check);
 /*
 **matrices.c
 */
-void	        printvec(t_vec3 v, char *str);
-void        	printmatrix(t_matrix m, char *str);
+void			printvec(t_vec3 v, char *str); //remove pls
+void    		printmatrix(t_matrix m, char *str); //remove pls
 void			setmatrix(t_data *my_mlx);
 void			setcamera(t_data *my_mlx, double pndcx, double pndcy);
 t_matrix		multmatrix(t_matrix a, t_matrix b);
-t_matrix		addmatrix(t_matrix a, t_matrix b);
 t_vec3			pleurmatrix(t_vec3 v, t_matrix mat);
 /*
 **degrad.c

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 17:26:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/12 18:44:50 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 20:30:10 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,4 +47,11 @@ t_matrix		mat4_angles(t_vec3 angles)
 	tmp = multmatrix(x_angle(angles.x), y_angle(angles.y));
 	out = multmatrix(tmp, z_angle(angles.z));
 	return (out);
+}
+
+int				between_check(double check)
+{
+	if (check < 0.0 || check > 1.0)
+		return (0);
+	return (1);
 }

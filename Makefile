@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/21 15:10:31 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/21 23:07:58 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,7 @@ EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20191025_beta/
 HEADER = -I ./includes/
 
-SRC = minirt.c rays.c newframe.c freebwilbers.c
+SRC = minirt.c rays.c newframe.c freebwilbers.c bmp.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 	parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
@@ -32,9 +32,10 @@ OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
 LIGHT = lighting.c obstacles.c obstacle_cylinder.c obstacle_plane.c \
 	obstacle_sphere.c obstacle_square.c obstacle_triangle.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \
-	rotations.c vectors_adv.c vectors.c
+	rotations.c vectors_adv.c vectors.c mat4_lookat.c
 INTERACTION = click_object.c click_cylinder_plane.c click_sphere_square.c \
-	readinput.c	obj_edit_properties.c get_click_info.c obj_edit_props2.c
+	readinput.c	obj_edit_properties.c get_click_info.c obj_edit_props2.c \
+	camera_action.c obj_edit_props_square.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_lstmap_bonus.c ft_strjoin.c ft_atoi.c ft_lstnew_bonus.c \
 ft_strlcat.c ft_bzero.c ft_lstsize_bonus.c ft_strlcpy.c ft_calloc.c \

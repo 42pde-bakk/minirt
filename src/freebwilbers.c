@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/20 19:41:53 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 22:50:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	freeplane(void *in)
 	}
 }
 
-int	freemachine(t_data *my_mlx)
+int		freemachine(t_data *my_mlx)
 {
 	static int	check = 0;
 
@@ -48,8 +48,8 @@ int	freemachine(t_data *my_mlx)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	free(my_mlx->mlx_img);
 	free(my_mlx->mlx_img2);
-	free(my_mlx->mlx_ptr);
-	free(my_mlx->win_ptr);
-	// system("leaks miniRT");
+	// free(my_mlx->mlx_ptr);
+	// free(my_mlx->win_ptr);
+	system("leaks miniRT"); //remove pls
 	exit(0);
 }

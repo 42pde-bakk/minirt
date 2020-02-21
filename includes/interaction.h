@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:41:53 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/16 16:34:57 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 22:48:44 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ int		ripwindow(t_data *my_mlx);
 void	object_change_rotsize(int keycode, t_data *my_mlx);
 
 int		mouseinput(int button, int x, int y, t_data *my_mlx);
+
+void	arrowkeys(int keycode, t_data *my_mlx);
+void	wasd(int keycode, t_data *my_mlx);
 int		get_object_cylinder(t_data *my_mlx, t_vec3 ray);
 int		get_object_plane(t_data *my_mlx, t_vec3 ray);
 

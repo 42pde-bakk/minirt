@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 22:12:23 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:20:09 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 22:47:51 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ int				parse_camera(t_data *my_mlx, char *line, int *i)
 	new = malloc(sizeof(t_cam));
 	if (new == NULL)
 		return (-1);
+	parse_camera_from_file(new, line, i);
 	if (new->fov < 0.0 || vec3_sqr(new->v) == 0)
 	{
 		free(new);
