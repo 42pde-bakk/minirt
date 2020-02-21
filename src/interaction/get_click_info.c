@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 18:44:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/07 16:17:26 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/16 18:20:20 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ void	clean_click_info(t_data *my_mlx)
 	my_mlx->click->sizemult = 1.0;
 	my_mlx->click->heightmult = 1.0;
 	my_mlx->click->rotation = vec3_new(0.0, 0.0, 0.0);
+	my_mlx->click->mousemovestate = 0;
 }
 
 void	get_click_info(int x, int y, t_data *my_mlx)

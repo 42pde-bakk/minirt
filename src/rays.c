@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 20:08:18 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/19 22:18:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,11 @@ double	ndcy(t_data *my_mlx, double y)
 void	ray2(t_data *my_mlx, int x, int y)
 {
 	if (my_mlx->ray->length < __INT_MAX__)
-	{
 		my_mlx->ray->colour = light_tracing(my_mlx);
-		put_rgb(my_mlx, x, y, my_mlx->ray->colour);
-		my_mlx->ray->length = __INT_MAX__;
-		my_mlx->ray->colour = colour_new(0.0, 0.0, 0.0);
-		my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
-	}
+	put_rgb(my_mlx, x, y, my_mlx->ray->colour);
+	my_mlx->ray->length = __INT_MAX__;
+	my_mlx->ray->colour = colour_new(0.0, 0.0, 0.0);
+	my_mlx->ray->hitnormal = vec3_new(0.0, 0.0, 0.0);
 }
 
 void	ray(t_data *my_mlx)

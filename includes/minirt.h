@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/13 12:39:20 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/19 23:27:38 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h>
+# include <stdio.h> //
 
 # include "enums.h"
 # include "structs.h"
@@ -28,6 +28,7 @@
 # include "parsing.h"
 # include "objects.h"
 # include "interaction.h"
+# include "lighting.h"
 
 # ifndef ALBEDO
 #  define ALBEDO 40.0
@@ -60,19 +61,12 @@ double	ft_atof_peer(const char *str, int *i);
 int		ft_atoi_peer(const char *str, int *i);
 
 /*
-**../src/lighting:
-*/
-t_col	light_tracing(t_data *my_mlx);
-
-int		find_obstacles(t_data *my_mlx, t_vec3 ldir, t_vec3 hitpos);
-
-/*
 **And scene:
 */
 
 int		newframe(t_data *my_mlx);
 int		init_my_mlx(t_data *my_mlx, int fd);
-int 	freemachine(t_data *my_mlx);
+int		freemachine(t_data *my_mlx);
 
 double	ndcx(t_data *my_mlx, double x);
 double	ndcy(t_data *my_mlx, double y);

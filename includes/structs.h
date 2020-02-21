@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/11 22:21:57 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/16 18:27:59 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef struct	s_click
 	double	sizemult;
 	double	heightmult;
 	t_vec3	rotation;
+	int		mousemovestate;
 }				t_click;
 
 typedef struct	s_data

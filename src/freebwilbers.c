@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/12 18:39:09 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/20 19:41:53 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,11 @@ void	freeplane(void *in)
 
 int	freemachine(t_data *my_mlx)
 {
+	static int	check = 0;
+
+	if (check > 0)
+		return (0);
+	check++;
 	freeplane(my_mlx->plane);
 	freeplane(my_mlx->sphere);
 	freeplane(my_mlx->square);
@@ -37,9 +42,14 @@ int	freemachine(t_data *my_mlx)
 	free(my_mlx->scene);
 	free(my_mlx->ray);
 	free(my_mlx->click);
+	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
+	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
+	if (my_mlx->win_ptr != NULL)
+		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	free(my_mlx->mlx_img);
 	free(my_mlx->mlx_img2);
 	free(my_mlx->mlx_ptr);
-	free(my_mlx);
+	free(my_mlx->win_ptr);
+	// system("leaks miniRT");
 	exit(0);
 }

@@ -6,13 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/03 23:51:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 16:45:20 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/16 16:34:47 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	click_object_triangle(t_data *my_mlx, t_vec3 ray)
+void	get_object_triangle(t_data *my_mlx, t_vec3 ray)
 {
 	t_triangle	*tmptriangle;
 	int			i;
@@ -41,7 +41,7 @@ void	click_object_triangle(t_data *my_mlx, t_vec3 ray)
 	}
 }
 
-int		click_object_square(t_data *my_mlx, t_vec3 ray)
+int		get_object_square(t_data *my_mlx, t_vec3 ray)
 {
 	t_square	*tmpsquare;
 	int			i;
@@ -66,7 +66,7 @@ int		click_object_square(t_data *my_mlx, t_vec3 ray)
 	return (1);
 }
 
-int		click_object_sphere(t_data *my_mlx, t_vec3 ray)
+int		get_object_sphere(t_data *my_mlx, t_vec3 ray)
 {
 	t_sphere	*tmpsphere;
 	int			i;
@@ -96,11 +96,11 @@ int		click_object(t_data *my_mlx, t_vec3 ray)
 
 	my_mlx->click->distance = __INT_MAX__;
 	i = 0;
-	click_object_cylinder(my_mlx, ray);
-	click_object_sphere(my_mlx, ray);
-	click_object_triangle(my_mlx, ray);
-	click_object_square(my_mlx, ray);
-	click_object_plane(my_mlx, ray);
+	get_object_cylinder(my_mlx, ray);
+	get_object_sphere(my_mlx, ray);
+	get_object_triangle(my_mlx, ray);
+	get_object_square(my_mlx, ray);
+	get_object_plane(my_mlx, ray);
 	if (my_mlx->click->index >= 0)
 	{
 		my_mlx->click->state = 1;

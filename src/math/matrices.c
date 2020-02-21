@@ -6,13 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/13 09:22:09 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/19 17:31:55 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_matrix	mat4_new(t_vec3	right, t_vec3 up, t_vec3 forward, t_vec3 t)
+t_matrix	mat4_new(t_vec3 right, t_vec3 up, t_vec3 forward, t_vec3 t)
 {
 	t_matrix newmatrix;
 
@@ -42,15 +42,23 @@ t_matrix	mat4_lookat(t_vec3 position, t_vec3 target)
 	t_vec3		norm;
 	t_matrix	mat;
 
-	norm = vec3_normalize(vec3_sub(position, target));
+	norm = vec3_normalize(vec3_sub(target, position));
 	if (norm.x == 0.0 && norm.z == 0.0 && fabs(norm.y) == 1.0)
 	{
-		mat.r = vec3_new(0.0, 0.0, 1.0);
-		mat.up = vec3_new(1.0, 0.0, 0.0);
-		mat.fw = vec3_new(0.0, 1.0, 0.0);
+		if (norm.y == 1.0)
+		{
+			mat.r = vec3_new(1.0, 0.0, 0.0);
+			mat.up = vec3_new(0.0, 0.0, 1.0);
+			mat.fw = vec3_new(0.0, 1.0, 0.0);
+		}
+		else
+		{
+			mat.r = vec3_new(0.0, 0.0, 1.0);
+			mat.up = vec3_new(1.0, 0.0, 0.0);
+			mat.fw = vec3_new(0.0, -1.0, 0.0);
+		}
 		mat.t = position;
 		return (mat);
-		// return (quat_to_matrix(quat_lookat(position, target)));
 	}
 	else
 		return (lookat_by_matrix(position, target));

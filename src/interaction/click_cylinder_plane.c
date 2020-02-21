@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:23:10 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 16:45:03 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/16 16:35:10 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ double		click_plane(t_plane *pl, t_data *my_mlx, t_vec3 ray)
 	return (-1);
 }
 
-int		click_object_cylinder(t_data *my_mlx, t_vec3 ray)
+int		get_object_cylinder(t_data *my_mlx, t_vec3 ray)
 {
 	t_cylinder	*tmpcylinder;
 	double		ret;
@@ -100,6 +100,7 @@ int		click_object_cylinder(t_data *my_mlx, t_vec3 ray)
 			my_mlx->click->index = i;
 			my_mlx->click->object = "cylinder";
 			my_mlx->click->identifier = 'c';
+			my_mlx->click->rotation = tmpcylinder->v;
 		}
 		i++;
 		tmpcylinder = tmpcylinder->next;
@@ -107,7 +108,7 @@ int		click_object_cylinder(t_data *my_mlx, t_vec3 ray)
 	return (1);
 }
 
-int		click_object_plane(t_data *my_mlx, t_vec3 ray)
+int		get_object_plane(t_data *my_mlx, t_vec3 ray)
 {
 	t_plane	*tmpplane;
 	double	ret;
@@ -124,6 +125,7 @@ int		click_object_plane(t_data *my_mlx, t_vec3 ray)
 			my_mlx->click->index = i;
 			my_mlx->click->object = "plane";
 			my_mlx->click->identifier = 'p';
+			my_mlx->click->rotation = tmpplane->normal;
 		}
 		i++;
 		tmpplane = tmpplane->next;

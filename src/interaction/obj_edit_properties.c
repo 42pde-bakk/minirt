@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 01:29:43 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/11 16:46:23 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/17 14:40:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,22 +67,21 @@ void	object_change_rotsize(int keycode, t_data *my_mlx)
 	if (keycode >= NUMTWO && keycode <= NUMNINE)
 	{
 		if (keycode == NUMFOUR)
-			angle = vec3_sub(angle, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+			angle = vec3_sub(angle, vec3_new(0.0, 3 * CAM_ROT_SPEED, 0.0));
 		if (keycode == NUMSIX)
-			angle = vec3_add(angle, vec3_new(0.0, CAM_ROT_SPEED, 0.0));
+			angle = vec3_add(angle, vec3_new(0.0, 3 * CAM_ROT_SPEED, 0.0));
 		if (keycode == NUMTWO)
-			angle = vec3_sub(angle, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+			angle = vec3_sub(angle, vec3_new(3 * CAM_ROT_SPEED, 0.0, 0.0));
 		if (keycode == NUMEIGHT)
-			angle = vec3_add(angle, vec3_new(CAM_ROT_SPEED, 0.0, 0.0));
+			angle = vec3_add(angle, vec3_new(3 * CAM_ROT_SPEED, 0.0, 0.0));
 		if (keycode == NUMSEVEN)
-			angle = vec3_sub(angle, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+			angle = vec3_sub(angle, vec3_new(0.0, 0.0, 3 * CAM_ROT_SPEED));
 		if (keycode == NUMNINE)
-			angle = vec3_add(angle, vec3_new(0.0, 0.0, CAM_ROT_SPEED));
+			angle = vec3_add(angle, vec3_new(0.0, 0.0, 3 * CAM_ROT_SPEED));
 		my_mlx->click->rotation = addrotation(my_mlx->click->rotation, angle);
 		object_edit_properties(my_mlx);
-		newframe(my_mlx);
 	}
- }
+}
 
 int		mouseinput(int button, int x, int y, t_data *my_mlx)
 {

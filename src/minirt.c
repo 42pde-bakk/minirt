@@ -6,15 +6,17 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/12 18:38:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/20 20:20:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdio.h>
 
 void	data_initvalues(t_data *my_mlx)
 {
+	my_mlx->mlx_img = NULL;
+	my_mlx->mlx_img2 = NULL;
+	my_mlx->win_ptr = NULL;
 	my_mlx->ray->length = __INT_MAX__;
 	my_mlx->light = NULL;
 	my_mlx->cam = NULL;
@@ -23,7 +25,7 @@ void	data_initvalues(t_data *my_mlx)
 	my_mlx->square = NULL;
 	my_mlx->cylinder = NULL;
 	my_mlx->triangle = NULL;
-	my_mlx->frame = 1;
+	my_mlx->frame = 0;
 	my_mlx->click->state = 0;
 }
 
@@ -44,8 +46,14 @@ int		init_my_mlx(t_data *my_mlx, int fd)
 		return (-1);
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width,
 	my_mlx->scene->height, "MiniPeeRT");
-	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, 1, 1);
-	my_mlx->mlx_img2 = mlx_new_image(my_mlx->mlx_ptr, 1, 1);
+	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width,
+		my_mlx->scene->height);
+	my_mlx->addr = mlx_get_data_addr(my_mlx->mlx_img, &my_mlx->bpp,
+				&my_mlx->line_length, &my_mlx->endian);
+	my_mlx->mlx_img2 = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width,
+		my_mlx->scene->height);
+	my_mlx->addr2 = mlx_get_data_addr(my_mlx->mlx_img2, &my_mlx->bpp,
+				&my_mlx->line_length, &my_mlx->endian);
 	return (1);
 }
 
@@ -86,10 +94,14 @@ int		main(int argc, char **argv)
 	if (my_mlx == NULL || fd < 0)
 	{
 		write(2, "Error\nBruh...\n", ft_strlen("Error\nBruh...\n"));
-		return (-1);	
+		return (-1);
 	}
 	if (init_my_mlx(my_mlx, fd) == -1)
+	{
+		write(2, "Error\nBruh...\n", ft_strlen("Error\nBruh...\n"));
 		freemachine(my_mlx);
+		return (-1);
+	}
 	newframe(my_mlx);
 	mlx_hook(my_mlx->win_ptr, RED_BUTTON_CODE, DESTROY_EVENT, &freemachine, my_mlx);
 	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK, &mouseinput, my_mlx);

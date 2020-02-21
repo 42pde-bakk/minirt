@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 23:32:34 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/11 16:50:48 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/17 20:19:11 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,4 +52,14 @@ double	find_length(t_vec3 s, t_vec3 p)
 double	vec3_sqr(t_vec3 vec)
 {
 	return (pow(vec.x, 2) + pow(vec.y, 2) + pow(vec.z, 2));
+}
+
+t_vec3	vec3_neg(t_vec3 in)
+{
+	t_vec3	out;
+
+	out.x = -in.x;
+	out.y = -in.y;
+	out.z = -in.z;
+	return (out);
 }

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/13 13:32:18 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/21 20:22:05 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,13 @@ t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir)
 	double	r2;
 
 	r2 = vec3_sqr(lightdir);
+	lightdir.y = -1.0 * lightdir.y;
+	lightdir.x = -1.0 * lightdir.x;
 	dotnormal = fmax(0.0, dotproduct(my_mlx->ray->hitnormal, lightdir));
 	intensity = fmin(1.0, light_current->brightness / (4.0 * M_PI * r2) *
 	dotnormal * ALBEDO);
-	return (colour_mul(my_mlx->ray->colour, light_current->colour, intensity));
+	return (colour_mul(my_mlx->ray->colour, light_current->colour,
+			fmax(0.0, intensity)));
 }
 
 t_col	light_tracing(t_data *my_mlx)
@@ -31,6 +34,7 @@ t_col	light_tracing(t_data *my_mlx)
 	t_light	*tmplight;
 	t_vec3	hitpos;
 	t_vec3	lightdir;
+	double	distance;
 
 	tmplight = my_mlx->light;
 	out = colour_new(0.0, 0.0, 0.0);
@@ -41,7 +45,9 @@ t_col	light_tracing(t_data *my_mlx)
 	while (tmplight)
 	{
 		lightdir = vec3_sub(tmplight->s, hitpos);
-		out = colour_add(out, add_light(my_mlx, tmplight, lightdir));
+		distance = find_length(tmplight->s, hitpos);
+		if (obstaclecheck(my_mlx, hitpos, lightdir, distance) == 0)
+			out = colour_add(out, add_light(my_mlx, tmplight, lightdir));
 		tmplight = tmplight->next;
 	}
 	out = colour_cap(out);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:24:53 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/06 18:28:39 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/02/16 16:28:23 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,22 @@ double				click_triangle(t_triangle *tri, t_data *my_mlx, t_vec3 ray)
 
 double				click_square(t_square *sq, t_data *my_mlx, t_vec3 ray)
 {
-	double distance1;
-	double distance2;
+	double		distance1;
+	double		distance2;
+	double		distance1rev;
+	double		distance2rev;
+	t_triangle	rev;
 
 	distance1 = click_triangle(&sq->tri[0], my_mlx, ray);
 	distance2 = click_triangle(&sq->tri[1], my_mlx, ray);
+	rev = tri_rev(sq->tri[0]);
+	distance1rev = click_triangle(&rev, my_mlx, ray);
+	rev = tri_rev(sq->tri[1]);
+	distance2rev = click_triangle(&rev, my_mlx, ray);
+	if (distance1 < 0.0 && distance1rev >= 0.0)
+		distance1 = distance1rev;
+	if (distance2 < 0.0 && distance2rev >= 0.0)
+		distance2 = distance2rev;
 	if (distance1 >= 0.0 && (distance1 <= distance2 || distance2 < 0.0))
 		return (distance1);
 	else if (distance2 >= 0.0 && (distance2 <= distance1 || distance1 < 0.0))

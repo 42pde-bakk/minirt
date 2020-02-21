@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 21:49:04 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/20 20:11:58 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,14 @@ int		parse_plane(t_data *my_mlx, char *line, int *i)
 	new->normal.y = ft_atof_peer(line, i);
 	new->normal.y *= -1;
 	new->normal.z = ft_atof_peer(line, i);
-	if (vec3_sqr(new->normal) == 0)
-		new->normal.z = 1;
-	new->normal = vec3_normalize(new->normal);
+	if (vec3_sqr(new->normal) != 0)
+		new->normal = vec3_normalize(new->normal);
 	new->colour = parse_tcol(line, i);
+	if (colour_check(new->colour) == 0 || vec3_sqr(new->normal) == 0)
+	{
+		free(new);
+		return (-1);
+	}
 	new->next = NULL;
 	ft_lstadd_back_plane(&my_mlx->plane, new);
 	return (1);

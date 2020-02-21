@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 17:59:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 21:48:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/20 20:10:56 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,17 @@ int		parse_cylinder(t_data *my_mlx, char *line, int *i)
 	new->v.x = ft_atof_peer(line, i);
 	new->v.y = ft_atof_peer(line, i);
 	new->v.z = ft_atof_peer(line, i);
-	if (vec3_sqr(new->v) == 0)
-		new->v.z = 1;
-	new->diameter = fmax(0.0, ft_atof_peer(line, i));
-	new->height = fmax(0.0, ft_atof_peer(line, i));
+	if (vec3_sqr(new->v) != 0)
+		new->v = vec3_normalize(new->v);
+	new->diameter = ft_atof_peer(line, i);
+	new->height = ft_atof_peer(line, i);
 	new->colour = parse_tcol(line, i);
+	if (colour_check(new->colour) == 0 || new->diameter < 0.0 ||
+		vec3_sqr(new->v) == 0 || new->height < 0.0)
+	{
+		free(new);
+		return (-1);
+	}
 	new->next = NULL;
 	ft_lstadd_back_cylinder(&my_mlx->cylinder, new);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:01:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 21:49:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/20 20:06:27 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,13 @@ int				parse_light(t_data *my_mlx, char *line, int *i)
 	new->s.x = ft_atof_peer(line, i);
 	new->s.y = ft_atof_peer(line, i);
 	new->s.z = ft_atof_peer(line, i);
-	new->brightness = fmax(0.0, fmin(1.0, ft_atof_peer(line, i)));
+	new->brightness = ft_atof_peer(line, i);
 	new->colour = parse_tcol(line, i);
+	if (between_check(new->brightness) == 0 || colour_check(new->colour) == 0)
+	{
+		free(new);
+		return (-1);
+	}
 	new->next = NULL;
 	ft_lstadd_back_light(&my_mlx->light, new);
 	return (1);

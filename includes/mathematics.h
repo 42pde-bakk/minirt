@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/12 16:07:34 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/20 20:04:28 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@ t_col			colour_mult(t_col col, double c1, double c2);
 t_col			coltimescol(t_col a, t_col b);
 t_col			colour_new(double r, double g, double b);
 t_col			colour_add(t_col v1, t_col v2);
-t_col			colour_check(t_col col);
 t_col			col_times_lightratio(t_col col, t_col light, double max);
 t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 t_col			colour_cap(t_col colour);
+int				colour_check(t_col colour);
+int				between_check(double check);
 /*
 **matrices.c
 */
@@ -78,5 +79,6 @@ double			vec3_sqr(t_vec3 vec);
 t_vec3			vec3_normalize(t_vec3 ray);
 t_vec3			crossproduct(t_vec3 v1, t_vec3 v2);
 t_vec3			vec3_perpendicular(t_vec3 v1);
+t_vec3			vec3_neg(t_vec3 in);
 
 #endif
