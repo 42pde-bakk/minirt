@@ -6,12 +6,19 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 23:06:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/24 17:30:58 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+
+typedef struct	s_bmpcol
+{
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
+}				t_bmpcol;
 
 typedef	struct	s_col
 {

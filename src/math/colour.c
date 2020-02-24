@@ -6,11 +6,21 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 12:06:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 20:27:26 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/24 14:42:09 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_col	unsigned_to_tcol(unsigned col)
+{
+	t_col	out;
+
+	out.r = (col >> 16 & 0xff);
+	out.g = (col >> 8 & 0xff);
+	out.b = (col & 0xff);
+	return (out);
+}
 
 t_col	colour_new(double r, double g, double b)
 {

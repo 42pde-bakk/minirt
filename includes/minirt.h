@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 23:11:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/24 14:21:53 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int		ft_atoi_peer(const char *str, int *i);
 int		newframe(t_data *my_mlx);
 int		init_my_mlx(t_data *my_mlx, int fd);
 int		freemachine(t_data *my_mlx);
-int		bmp(void);
+int		bmp(t_data *my_mlx);
 
 double	ndcx(t_data *my_mlx, double x);
 double	ndcy(t_data *my_mlx, double y);

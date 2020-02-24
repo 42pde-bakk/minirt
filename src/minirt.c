@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 23:07:03 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/24 14:33:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,9 +72,8 @@ int		argcheck(int argc, char **argv)
 		if (argc == 3)
 		{
 			ret = 2;
-			if (ft_strncmp(argv[1], "--save", 6) != 0)
+			if (ft_strncmp(argv[2], "--save", 6) != 0)
 				return (-1);
-			my_mlx->bmp = 1;
 		}
 	}
 	return (ret);
@@ -84,22 +83,26 @@ int		main(int argc, char **argv)
 {
 	int		fd;
 	t_data	*my_mlx;
+	int		argcheckret;
 
-	if (argcheck(argc, argv) == -1)
+	argcheckret = argcheck(argc, argv);
+	if (argcheckret == -1)
 	{
-		write(2, "Error\nBruh...\n", ft_strlen("Error\nBruh...\n"));
+		write(2, "Error\nBruh... Check your arguments\n", sizeof("Error\nBruh... Check your arguments\n"));
 		return (-1);
 	}
 	fd = open(argv[1], O_RDONLY);
 	my_mlx = malloc(sizeof(t_data));
 	if (my_mlx == NULL || fd < 0)
 	{
-		write(2, "Error\nBruh...\n", ft_strlen("Error\nBruh...\n"));
+		write(2, "Error\nBruh... Wrong file\n", sizeof("Error\nBruh... Wrong file\n"));
 		return (-1);
 	}
+	if (argcheckret == 2)
+		my_mlx->bmp = 1;
 	if (init_my_mlx(my_mlx, fd) == -1)
 	{
-		write(2, "Error\nBruh...\n", ft_strlen("Error\nBruh...\n"));
+		write(2, "Error\nBruv init...\n", sizeof("Error\nBruv init...\n"));
 		freemachine(my_mlx);
 		return (-1);
 	}

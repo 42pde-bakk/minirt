@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 20:33:32 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/24 14:42:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 **../src/math:
 **colour.c
 */
+t_col			unsigned_to_tcol(unsigned col);
 t_col			colour_mult(t_col col, double c1, double c2);
 t_col			colour_new(double r, double g, double b);
 t_col			colour_add(t_col v1, t_col v2);
