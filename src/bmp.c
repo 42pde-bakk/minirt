@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 23:07:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 18:43:19 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 20:53:23 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	bmp(t_data *my_mlx)
 
 	my_mlx->bmp = open("screenshot.bmp", O_TRUNC | O_CREAT | O_RDWR, 0644);
 	if (my_mlx->bmp < 2)
-		return (ft_putstr_int("Error opening .bmp file\n", 2));
+		return (ft_putstr_int("Error\nError opening .bmp file\n", 2));
 	bmpfilesize = 14 + 40 + 3 * (int)(my_mlx->scene->width *
 			my_mlx->scene->height);
 	buf = ft_calloc(bmpfilesize, 1);
@@ -110,8 +110,8 @@ int	bmp(t_data *my_mlx)
 	buf = write_header(buf, my_mlx);
 	buf = write_pixels(buf, my_mlx);
 	if (write(my_mlx->bmp, buf, bmpfilesize) < 0)
-		ft_putstr_int("Writing to .bmp file failed\n", 2);
+		ft_putstr_int("Error\nWriting to .bmp file failed\n", 2);
 	if (close(my_mlx->bmp))
-		return (ft_putstr_int("Closing .bmp file failed\n", 2));
+		return (ft_putstr_int("Error\nClosing .bmp file failed\n", 2));
 	return (0);
 }

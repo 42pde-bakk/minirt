@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 18:56:03 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 20:55:06 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,9 +99,11 @@ int		main(int argc, char **argv)
 	if (argcheckret == -1)
 		return (ft_putstr_int("Error\nBruh... Check your arguments\n", 2));
 	fd = open(argv[1], O_RDONLY);
-	my_mlx = malloc(sizeof(t_data));
-	if (my_mlx == NULL || fd < 0)
+	if (fd < 0)
 		return (ft_putstr_int("Error\nBruh... Wrong file\n", 2));
+	my_mlx = malloc(sizeof(t_data));
+	if (my_mlx == NULL)
+		return (ft_putstr_int("Error\nFree bwilbers\n", 2));
 	if (argcheckret == 2)
 		my_mlx->bmp = 1;
 	if (init_my_mlx(my_mlx, fd) == -1)
