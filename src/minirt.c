@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/24 14:33:17 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 18:56:03 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,16 @@ int		argcheck(int argc, char **argv)
 	return (ret);
 }
 
+void	hooks(t_data *my_mlx)
+{
+	mlx_hook(my_mlx->win_ptr, RED_BUTTON_CODE, DESTROY_EVENT,
+			&freemachine, my_mlx);
+	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK,
+			&mouseinput, my_mlx);
+	mlx_key_hook(my_mlx->win_ptr, &keyinput, my_mlx);
+	mlx_loop(my_mlx->win_ptr);
+}
+
 int		main(int argc, char **argv)
 {
 	int		fd;
@@ -87,29 +97,20 @@ int		main(int argc, char **argv)
 
 	argcheckret = argcheck(argc, argv);
 	if (argcheckret == -1)
-	{
-		write(2, "Error\nBruh... Check your arguments\n", sizeof("Error\nBruh... Check your arguments\n"));
-		return (-1);
-	}
+		return (ft_putstr_int("Error\nBruh... Check your arguments\n", 2));
 	fd = open(argv[1], O_RDONLY);
 	my_mlx = malloc(sizeof(t_data));
 	if (my_mlx == NULL || fd < 0)
-	{
-		write(2, "Error\nBruh... Wrong file\n", sizeof("Error\nBruh... Wrong file\n"));
-		return (-1);
-	}
+		return (ft_putstr_int("Error\nBruh... Wrong file\n", 2));
 	if (argcheckret == 2)
 		my_mlx->bmp = 1;
 	if (init_my_mlx(my_mlx, fd) == -1)
 	{
-		write(2, "Error\nBruv init...\n", sizeof("Error\nBruv init...\n"));
+		ft_putstr_fd("Error\nBruv init...\n", 2);
 		freemachine(my_mlx);
-		return (-1);
+		return (0);
 	}
 	newframe(my_mlx);
-	mlx_hook(my_mlx->win_ptr, RED_BUTTON_CODE, DESTROY_EVENT, &freemachine, my_mlx);
-	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK, &mouseinput, my_mlx);
-	mlx_key_hook(my_mlx->win_ptr, &keyinput, my_mlx);
-	mlx_loop(my_mlx->win_ptr);
+	hooks(my_mlx);
 	return (0);
 }

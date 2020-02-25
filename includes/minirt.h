@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/24 14:21:53 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 18:52:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h> //
 
 # include "enums.h"
 # include "structs.h"
@@ -59,6 +58,7 @@ char	*ft_itoa_base(long long nb, long long base);
 int		ft_iswhitespace(char c);
 double	ft_atof_peer(const char *str, int *i);
 int		ft_atoi_peer(const char *str, int *i);
+int		ft_putstr_int(char *s, int fd);
 
 /*
 **And scene:

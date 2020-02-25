@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/21 23:07:58 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/25 18:38:00 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,7 +48,7 @@ ft_lstclear_bonus.c ft_putstr_fd.c ft_lstdelone_bonus.c ft_split.c \
 ft_lstiter_bonus.c ft_strchr.c ft_lstlast_bonus.c ft_strdup.c
 
 
-EXTRA = ft_itoa_base.c ft_atox_peer.c
+EXTRA = ft_itoa_base.c ft_atox_peer.c ft_putstr_int.c
 
 FILES = $(addprefix $(SRC_DIR)/, $(SRC))
 FILES += $(addprefix $(PARSING_DIR), $(PARSING))
@@ -77,6 +77,7 @@ ifdef UV
 endif
 
 MAGIC = -L minilibx_mms_20191025_beta -lmlx -framework AppKit
+#MAGIC = -L minilibx_mms_20200219 -mlx -framework AppKit
 
 # COLORS
 PINK = \x1b[35;01m
