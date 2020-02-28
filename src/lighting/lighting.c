@@ -6,11 +6,12 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 20:22:05 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 21:16:31 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+#include <stdio.h> //remove
 
 t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir)
 {
@@ -21,9 +22,10 @@ t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir)
 	r2 = vec3_sqr(lightdir);
 	lightdir.y = -1.0 * lightdir.y;
 	lightdir.x = -1.0 * lightdir.x;
+//	printf("lightdir=[%f, %f, %f], hitnormal=[%f, %f, %f]\n", lightdir.x, lightdir.y, lightdir.z, my_mlx->ray->hitnormal.x, my_mlx->ray->hitnormal.y, my_mlx->ray->hitnormal.z);
 	dotnormal = fmax(0.0, dotproduct(my_mlx->ray->hitnormal, lightdir));
 	intensity = fmin(1.0, light_current->brightness / (4.0 * M_PI * r2) *
-	dotnormal * ALBEDO);
+	dotnormal * 2 * ALBEDO);
 	return (colour_mul(my_mlx->ray->colour, light_current->colour,
 			fmax(0.0, intensity)));
 }

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/24 17:30:58 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/27 18:48:01 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,5 +214,11 @@ typedef struct	s_data
 	t_click		*click;
 	int			bmp;
 }				t_data;
+
+typedef struct	s_arg
+{
+	t_data		*my_mlx;
+	int			threadnr;
+}				t_arg;
 
 #endif

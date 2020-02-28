@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 20:29:04 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 18:31:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,4 @@ t_vec3		pleurmatrix(t_vec3 v, t_matrix mat)
 	new.y = v.x * mat.r.y + v.y * mat.up.y + v.z * mat.fw.y;
 	new.z = v.x * mat.r.z + v.y * mat.up.z + v.z * mat.fw.z;
 	return (new);
-}
-
-void		printvec(t_vec3 v, char *str) //remove this bitch
-{
-	printf("%s: %f %f %f\n", str, v.x, v.y, v.z);
-}
-
-void		printmatrix(t_matrix m, char *str) //remove this bitch
-{
-	printf("%s:\n", str);
-	printvec(m.r, "rvec");
-	printvec(m.up, "upvec");
-	printvec(m.fw, "fwvec");
 }

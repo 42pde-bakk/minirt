@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/24 14:35:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/25 21:02:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,5 @@ int		freemachine(t_data *my_mlx)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	free(my_mlx->mlx_img);
 	free(my_mlx->mlx_img2);
-	// free(my_mlx->mlx_ptr);
-	// free(my_mlx->win_ptr);
-	// system("leaks miniRT"); //remove pls
-	exit(0);
+	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }
