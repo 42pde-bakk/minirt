@@ -6,13 +6,14 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/25 18:38:00 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/02/28 13:20:01 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = miniRT
 
 SRC_DIR = ./src
+RAY_DIR = $(SRC_DIR)/rays/
 PARSING_DIR = $(SRC_DIR)/parsing/
 OBJECTS_DIR = $(SRC_DIR)/objects/
 LIGHT_DIR = $(SRC_DIR)/lighting/
@@ -24,7 +25,8 @@ EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20191025_beta/
 HEADER = -I ./includes/
 
-SRC = minirt.c rays.c newframe.c freebwilbers.c bmp.c
+SRC = minirt.c newframe.c freebwilbers.c bmp.c
+RAY = rays.c ndcxy.c put_rgb.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 	parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
@@ -51,6 +53,7 @@ ft_lstiter_bonus.c ft_strchr.c ft_lstlast_bonus.c ft_strdup.c
 EXTRA = ft_itoa_base.c ft_atox_peer.c ft_putstr_int.c
 
 FILES = $(addprefix $(SRC_DIR)/, $(SRC))
+FILES += $(addprefix $(RAY_DIR), $(RAY))
 FILES += $(addprefix $(PARSING_DIR), $(PARSING))
 FILES += $(addprefix $(OBJECTS_DIR), $(OBJECTS))
 FILES += $(addprefix $(MATH_DIR), $(MATH))
@@ -65,7 +68,8 @@ awk -F '[:x]' '/mode/{print$$3}')
 MAX_RESY := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:xc]' '/mode/{print$$4}')
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -g #-Wall -Werror -Wextra
+BONUS_FLAGS = -D BONUS=0 -D THREADCOUNT=1
 ifdef SPEED
 FLAGS += -O3
 endif
@@ -100,7 +104,7 @@ $(NAME):
 	@cp $(MLX_DIR)/mlx.h includes/
 	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/libmlx.dylib .
-	@gcc $(FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME) -D \
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME) -D \
 	MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY)
 
 clean:
@@ -121,6 +125,7 @@ fuckingclean: fclean
 	@make fclean -C ./libft
 	@make clean -C ./minilibx_mms_20191025_beta
 
+bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=2
 bonus: re
 	@echo "$(PINK)Linking bonus files"
 

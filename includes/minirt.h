@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 18:52:33 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/27 16:09:55 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
+# include <stdio.h> //
 
 # include "enums.h"
 # include "structs.h"
@@ -45,7 +46,12 @@
 # define ROT_DEGREES 90.0
 # define MOVE_SPEED -5.0
 # define WHITE 0xFFFFFF
-
+# ifndef BONUS
+#  define BONUS 0
+# endif
+# ifndef THREADCOUNT
+#  define THREADCOUNT 1
+# endif
 # ifndef UV
 #  define UV 0
 # endif
@@ -69,6 +75,7 @@ int		init_my_mlx(t_data *my_mlx, int fd);
 int		freemachine(t_data *my_mlx);
 int		bmp(t_data *my_mlx);
 
+void	put_rgb(t_data *my_mlx, int x, int y, t_col rgb);
 double	ndcx(t_data *my_mlx, double x);
 double	ndcy(t_data *my_mlx, double y);
 void	ray(t_data *my_mlx);

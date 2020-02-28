@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 19:22:55 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/24 14:21:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/02/27 19:42:39 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		newframe(t_data *my_mlx)
 		mlx_put_image_to_window(my_mlx->mlx_ptr, my_mlx->win_ptr,
 			my_mlx->mlx_img2, 0, 0);
 	my_mlx->frame++;
-	mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr, 0, 10, WHITE,
-	"use wasd for movement, q&e for up/down");
-	mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr, 0, 20, WHITE,
-	"arrowkeys for camera rotation");
+	// mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr, 0, 10, WHITE,
+	// "use wasd for movement, q&e for up/down");
+	// mlx_string_put(my_mlx->mlx_ptr, my_mlx->win_ptr, 0, 20, WHITE,
+	// "arrowkeys for camera rotation");
 	return (1);
 }
