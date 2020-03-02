@@ -6,18 +6,28 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 20:55:06 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:33:03 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	data_initvalues(t_data *my_mlx)
+int		data_initvalues(t_data *my_mlx)
 {
+	int i;
+
+	i = 0;
+	while (i < THREADCOUNT)
+	{
+		my_mlx->ray[i] = malloc(sizeof(t_ray));
+		if (!my_mlx->ray[i])
+			return (-1);
+		my_mlx->ray[i]->length = __INT_MAX__;
+		i++;
+	}
 	my_mlx->mlx_img = NULL;
 	my_mlx->mlx_img2 = NULL;
 	my_mlx->win_ptr = NULL;
-	my_mlx->ray->length = __INT_MAX__;
 	my_mlx->light = NULL;
 	my_mlx->cam = NULL;
 	my_mlx->sphere = NULL;
@@ -27,6 +37,7 @@ void	data_initvalues(t_data *my_mlx)
 	my_mlx->triangle = NULL;
 	my_mlx->frame = 0;
 	my_mlx->click->state = 0;
+	return (1);
 }
 
 int		init_my_mlx(t_data *my_mlx, int fd)
@@ -35,13 +46,11 @@ int		init_my_mlx(t_data *my_mlx, int fd)
 	my_mlx->scene = malloc(sizeof(t_scene));
 	if (my_mlx->scene == NULL)
 		return (-1);
-	my_mlx->ray = malloc(sizeof(t_ray));
-	if (my_mlx->ray == NULL)
-		return (-1);
 	my_mlx->click = malloc(sizeof(t_click));
 	if (my_mlx->click == NULL)
 		return (-1);
-	data_initvalues(my_mlx);
+	if (data_initvalues(my_mlx) == -1)
+		return (-1);
 	if (ft_parser(my_mlx, fd) == -1)
 		return (-1);
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width,

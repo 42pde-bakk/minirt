@@ -6,13 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/25 18:31:35 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:34:47 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void		setcamera(t_data *my_mlx, double pndcx, double pndcy)
+t_vec3		setcamera(t_data *my_mlx, double pndcx, double pndcy)
 {
 	t_vec3		tmp;
 	t_matrix	camtoworld;
@@ -21,8 +21,8 @@ void		setcamera(t_data *my_mlx, double pndcx, double pndcy)
 	tmp = vec3_new(pndcx, pndcy, -1.0);
 	tmp.x *= -1;
 	tmp = vec3_normalize(tmp);
-	my_mlx->ray->v = pleurmatrix(tmp, camtoworld);
-	my_mlx->ray->v = vec3_normalize(my_mlx->ray->v);
+	tmp = pleurmatrix(tmp, camtoworld);
+	return (vec3_normalize(tmp));
 }
 
 t_matrix	multmatrix(t_matrix a, t_matrix b)

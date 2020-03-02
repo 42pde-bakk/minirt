@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 21:02:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:59:38 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ void	freeplane(void *in)
 	}
 }
 
+void	freerays(t_data *my_mlx)
+{
+	int	i;
+
+	i = 0;
+	while (i < THREADCOUNT)
+	{
+		free(my_mlx->ray[i]);
+		i++;
+	}
+}
+
 int		freemachine(t_data *my_mlx)
 {
 	static int	check = 0;
@@ -40,7 +52,7 @@ int		freemachine(t_data *my_mlx)
 	freeplane(my_mlx->cylinder);
 	freeplane(my_mlx->light);
 	free(my_mlx->scene);
-	free(my_mlx->ray);
+	freerays(my_mlx);
 	free(my_mlx->click);
 	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
 	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
@@ -48,5 +60,33 @@ int		freemachine(t_data *my_mlx)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	free(my_mlx->mlx_img);
 	free(my_mlx->mlx_img2);
+	system("leaks miniRT");
+	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
+}
+
+int		exit_putstr(t_data *my_mlx, char *s, int fd)
+{
+	static int	check = 0;
+
+	if (check > 0)
+		return (0);
+	check++;
+	ft_putstr_fd(s, fd);
+	freeplane(my_mlx->plane);
+	freeplane(my_mlx->sphere);
+	freeplane(my_mlx->square);
+	freeplane(my_mlx->triangle);
+	freeplane(my_mlx->cylinder);
+	freeplane(my_mlx->light);
+	free(my_mlx->scene);
+	freerays(my_mlx);
+	free(my_mlx->click);
+	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
+	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
+	if (my_mlx->win_ptr != NULL)
+		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
+	free(my_mlx->mlx_img);
+	free(my_mlx->mlx_img2);
+	system("leaks miniRT");
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }

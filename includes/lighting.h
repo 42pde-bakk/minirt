@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 19:24:58 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/20 16:25:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:39:10 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 /*
 **../src/lighting:
 */
-t_col	light_tracing(t_data *my_mlx);
+t_col	light_tracing(t_data *my_mlx, int threadnr);
 
 int		obstaclecheck(t_data *my_mlx, t_vec3 hitpos, t_vec3 lightdir,
 		double distance);

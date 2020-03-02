@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/02/28 13:20:01 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/03/02 13:28:40 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,7 +68,7 @@ awk -F '[:x]' '/mode/{print$$3}')
 MAX_RESY := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:xc]' '/mode/{print$$4}')
 
-FLAGS = -g #-Wall -Werror -Wextra
+FLAGS = -Wall -Werror -Wextra -g
 BONUS_FLAGS = -D BONUS=0 -D THREADCOUNT=1
 ifdef SPEED
 FLAGS += -O3
@@ -81,7 +81,7 @@ ifdef UV
 endif
 
 MAGIC = -L minilibx_mms_20191025_beta -lmlx -framework AppKit
-#MAGIC = -L minilibx_mms_20200219 -mlx -framework AppKit
+#MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
 
 # COLORS
 PINK = \x1b[35;01m
@@ -123,7 +123,7 @@ fuckingclean: fclean
 	/bin/rm -f \#*\# a.out
 	/bin/rm -rf *.dSYM
 	@make fclean -C ./libft
-	@make clean -C ./minilibx_mms_20191025_beta
+#	@make clean -C ./minilibx_mms_20191025_beta
 
 bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=2
 bonus: re

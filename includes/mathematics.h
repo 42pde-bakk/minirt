@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/24 14:42:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:35:11 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int				between_check(double check);
 void			printvec(t_vec3 v, char *str); //remove pls
 void    		printmatrix(t_matrix m, char *str); //remove pls
 void			setmatrix(t_data *my_mlx);
-void			setcamera(t_data *my_mlx, double pndcx, double pndcy);
+t_vec3			setcamera(t_data *my_mlx, double pndcx, double pndcy);
 t_matrix		multmatrix(t_matrix a, t_matrix b);
 t_vec3			pleurmatrix(t_vec3 v, t_matrix mat);
 /*

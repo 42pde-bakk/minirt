@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 01:29:43 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/17 14:40:33 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/01 18:43:08 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,35 @@ void	object_change_rotsize(int keycode, t_data *my_mlx)
 	}
 }
 
+#if BONUS == 1
+
+int		mouseinput(int button, int x, int y, t_data *my_mlx)
+{
+	if (my_mlx->click->state == 0)
+	{
+		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		my_mlx->click->dist_r = x - my_mlx->click->x;
+		my_mlx->click->dist_up = y - my_mlx->click->y;
+		my_mlx->cam->v = addrotation(my_mlx->cam->v, vec3_new(my_mlx->click->dist_up, my_mlx->click->dist_r, 0.0));
+		my_mlx->cam->c2w = mat4_lookat(my_mlx->cam->s, vec3_add(my_mlx->cam->s, my_mlx->cam->v));
+		my_mlx->click->x = x;
+		my_mlx->click->y = y;
+		newframe(my_mlx);
+	}
+	if (my_mlx->click->state == 1 && (button == 4 || button == 5))
+	{
+		if (button == 4)
+			my_mlx->click->dist_fw += 10;
+		else if (button == 5)
+			my_mlx->click->dist_fw -= 10;
+	}
+	if (button == 1)
+		get_click_info(x, y, my_mlx);
+	return (1);
+}
+
+#else
+
 int		mouseinput(int button, int x, int y, t_data *my_mlx)
 {
 	if (my_mlx->click->state == 1 && (button == 4 || button == 5))
@@ -96,3 +125,5 @@ int		mouseinput(int button, int x, int y, t_data *my_mlx)
 		get_click_info(x, y, my_mlx);
 	return (1);
 }
+
+#endif

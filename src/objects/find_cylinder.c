@@ -6,18 +6,18 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 16:10:19 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/03/02 13:49:45 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx)
+t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 {
 	t_cylhelp	help;
 
 	help.rayorigin = my_mlx->cam->s;
-	help.raydir = my_mlx->ray->v;
+	help.raydir = my_mlx->ray[threadnr]->v;
 	help.cylcenter = cyl->s;
 	help.cylrot = cyl->v;
 	help.dist = vec3_sub(help.rayorigin, help.cylcenter);
@@ -55,23 +55,23 @@ int			solve_quadratic_equation(t_cylhelp *help)
 	return (1);
 }
 
-void		cylinder_hit(t_data *my_mlx, t_cylinder *cyl,
+void		cylinder_hit(t_ray *ray, t_cylinder *cyl,
 			double res, t_cylhelp help)
 {
 	if (res != -1)
 		res = fmin(help.y0, help.y1);
 	else
 		res = help.y1;
-	if (res < my_mlx->ray->length)
+	if (res < ray->length)
 	{
-		my_mlx->ray->length = res;
-		my_mlx->ray->colour = cyl->colour;
-		my_mlx->ray->hitnormal = vec3_normalize(vec3_sub(cyl->s,
-		vec3_mult(my_mlx->ray->v, res)));
+		ray->length = res;
+		ray->colour = cyl->colour;
+		ray->hitnormal = vec3_normalize(vec3_sub(cyl->s,
+		vec3_mult(ray->v, res)));
 	}
 }
 
-int			find_cylinder(t_cylinder *cyl, t_data *my_mlx)
+int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 {
 	t_cylhelp	help;
 	t_vec3		q;
@@ -80,7 +80,7 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx)
 	double		dotp2;
 
 	res = -1;
-	help = cylinder_calc(cyl, my_mlx);
+	help = cylinder_calc(cyl, my_mlx, threadnr);
 	if (solve_quadratic_equation(&help) == 1)
 	{
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y0));
@@ -91,7 +91,7 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx)
 			res = help.y0;
 		if (help.y1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 		{
-			cylinder_hit(my_mlx, cyl, res, help);
+			cylinder_hit(my_mlx->ray[threadnr], cyl, res, help);
 		}
 		return (res);
 	}

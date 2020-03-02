@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/27 16:09:55 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:56:05 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ int		ft_putstr_int(char *s, int fd);
 int		newframe(t_data *my_mlx);
 int		init_my_mlx(t_data *my_mlx, int fd);
 int		freemachine(t_data *my_mlx);
+int		exit_putstr(t_data *my_mlx, char *s, int fd);
 int		bmp(t_data *my_mlx);
 
 void	put_rgb(t_data *my_mlx, int x, int y, t_col rgb);

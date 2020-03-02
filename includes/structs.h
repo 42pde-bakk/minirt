@@ -6,12 +6,13 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/27 18:48:01 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 13:31:37 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCTS_H
 # define STRUCTS_H
+# include "minirt.h"
 
 typedef struct	s_bmpcol
 {
@@ -205,7 +206,7 @@ typedef struct	s_data
 	t_light		*light;
 	t_cam		*cam;
 	t_cam		*camhead;
-	t_ray		*ray;
+	t_ray		*ray[THREADCOUNT];
 	t_sphere	*sphere;
 	t_plane		*plane;
 	t_square	*square;
