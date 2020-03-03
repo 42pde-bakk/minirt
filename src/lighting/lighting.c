@@ -6,12 +6,11 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/02 13:51:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 17:14:37 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdio.h> //remove
 
 t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir,
 	int threadnr)

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:59:38 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 17:13:15 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,7 @@ int		freemachine(t_data *my_mlx)
 	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
 	if (my_mlx->win_ptr != NULL)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
-	free(my_mlx->mlx_img);
-	free(my_mlx->mlx_img2);
-	system("leaks miniRT");
+	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->uvimg);
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }
 
@@ -85,8 +83,6 @@ int		exit_putstr(t_data *my_mlx, char *s, int fd)
 	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
 	if (my_mlx->win_ptr != NULL)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
-	free(my_mlx->mlx_img);
-	free(my_mlx->mlx_img2);
-	system("leaks miniRT");
+	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->uvimg);
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }

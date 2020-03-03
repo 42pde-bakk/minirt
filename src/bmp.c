@@ -6,19 +6,11 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 23:07:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 20:53:23 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 17:09:41 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdio.h>
-
-void	bmp_write_colour(int fd, t_bmpcol colour)
-{
-	write(fd, &colour.b, 1);
-	write(fd, &colour.g, 1);
-	write(fd, &colour.r, 1);
-}
 
 void	pad_zeroes(int fd, int length)
 {
@@ -94,7 +86,7 @@ char	*write_pixels(char *buf, t_data *my_mlx)
 	return (buf);
 }
 
-int	bmp(t_data *my_mlx)
+int		bmp(t_data *my_mlx)
 {
 	char		*buf;
 	unsigned	bmpfilesize;

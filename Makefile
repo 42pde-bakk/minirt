@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/02 13:28:40 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/03/03 17:16:30 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,19 +22,20 @@ INTERACTION_DIR = $(SRC_DIR)/interaction/
 GNL_DIR = ./gnl/
 LIBFT_DIR = ./libft/
 EXTRA_DIR = $(SRC_DIR)/extra/
-MLX_DIR = ./minilibx_mms_20191025_beta/
+#MLX_DIR = ./minilibx_mms_20191025_beta/
+MLX_DIR = ./minilibx_mms_20200219/
 HEADER = -I ./includes/
 
-SRC = minirt.c newframe.c freebwilbers.c bmp.c
+SRC = minirt.c newframe.c freebwilbers.c bmp.c get_uvimg.c
 RAY = rays.c ndcxy.c put_rgb.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 	parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
-	find_triangle.c
+	find_triangle.c uvmapping.c
 LIGHT = lighting.c obstacles.c obstacle_cylinder.c obstacle_plane.c \
 	obstacle_sphere.c obstacle_square.c obstacle_triangle.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \
-	rotations.c vectors_adv.c vectors.c mat4_lookat.c
+	rotations.c vectors_adv.c vectors.c mat4_lookat.c colour_checks.c
 INTERACTION = click_object.c click_cylinder_plane.c click_sphere_square.c \
 	readinput.c	obj_edit_properties.c get_click_info.c obj_edit_props2.c \
 	camera_action.c obj_edit_props_square.c
@@ -80,8 +81,8 @@ ifdef UV
  FLAGS += -D UV=1
 endif
 
-MAGIC = -L minilibx_mms_20191025_beta -lmlx -framework AppKit
-#MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
+#MAGIC = -L minilibx_mms_20191025_beta -lmlx -framework AppKit
+MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
 
 # COLORS
 PINK = \x1b[35;01m
@@ -125,7 +126,7 @@ fuckingclean: fclean
 	@make fclean -C ./libft
 #	@make clean -C ./minilibx_mms_20191025_beta
 
-bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=2
+bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=12
 bonus: re
 	@echo "$(PINK)Linking bonus files"
 

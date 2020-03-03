@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:56:05 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 17:40:56 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <fcntl.h>
-# include <stdio.h> //
 
 # include "enums.h"
 # include "structs.h"
@@ -55,6 +54,9 @@
 # ifndef UV
 #  define UV 0
 # endif
+# ifndef SEPIA
+#  define SEPIA 0
+# endif
 
 /*
 **../src/extra.c:
@@ -75,6 +77,7 @@ int		init_my_mlx(t_data *my_mlx, int fd);
 int		freemachine(t_data *my_mlx);
 int		exit_putstr(t_data *my_mlx, char *s, int fd);
 int		bmp(t_data *my_mlx);
+void	get_uvimg(t_data *my_mlx);
 
 void	put_rgb(t_data *my_mlx, int x, int y, t_col rgb);
 double	ndcx(t_data *my_mlx, double x);

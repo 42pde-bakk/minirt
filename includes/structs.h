@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/02 13:31:37 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 15:16:27 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,13 @@ typedef struct	s_data
 	t_cylinder	*cylinder;
 	t_triangle	*triangle;
 	t_click		*click;
+	void		*uvimg;
+	char		*uvaddr;
+	int			uvbpp;
+	int			uvll;
+	int			uvendian;
+	int			uvnx;
+	int			uvny;
 	int			bmp;
 }				t_data;
 

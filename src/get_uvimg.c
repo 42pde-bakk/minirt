@@ -1,40 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   argstructs.c                                       :+:    :+:            */
+/*   get_uvimg.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/01 16:11:40 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 17:20:04 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/03/02 15:09:51 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/03/02 17:05:29 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_arg	*new_argstruct(t_data *my_mlx, int i)
+void	get_uvimg(t_data *my_mlx)
 {
-	t_arg	*new;
-
-	new = malloc(sizeof(t_arg));
-	if (!new)
-	{
-		ft_putstr_fd("Error\nMalloc for argstruct failed\n", 2);
-		freemachine(my_mlx);
-	}
-	new->my_mlx = my_mlx;
-	new->threadnr = i;
-	return (new);
-}
-
-void	freeargstructs(t_arg *arg[THREADCOUNT])
-{
-	int i;
-
-	i = 0;
-	while (i < THREADCOUNT)
-	{
-		free(arg[i]);
-		i++;
-	}
+	my_mlx->uvimg = mlx_png_file_to_image(my_mlx->mlx_ptr,
+		"pic.png", &my_mlx->uvnx, &my_mlx->uvny);
+	my_mlx->uvaddr = mlx_get_data_addr(my_mlx->uvimg, &my_mlx->uvbpp,
+		&my_mlx->uvll, &my_mlx->uvendian);
 }

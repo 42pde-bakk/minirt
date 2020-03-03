@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:33:03 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/02 16:41:33 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int		init_my_mlx(t_data *my_mlx, int fd)
 		return (-1);
 	if (ft_parser(my_mlx, fd) == -1)
 		return (-1);
+	get_uvimg(my_mlx);
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width,
 	my_mlx->scene->height, "MiniPeeRT");
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width,
@@ -95,7 +96,7 @@ void	hooks(t_data *my_mlx)
 	mlx_hook(my_mlx->win_ptr, MOUSE_PRESS_CODE, MOUSE_PRESS_HOOK,
 			&mouseinput, my_mlx);
 	mlx_key_hook(my_mlx->win_ptr, &keyinput, my_mlx);
-	mlx_loop(my_mlx->win_ptr);
+	mlx_loop(my_mlx->mlx_ptr);
 }
 
 int		main(int argc, char **argv)

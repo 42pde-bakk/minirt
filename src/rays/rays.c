@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:59:05 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 17:36:25 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void	*render_pixel(void *param)
 		while (x < arg->my_mlx->scene->width)
 		{
 			pndcx = ndcx(arg->my_mlx, x);
-			// printf("xy=[%i, %i], pndcxy=[%f, %f]\n", x, y, pndcx, pndcy);
-			arg->my_mlx->ray[arg->threadnr]->v = setcamera(arg->my_mlx, pndcx, pndcy);
+			arg->my_mlx->ray[arg->threadnr]->v =
+				setcamera(arg->my_mlx, pndcx, pndcy);
 			find_objects(arg->my_mlx, arg->threadnr);
 			hit(arg->my_mlx, x, y, arg->threadnr);
 			x++;
@@ -55,7 +55,9 @@ t_arg	*new_arg(t_data *my_mlx, int threadnr)
 {
 	t_arg	*new;
 
-	new = malloc(sizeof(t_arg)); //also needs to be freed
+	new = malloc(sizeof(t_arg));
+	if (!new)
+		exit(ft_putstr_int("Error\nMalloc for argstruct failed\n", 2));
 	new->my_mlx = my_mlx;
 	new->threadnr = threadnr;
 	return (new);
