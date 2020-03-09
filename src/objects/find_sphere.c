@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 19:01:41 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/09 19:21:47 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int				find_sphere(t_sphere *sp, t_data *my_mlx, int threadnr)
 			my_mlx->ray[threadnr]->colour = uvmapping(my_mlx, sp, threadnr);
 			my_mlx->ray[threadnr]->hitnormal = vec3_sub(vec3_mult(
 		my_mlx->ray[threadnr]->v, my_mlx->ray[threadnr]->length), sp->s);
-			my_mlx->ray[threadnr]->hitnormal =
-				vec3_normalize(vec3_mult(my_mlx->ray[threadnr]->hitnormal, -1));
 		}
 		return (1);
 	}
@@ -76,8 +74,6 @@ int				find_sphere(t_sphere *sp, t_data *my_mlx, int threadnr)
 			my_mlx->ray[threadnr]->colour = uv_checkers(my_mlx, sp, threadnr);
 			my_mlx->ray[threadnr]->hitnormal = vec3_sub(vec3_mult(
 		my_mlx->ray[threadnr]->v, my_mlx->ray[threadnr]->length), sp->s);
-			my_mlx->ray[threadnr]->hitnormal =
-				vec3_normalize(vec3_mult(my_mlx->ray[threadnr]->hitnormal, -1));
 		}
 		return (1);
 	}
@@ -105,8 +101,6 @@ int				find_sphere(t_sphere *sp, t_data *my_mlx, int threadnr)
 			my_mlx->ray[threadnr]->colour = sp->colour;
 			my_mlx->ray[threadnr]->hitnormal = vec3_sub(vec3_mult(
 		my_mlx->ray[threadnr]->v, my_mlx->ray[threadnr]->length), sp->s);
-			my_mlx->ray[threadnr]->hitnormal =
-				vec3_normalize(vec3_mult(my_mlx->ray[threadnr]->hitnormal, -1));
 		}
 		return (1);
 	}

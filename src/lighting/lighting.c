@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/09 14:21:51 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/09 19:23:38 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@ t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir,
 	double	r2;
 
 	r2 = vec3_sqr(lightdir);
-	lightdir.z = -1.0 * lightdir.z;
-	dotnormal =
-		fmax(0.0, dotproduct(my_mlx->ray[threadnr]->hitnormal, lightdir));
+	lightdir = vec3_normalize(lightdir);
+	dotnormal = dotproduct(my_mlx->ray[threadnr]->hitnormal, lightdir);
+	if (dotnormal < 0.0)
+		return (colour_new(0, 0, 0));
 	intensity = dotnormal * light_current->brightness * ALBEDO * 4;
 	intensity /= 4 * M_PI * r2;
 	return (colour_mul(my_mlx->ray[threadnr]->colour, light_current->colour,
-			fmax(0.0, intensity)));
+			fmin(1.0, fmax(0.0, intensity))));
 }
 
 t_col	light_tracing(t_data *my_mlx, int threadnr)
