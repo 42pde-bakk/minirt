@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/03 17:39:05 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/05 19:25:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ t_col			unsigned_to_tcol(unsigned col);
 t_col			colour_mult(t_col col, double c1, double c2);
 t_col			colour_new(double r, double g, double b);
 t_col			colour_add(t_col v1, t_col v2);
+t_col			colour_div(t_col col, int div);
 t_col			colour_mul(t_col coloura, t_col colourb, double mul);
 t_col			colour_cap(t_col colour);
 int				colour_check(t_col colour);

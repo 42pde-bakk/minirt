@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/03 17:14:37 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/09 14:21:51 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,11 @@ t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir,
 	double	r2;
 
 	r2 = vec3_sqr(lightdir);
-	lightdir.y = -1.0 * lightdir.y;
-	lightdir.x = -1.0 * lightdir.x;
-	dotnormal = fmax(0.0, dotproduct(my_mlx->ray[threadnr]->hitnormal,
-		lightdir));
-	intensity = fmin(1.0, light_current->brightness / (4.0 * M_PI * r2) *
-	dotnormal * 2 * ALBEDO);
+	lightdir.z = -1.0 * lightdir.z;
+	dotnormal =
+		fmax(0.0, dotproduct(my_mlx->ray[threadnr]->hitnormal, lightdir));
+	intensity = dotnormal * light_current->brightness * ALBEDO * 4;
+	intensity /= 4 * M_PI * r2;
 	return (colour_mul(my_mlx->ray[threadnr]->colour, light_current->colour,
 			fmax(0.0, intensity)));
 }

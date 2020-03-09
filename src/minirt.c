@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 16:41:33 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/07 18:38:32 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int		data_initvalues(t_data *my_mlx)
 	my_mlx->mlx_img = NULL;
 	my_mlx->mlx_img2 = NULL;
 	my_mlx->win_ptr = NULL;
+	my_mlx->scene->width = -1;
 	my_mlx->light = NULL;
 	my_mlx->cam = NULL;
 	my_mlx->sphere = NULL;
@@ -35,6 +36,7 @@ int		data_initvalues(t_data *my_mlx)
 	my_mlx->square = NULL;
 	my_mlx->cylinder = NULL;
 	my_mlx->triangle = NULL;
+	my_mlx->uvimg = NULL;
 	my_mlx->frame = 0;
 	my_mlx->click->state = 0;
 	return (1);
@@ -43,6 +45,8 @@ int		data_initvalues(t_data *my_mlx)
 int		init_my_mlx(t_data *my_mlx, int fd)
 {
 	my_mlx->mlx_ptr = mlx_init();
+	if (my_mlx->mlx_ptr == NULL)
+		return (-1);
 	my_mlx->scene = malloc(sizeof(t_scene));
 	if (my_mlx->scene == NULL)
 		return (-1);
@@ -51,7 +55,7 @@ int		init_my_mlx(t_data *my_mlx, int fd)
 		return (-1);
 	if (data_initvalues(my_mlx) == -1)
 		return (-1);
-	if (ft_parser(my_mlx, fd) == -1)
+	if (ft_parser(my_mlx, fd) == -1 || my_mlx->scene->width < 0)
 		return (-1);
 	get_uvimg(my_mlx);
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width,
@@ -108,7 +112,7 @@ int		main(int argc, char **argv)
 	argcheckret = argcheck(argc, argv);
 	if (argcheckret == -1)
 		return (ft_putstr_int("Error\nBruh... Check your arguments\n", 2));
-	fd = open(argv[1], O_RDONLY);
+	fd = open(argv[1], O_RDONLY); //gotta close it
 	if (fd < 0)
 		return (ft_putstr_int("Error\nBruh... Wrong file\n", 2));
 	my_mlx = malloc(sizeof(t_data));

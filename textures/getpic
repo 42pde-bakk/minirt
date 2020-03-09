@@ -1,0 +1,5 @@
+#!/bin/zsh
+BRUH=$(eval "basename $PWD")
+curl -o $BRUH.jpg https://cdn.intra.42.fr/users/medium_$BRUH.jpg
+sips -s format png -s formatOptions 80 "$BRUH.jpg" --out textures/pic.png 
+rm $BRUH.jpg

@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 17:13:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/05 13:25:30 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,14 @@ int		freemachine(t_data *my_mlx)
 	free(my_mlx->scene);
 	freerays(my_mlx);
 	free(my_mlx->click);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
+	if (my_mlx->mlx_img != NULL)
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
+	if (my_mlx->mlx_img2 != NULL)
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
 	if (my_mlx->win_ptr != NULL)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->uvimg);
+	if (my_mlx->uvimg != NULL)
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->uvimg);
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }
 
@@ -79,10 +82,13 @@ int		exit_putstr(t_data *my_mlx, char *s, int fd)
 	free(my_mlx->scene);
 	freerays(my_mlx);
 	free(my_mlx->click);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
+	if (my_mlx->mlx_img != NULL)
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img);
+	if (my_mlx->mlx_img2 != NULL)
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->mlx_img2);
 	if (my_mlx->win_ptr != NULL)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
-	mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->uvimg);
+	if (my_mlx->uvimg != NULL)
+		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->uvimg);
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }

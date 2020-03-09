@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/14 12:06:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/03 17:37:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/05 19:24:52 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ t_col	colour_add(t_col v1, t_col v2)
 	ret.g = v1.g + v2.g;
 	ret.b = v1.b + v2.b;
 	return (ret);
+}
+
+t_col	colour_div(t_col col, int div)
+{
+	col.r = col.r / div;
+	col.g = col.g / div;
+	col.b = col.b / div;
+	return (col);
 }
 
 t_col	colour_mul(t_col coloura, t_col colourb, double mul)

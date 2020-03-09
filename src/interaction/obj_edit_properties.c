@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 01:29:43 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/03 17:14:09 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/05 13:26:37 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,18 +81,4 @@ void	object_change_rotsize(int keycode, t_data *my_mlx)
 		my_mlx->click->rotation = addrotation(my_mlx->click->rotation, angle);
 		object_edit_properties(my_mlx);
 	}
-}
-
-int		mouseinput(int button, int x, int y, t_data *my_mlx)
-{
-	if (my_mlx->click->state == 1 && (button == 4 || button == 5))
-	{
-		if (button == 4)
-			my_mlx->click->dist_fw += 10;
-		else if (button == 5)
-			my_mlx->click->dist_fw -= 10;
-	}
-	if (button == 1)
-		get_click_info(x, y, my_mlx);
-	return (1);
 }

@@ -1,5 +1,5 @@
 #!/bin/zsh
 USERNAME=`basename "$PWD"`
 curl -o $USERNAME.jpg https://cdn.intra.42.fr/users/medium_$USERNAME.jpg
-sips -s format png -s formatOptions 80 "$USERNAME.jpg" --out pic.png 
+sips -s format png -s formatOptions 80 "$USERNAME.jpg" --out textures/pic.png 
 rm $USERNAME.jpg

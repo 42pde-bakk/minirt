@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/03 17:16:30 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/03/07 19:03:01 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,14 +22,14 @@ INTERACTION_DIR = $(SRC_DIR)/interaction/
 GNL_DIR = ./gnl/
 LIBFT_DIR = ./libft/
 EXTRA_DIR = $(SRC_DIR)/extra/
-#MLX_DIR = ./minilibx_mms_20191025_beta/
 MLX_DIR = ./minilibx_mms_20200219/
 HEADER = -I ./includes/
 
 SRC = minirt.c newframe.c freebwilbers.c bmp.c get_uvimg.c
-RAY = rays.c ndcxy.c put_rgb.c
+RAY = rays.c ndcxy.c put_rgb.c render_pixel.c
 PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
-	parse_plane.c parse_sphere.c parse_square.c parse_triangle.c
+	parse_plane.c parse_resolution.c parse_sphere.c parse_square.c \
+	parse_tcol.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
 	find_triangle.c uvmapping.c
 LIGHT = lighting.c obstacles.c obstacle_cylinder.c obstacle_plane.c \
@@ -38,7 +38,7 @@ MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \
 	rotations.c vectors_adv.c vectors.c mat4_lookat.c colour_checks.c
 INTERACTION = click_object.c click_cylinder_plane.c click_sphere_square.c \
 	readinput.c	obj_edit_properties.c get_click_info.c obj_edit_props2.c \
-	camera_action.c obj_edit_props_square.c
+	camera_action.c obj_edit_props_square.c mouseinput.c
 GNL = get_next_line.c get_next_line_utils.c
 LIBFT = ft_lstmap_bonus.c ft_strjoin.c ft_atoi.c ft_lstnew_bonus.c \
 ft_strlcat.c ft_bzero.c ft_lstsize_bonus.c ft_strlcpy.c ft_calloc.c \
@@ -64,24 +64,35 @@ FILES += $(addprefix $(LIBFT_DIR), $(LIBFT))
 FILES += $(addprefix $(EXTRA_DIR), $(EXTRA))
 FILES += $(addprefix $(INTERACTION_DIR), $(INTERACTION))
 
-MAX_RESX := $(shell displayplacer list | grep "current mode" | \
+#MAX_RESX := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:x]' '/mode/{print$$3}')
-MAX_RESY := $(shell displayplacer list | grep "current mode" | \
+#MAX_RESY := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:xc]' '/mode/{print$$4}')
 
-FLAGS = -Wall -Werror -Wextra -g
+FLAGS = -Wall -Werror -Wextra -pedantic
 BONUS_FLAGS = -D BONUS=0 -D THREADCOUNT=1
 ifdef SPEED
-FLAGS += -O3
+FLAGS += -Ofast -march=native
 endif
 ifdef DEBUG
- FLAGS += -fsanitize=address -fno-omit-frame-pointer
+ FLAGS += -g -fsanitize=address -fno-omit-frame-pointer
 endif
 ifdef UV
  FLAGS += -D UV=1
 endif
+ifdef MOUSEROTATE
+ FLAGS += -D MOUSEROTATE=1
+endif
+ifdef SEPIA
+ FLAGS += -D SEPIA=1
+endif
+ifdef AA
+ FLAGS += -D ANTIALIASING=1
+endif
+ifdef STEREOSCOPY
+ FLAGS += -D STEREOSCOPY=1
+endif
 
-#MAGIC = -L minilibx_mms_20191025_beta -lmlx -framework AppKit
 MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
 
 # COLORS
@@ -96,7 +107,7 @@ RESET = \x1b[0m
 
 all: $(NAME)
 
-$(NAME):
+$(NAME): $(FILES)
 	@echo "$(BLUE)Remaking libft.a"
 	@make re -C $(LIBFT_DIR)
 	@cp $(LIBFT_DIR)/libft.a .
@@ -105,15 +116,14 @@ $(NAME):
 	@cp $(MLX_DIR)/mlx.h includes/
 	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/libmlx.dylib .
-	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME) -D \
-	MAX_RESX=$(MAX_RESX) -D MAX_RESY=$(MAX_RESY)
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME)
 
 clean:
 	@echo "$(RED)Cleaning..."
 	/bin/rm -f *.o *~ *.gch
 
 fclean: clean
-	@make clean -C ./libft
+	@make fclean -C ./libft
 	/bin/rm -f libft.a
 	/bin/rm -f includes/mlx.h
 	/bin/rm -f $(NAME) libmlx.dylib
@@ -124,9 +134,8 @@ fuckingclean: fclean
 	/bin/rm -f \#*\# a.out
 	/bin/rm -rf *.dSYM
 	@make fclean -C ./libft
-#	@make clean -C ./minilibx_mms_20191025_beta
 
-bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=12
+bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=1
 bonus: re
 	@echo "$(PINK)Linking bonus files"
 

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/02 15:16:27 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/05 18:47:05 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,8 @@ typedef	struct	s_scene
 	char			*id;
 	double			width;
 	double			height;
+	double			aawidth;
+	double			aaheight;
 	double			ambintensity;
 	t_col			amblightcolour;
 }				t_scene;
@@ -221,6 +223,7 @@ typedef struct	s_data
 	int			uvnx;
 	int			uvny;
 	int			bmp;
+	int			stereoscopy;
 }				t_data;
 
 typedef struct	s_arg
@@ -228,5 +231,15 @@ typedef struct	s_arg
 	t_data		*my_mlx;
 	int			threadnr;
 }				t_arg;
+
+typedef struct	s_aa
+{
+	double		pndcx;
+	double		pndcy;
+	t_col		col1;
+	t_col		col2;
+	t_col		col3;
+	t_col		col4;
+}				t_aa;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:05 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 17:17:11 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/05 15:45:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			find_plane(t_plane *pl, t_data *my_mlx, int threadnr)
 			{
 				my_mlx->ray[threadnr]->length = t;
 				my_mlx->ray[threadnr]->colour = pl->colour;
-				my_mlx->ray[threadnr]->hitnormal = pl->normal;
+				my_mlx->ray[threadnr]->hitnormal = vec3_mult(pl->normal, -1);
 				return (1);
 			}
 	}

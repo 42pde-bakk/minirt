@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 17:36:25 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/07 18:57:54 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,34 +23,6 @@ void	hit(t_data *my_mlx, int x, int y, int threadnr)
 	my_mlx->ray[threadnr]->hitnormal = vec3_new(0.0, 0.0, 0.0);
 }
 
-void	*render_pixel(void *param)
-{
-	int		x;
-	int		y;
-	double	pndcy;
-	double	pndcx;
-	t_arg	*arg;
-
-	arg = param;
-	y = arg->threadnr;
-	while (y < arg->my_mlx->scene->height)
-	{
-		x = 0;
-		pndcy = ndcy(arg->my_mlx, y);
-		while (x < arg->my_mlx->scene->width)
-		{
-			pndcx = ndcx(arg->my_mlx, x);
-			arg->my_mlx->ray[arg->threadnr]->v =
-				setcamera(arg->my_mlx, pndcx, pndcy);
-			find_objects(arg->my_mlx, arg->threadnr);
-			hit(arg->my_mlx, x, y, arg->threadnr);
-			x++;
-		}
-		y = y + THREADCOUNT;
-	}
-	return (NULL);
-}
-
 t_arg	*new_arg(t_data *my_mlx, int threadnr)
 {
 	t_arg	*new;
@@ -63,9 +35,7 @@ t_arg	*new_arg(t_data *my_mlx, int threadnr)
 	return (new);
 }
 
-#if BONUS == 1
-
-void	ray(t_data *my_mlx)
+void	threading(t_data *my_mlx)
 {
 	pthread_t	threads[THREADCOUNT];
 	t_arg		*arg[THREADCOUNT];
@@ -91,6 +61,29 @@ void	ray(t_data *my_mlx)
 	{
 		free(arg[i]);
 		i++;
+	}
+}
+
+#if BONUS == 1
+
+void	ray(t_data *my_mlx)
+{
+	double	distance;
+
+	distance = 1;
+	if (STEREOSCOPY == 1)
+	{
+		my_mlx->cam->s.x -= distance;
+		my_mlx->stereoscopy = 1;
+		threading(my_mlx);
+		my_mlx->cam->s.x += 2 * distance;
+		my_mlx->stereoscopy = 2;
+		threading(my_mlx);
+		my_mlx->cam->s.x += distance;
+	}
+	else
+	{
+		threading(my_mlx);
 	}
 }
 

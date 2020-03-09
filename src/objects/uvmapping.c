@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/01 16:45:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 17:19:28 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 19:44:29 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,29 +25,16 @@ t_col	uv_pattern_at(double u, double v, int width, int height)
 		return (colour_new(255, 255, 255));
 }
 
-void	get_uv(t_vec3 p, double *u, double *v, t_vec3 spcenter)
+void	get_uv(t_vec3 p, double *u, double *v)
 {
-	t_vec3	ve;
-	t_vec3	vn;
-	t_vec3	vp;
 	double	phi;
 	double	theta;
 
-	ve = vec3_sub(vec3_new(p.x, p.y, p.z + 1), spcenter);
-	ve = vec3_normalize(ve);
-	vn = vec3_sub(vec3_new(p.x, p.y + 1, p.z), spcenter);
-	vn = vec3_normalize(vn);
-	vp = vec3_sub(p, spcenter);
-	vp = vec3_normalize(vp);
-	phi = acos(-dotproduct(vn, vp));
-	*v = phi / M_PI;
-	theta = acos(dotproduct(vp, ve)) / sin(phi) / (2.0 * M_PI);
-	if (theta < 0 || theta == NAN)
-		theta = 0;
-	if (dotproduct(crossproduct(vn, ve), vp) > 0)
-		*u = theta;
-	else
-		*u = 1 - theta;
+	p = vec3_normalize(p);
+	phi = atan2(p.z, p.x);
+	theta = asin(p.y);
+	*u = 1 - (phi + M_PI) / (2 * M_PI);
+	*v = (theta + M_PI / 2) / M_PI;
 }
 
 t_col	uv_checkers(t_data *my_mlx, t_sphere *sp, int threadnr)
@@ -58,15 +45,26 @@ t_col	uv_checkers(t_data *my_mlx, t_sphere *sp, int threadnr)
 	double	u2;
 	double	v2;
 
-	p = vec3_add(my_mlx->cam->s, vec3_mult(
-		my_mlx->ray[threadnr]->v, my_mlx->ray[threadnr]->length));
-	get_uv(p, &u, &v, sp->s);
+	p = vec3_sub(vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
+		my_mlx->ray[threadnr]->length)), sp->s);
+	get_uv(p, &u, &v);
 	u2 = floor(u * 8);
 	v2 = floor(v * 8);
 	if ((int)(u2 + v2) % 2 == 0)
 		return (colour_new(255, 255, 255));
 	else
 		return (colour_new(0.0, 0.0, 0.0));
+}
+
+t_col	get_colour(t_data *my_mlx, int i, int j)
+{
+	unsigned int	col;
+	char			*image;
+
+	image = my_mlx->uvaddr;
+	image += (j * my_mlx->uvll + (i * (my_mlx->uvbpp / 8)));
+	col = *(unsigned int*)image;
+	return (unsigned_to_tcol(col));
 }
 
 t_col	uvmapping(t_data *my_mlx, t_sphere *sp, int threadnr)
@@ -79,20 +77,10 @@ t_col	uvmapping(t_data *my_mlx, t_sphere *sp, int threadnr)
 
 	if (my_mlx->uvimg == NULL || my_mlx->uvaddr == NULL)
 		return (sp->colour);
-	get_uv(vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
-		my_mlx->ray[threadnr]->length)), &u, &v, sp->s);
-	i = u * my_mlx->uvnx;
-	j = (1 - v) * my_mlx->uvny - 0.001;
-	if (i < 0)
-		i = 0;
-	if (j < 0)
-		j = 0;
-	if (i > my_mlx->uvnx - 1)
-		i = my_mlx->uvnx - 1;
-	if (j > my_mlx->uvny - 1)
-		j = my_mlx->uvny - 1;
-	out.r = fmax(0.0, (int)(my_mlx->uvaddr[3 * i + 3 * my_mlx->uvnx * j + 0]));
-	out.g = fmax(0.0, (int)(my_mlx->uvaddr[3 * i + 3 * my_mlx->uvnx * j + 1]));
-	out.b = fmax(0.0, (int)(my_mlx->uvaddr[3 * i + 3 * my_mlx->uvnx * j + 2]));
+	get_uv(vec3_sub(vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
+		my_mlx->ray[threadnr]->length)), sp->s), &u, &v);
+	i = fmin(my_mlx->uvnx - 1, fmax(0.0, (my_mlx->uvnx - (u * my_mlx->uvnx))));
+	j = fmin(my_mlx->uvnx - 1, fmax(0.0, (1 - v) * my_mlx->uvny - 0.001));
+	out = get_colour(my_mlx, i, j);
 	return (out);
 }

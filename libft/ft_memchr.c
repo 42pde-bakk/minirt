@@ -6,7 +6,7 @@
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/14 18:31:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2019/11/15 12:27:21 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/03 20:58:27 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	*ft_memchr(const void *s, int c, size_t n)
 	while (i < n)
 	{
 		if (ptr[i] == (unsigned char)c)
-			return ((void *)s + i);
+			return ((void*)((char *)s + i));
 		i++;
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:49:45 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/07 17:42:19 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void		cylinder_hit(t_ray *ray, t_cylinder *cyl,
 		ray->colour = cyl->colour;
 		ray->hitnormal = vec3_normalize(vec3_sub(cyl->s,
 		vec3_mult(ray->v, res)));
+		ray->hitnormal = vec3_mult(ray->hitnormal, -1);
 	}
 }
 
