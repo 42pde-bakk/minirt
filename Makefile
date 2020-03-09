@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/07 19:03:01 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/03/09 20:53:02 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -69,7 +69,7 @@ awk -F '[:x]' '/mode/{print$$3}')
 #MAX_RESY := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:xc]' '/mode/{print$$4}')
 
-FLAGS = -Wall -Werror -Wextra -pedantic
+FLAGS = -Wall -Werror -Wextra -pedantic -g
 BONUS_FLAGS = -D BONUS=0 -D THREADCOUNT=1
 ifdef SPEED
 FLAGS += -Ofast -march=native
