@@ -16,14 +16,12 @@ static double	sphere_intersect(t_sphere *sp, t_data *my_mlx, int threadnr)
 {
 	t_vec3	tmp;
 	double	t;
-	t_vec3	p;
 
 	tmp = vec3_sub(sp->s, my_mlx->cam->s);
 	t = dotproduct(tmp, my_mlx->ray[threadnr]->v);
 	if (t < 0)
 		return (-1);
-	p = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v, t));
-	return (find_length(p, sp->s));
+	return (t);
 }
 
 #if BONUS == 1 && UV == 1
