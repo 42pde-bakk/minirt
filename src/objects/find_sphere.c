@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/09 21:07:02 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/10 16:42:54 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,9 @@ int				find_sphere(t_sphere *sp, t_data *my_mlx, int threadnr)
 		if (pow(sp->diameter / 2, 2) - (y * y) < 0)
 			return (0);
 		t1 = t0 - sqrt(pow(sp->diameter / 2, 2) - pow(y, 2));
-		if (t1 < my_mlx->ray[threadnr]->length)
+		if (t1 < 0)
+			t1 = t0 + sqrt(pow(sp->diameter / 2, 2) - pow(y, 2));
+		if (t1 < my_mlx->ray[threadnr]->length && t1 > 0)
 		{
 			my_mlx->ray[threadnr]->length = t1;
 			my_mlx->ray[threadnr]->colour = sp->colour;
