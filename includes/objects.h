@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:48:51 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/03 19:01:48 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:47:49 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ int			find_triangle(t_triangle *tri, t_data *my_mlx, int threadnr);
 
 int			find_objects(t_data *my_mlx, int threadnr);
 
+void		get_uv(t_vec3 p, double *u, double *v);
 t_col		uv_checkers(t_data *my_mlx, t_sphere *sp, int threadnr);
 t_col		uvmapping(t_data *my_mlx, t_sphere *sp, int threadnr);
+
+t_col		rainbow(t_data *my_mlx, t_sphere *sp, int threadnr);
 
 #endif

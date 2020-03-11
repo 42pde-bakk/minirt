@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 19:09:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/19 19:12:13 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:07:26 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@ int	obstacle_square(t_square *sq, t_vec3 hitpos,
 	t_vec3 lightdir, double distance)
 {
 	if (obstacle_triangle(&sq->tri[0], hitpos, lightdir, distance) == 1)
+	{
 		return (1);
+	}
 	else if (obstacle_triangle(&sq->tri[1], hitpos, lightdir, distance) == 1)
 		return (1);
 	return (0);

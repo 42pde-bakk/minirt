@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:06:48 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:49:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:09:54 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ int					triangle_intersect(t_triangle *tri, t_data *my_mlx,
 		my_mlx->ray[threadnr]->length = th.t;
 		my_mlx->ray[threadnr]->colour = tri->colour;
 		my_mlx->ray[threadnr]->hitnormal = tri->normal;
+		return (1);
 	}
-	return (1);
+	return (0);
 }
 
 t_triangle			tri_rev(t_triangle t)

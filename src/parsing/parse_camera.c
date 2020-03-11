@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/21 22:12:23 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 22:47:51 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 17:38:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			parse_camera_from_file(t_cam *new, char *line, int *i)
 	new->v.y = ft_atof_peer(line, i);
 	new->v.z = ft_atof_peer(line, i);
 	new->v = vec3_normalize(new->v);
-	new->fov = ft_atoi_peer(line, i);
+	new->fov = fmin(120, ft_atoi_peer(line, i));
 }
 
 int				parse_camera(t_data *my_mlx, char *line, int *i)
@@ -55,7 +55,8 @@ int				parse_camera(t_data *my_mlx, char *line, int *i)
 	if (new == NULL)
 		return (-1);
 	parse_camera_from_file(new, line, i);
-	if (new->fov < 0.0 || vec3_sqr(new->v) == 0)
+	if (new->fov < 0.0
+	|| new->v.x != new->v.x || new->v.y != new->v.y || new->v.z != new->v.z)
 	{
 		free(new);
 		return (-1);

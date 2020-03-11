@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/05 13:25:30 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:51:43 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ int		freemachine(t_data *my_mlx)
 	if (check > 0)
 		return (0);
 	check++;
+	close(my_mlx->fd);
 	freeplane(my_mlx->plane);
 	freeplane(my_mlx->sphere);
 	freeplane(my_mlx->square);
@@ -73,6 +74,7 @@ int		exit_putstr(t_data *my_mlx, char *s, int fd)
 		return (0);
 	check++;
 	ft_putstr_fd(s, fd);
+	close(my_mlx->fd);
 	freeplane(my_mlx->plane);
 	freeplane(my_mlx->sphere);
 	freeplane(my_mlx->square);

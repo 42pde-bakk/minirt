@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/09 20:53:02 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/03/11 23:47:56 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 	parse_plane.c parse_resolution.c parse_sphere.c parse_square.c \
 	parse_tcol.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
-	find_triangle.c uvmapping.c
+	find_triangle.c uvmapping.c rainbow.c
 LIGHT = lighting.c obstacles.c obstacle_cylinder.c obstacle_plane.c \
 	obstacle_sphere.c obstacle_square.c obstacle_triangle.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \
@@ -51,7 +51,7 @@ ft_lstclear_bonus.c ft_putstr_fd.c ft_lstdelone_bonus.c ft_split.c \
 ft_lstiter_bonus.c ft_strchr.c ft_lstlast_bonus.c ft_strdup.c
 
 
-EXTRA = ft_itoa_base.c ft_atox_peer.c ft_putstr_int.c
+EXTRA = ft_itoa_base.c ft_atox_peer.c ft_putstr_int.c extra.c
 
 FILES = $(addprefix $(SRC_DIR)/, $(SRC))
 FILES += $(addprefix $(RAY_DIR), $(RAY))
@@ -92,6 +92,9 @@ endif
 ifdef STEREOSCOPY
  FLAGS += -D STEREOSCOPY=1
 endif
+ifdef RAINBOW
+ FLAGS += -D RAINBOW=1
+endif
 
 MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
 
@@ -108,6 +111,7 @@ RESET = \x1b[0m
 all: $(NAME)
 
 $(NAME): $(FILES)
+	@$(shell ./textures/getpic exec >/dev/null exec 2>/dev/null)
 	@echo "$(BLUE)Remaking libft.a"
 	@make re -C $(LIBFT_DIR)
 	@cp $(LIBFT_DIR)/libft.a .
@@ -135,7 +139,7 @@ fuckingclean: fclean
 	/bin/rm -rf *.dSYM
 	@make fclean -C ./libft
 
-bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=1
+bonus: BONUS_FLAGS = -D BONUS=1 -D THREADCOUNT=4
 bonus: re
 	@echo "$(PINK)Linking bonus files"
 

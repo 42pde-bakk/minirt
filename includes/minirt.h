@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/07 19:03:07 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:52:14 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 # include "objects.h"
 # include "interaction.h"
 # include "lighting.h"
-
-#include <stdio.h> // pls remove pls
 
 # ifndef ALBEDO
 #  define ALBEDO 40.0
@@ -61,11 +59,18 @@
 # ifndef ANTIALIASING
 #  define ANTIALIASING 0
 # endif
+# ifndef RAINBOW
+#  define RAINBOW 0
+# endif
+# ifndef WAVE
+#  define WAVE 1
+# endif
 
 /*
 **../src/extra.c:
 */
 int		ft_amount(long int nb);
+void	fswap(double *a, double *b);
 char	*ft_itoa_base(long long nb, long long base);
 int		ft_iswhitespace(char c);
 double	ft_atof_peer(const char *str, int *i);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/07 18:38:32 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:51:58 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,7 @@ int		data_initvalues(t_data *my_mlx)
 		my_mlx->ray[i]->length = __INT_MAX__;
 		i++;
 	}
-	my_mlx->mlx_img = NULL;
-	my_mlx->mlx_img2 = NULL;
-	my_mlx->win_ptr = NULL;
 	my_mlx->scene->width = -1;
-	my_mlx->light = NULL;
-	my_mlx->cam = NULL;
-	my_mlx->sphere = NULL;
-	my_mlx->plane = NULL;
-	my_mlx->square = NULL;
-	my_mlx->cylinder = NULL;
-	my_mlx->triangle = NULL;
-	my_mlx->uvimg = NULL;
-	my_mlx->frame = 0;
-	my_mlx->click->state = 0;
 	return (1);
 }
 
@@ -112,12 +99,13 @@ int		main(int argc, char **argv)
 	argcheckret = argcheck(argc, argv);
 	if (argcheckret == -1)
 		return (ft_putstr_int("Error\nBruh... Check your arguments\n", 2));
-	fd = open(argv[1], O_RDONLY); //gotta close it
+	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		return (ft_putstr_int("Error\nBruh... Wrong file\n", 2));
-	my_mlx = malloc(sizeof(t_data));
+	my_mlx = ft_calloc(1, sizeof(t_data));
 	if (my_mlx == NULL)
 		return (ft_putstr_int("Error\nFree bwilbers\n", 2));
+	my_mlx->fd = fd;
 	if (argcheckret == 2)
 		my_mlx->bmp = 1;
 	if (init_my_mlx(my_mlx, fd) == -1)

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/05 18:47:05 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:50:22 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,8 +165,6 @@ typedef	struct	s_scene
 	char			*id;
 	double			width;
 	double			height;
-	double			aawidth;
-	double			aaheight;
 	double			ambintensity;
 	t_col			amblightcolour;
 }				t_scene;
@@ -204,6 +202,7 @@ typedef struct	s_data
 	int			bpp;
 	int			line_length;
 	int			endian;
+	int			fd;
 	t_scene		*scene;
 	t_light		*light;
 	t_cam		*cam;

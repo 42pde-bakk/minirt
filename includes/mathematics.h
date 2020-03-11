@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/05 19:25:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 23:52:27 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ t_matrix		mat4_lookat(t_vec3 position, t_vec3 target);
 t_matrix		mat4_new(t_vec3	right, t_vec3 up, t_vec3 forward, t_vec3 t);
 t_matrix		mat4_angles(t_vec3 angles);
 
-void			printquat(t_quat quat, char *str);
 t_matrix		quat_to_matrix(t_quat quat);
 t_quat			quat_mult(t_quat a, t_quat b);
 t_quat			quat_init(double w, double x, double y, double z);

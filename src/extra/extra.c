@@ -1,18 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_amount.c                                        :+:    :+:            */
+/*   extra.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: pde-bakk <marvin@codam.nl>                   +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/27 13:41:01 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2019/12/30 18:04:39 by pde-bakk      ########   odam.nl         */
+/*   Created: 2019/12/27 13:41:01 by pde-bakk       #+#    #+#                */
+/*   Updated: 2020/03/11 14:08:14 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft/libft.h"
-
-int	ft_amount(long int nb)
+int		ft_amount(long int nb)
 {
 	long	amount;
 
@@ -30,4 +28,14 @@ int	ft_amount(long int nb)
 		amount++;
 	}
 	return (amount);
+}
+
+void	fswap(double *a, double *b)
+{
+	double tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+	return ;
 }

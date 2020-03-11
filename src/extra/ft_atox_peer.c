@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/29 16:22:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 21:12:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 17:46:52 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ double		ft_atof_peer(const char *str, int *i)
 	result = 0.0;
 	sign = 1;
 	while (ft_iswhitespace(str[*i]))
-		(*i)++;
-	if (str[*i] == ',')
 		(*i)++;
 	if (str[*i] == '-')
 	{

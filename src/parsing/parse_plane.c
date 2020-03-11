@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 19:26:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 17:44:43 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ int		parse_plane(t_data *my_mlx, char *line, int *i)
 	if (vec3_sqr(new->normal) != 0)
 		new->normal = vec3_normalize(new->normal);
 	new->colour = parse_tcol(line, i);
-	if (colour_check(new->colour) == 0 || vec3_sqr(new->normal) == 0)
+	if (colour_check(new->colour) == 0 || vec3_sqr(new->normal) == 0 ||
+	new->normal.x != new->normal.x || new->normal.y != new->normal.y ||
+	new->normal.z != new->normal.z)
 	{
 		free(new);
 		return (-1);

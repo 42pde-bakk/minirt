@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/05 16:27:07 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/07 18:57:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/11 17:14:35 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	aa_finish(t_arg *arg, int x, int y, t_aa aa)
 	arg->my_mlx->ray[arg->threadnr]->hitnormal = vec3_new(0.0, 0.0, 0.0);
 }
 
-t_col	aa_getcolour(t_arg *arg, int x, int y)
+t_col	aa_getcolour(t_arg *arg, double x, double y)
 {
 	arg->my_mlx->ray[arg->threadnr]->colour = colour_new(0.0, 0.0, 0.0);
 	arg->my_mlx->ray[arg->threadnr]->v = setcamera(arg->my_mlx,
@@ -48,22 +48,21 @@ void	*render_pixel(void *param)
 	t_aa	aa;
 
 	arg = param;
-	y = arg->threadnr * 2;
-	while (y + 1 < arg->my_mlx->scene->aaheight)
+	y = arg->threadnr;
+	while (y + 1 < arg->my_mlx->scene->height)
 	{
 		x = 0;
 		aa.pndcy = ndcy(arg->my_mlx, y);
-		while (x + 1 < arg->my_mlx->scene->aawidth)
+		while (x + 1 < arg->my_mlx->scene->width)
 		{
 			aa.col1 = aa_getcolour(arg, x, y);
-			aa.col2 = aa_getcolour(arg, x + 1, y);
-			aa.col3 = aa_getcolour(arg, x, y + 1);
-			aa.col4 = aa_getcolour(arg, x + 1, y + 1);
-			aa_finish(arg, x / 2, y / 2, aa);
-			printf("xy=[%i, %i]\n", x, y);
-			x += 2;
+			aa.col2 = aa_getcolour(arg, (double)x + 0.5, y);
+			aa.col3 = aa_getcolour(arg, x, (double)y + 0.5);
+			aa.col4 = aa_getcolour(arg, (double)x + 0.5, (double)y + 0.5);
+			aa_finish(arg, x, y, aa);
+			x++;
 		}
-		y = y + THREADCOUNT * 2;
+		y += THREADCOUNT;
 	}
 	return (NULL);
 }
