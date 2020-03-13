@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/09 20:00:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 19:42:36 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,17 @@ t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 	help.cylcenter = cyl->s;
 	help.cylrot = cyl->v;
 	help.dist = vec3_sub(help.rayorigin, help.cylcenter);
-	help.c1 = vec3_sub(help.raydir, vec3_mult(help.cylrot,
-	dotproduct(help.raydir, help.cylrot)));
-	help.c2 = vec3_sub(help.dist, vec3_mult(help.cylrot,
-	dotproduct(help.dist, help.cylrot)));
+	help.c1 = vec3_sub(help.raydir,
+			vec3_mult(help.cylrot, dotproduct(help.raydir, help.cylrot)));
+	help.c2 = vec3_sub(help.dist,
+			vec3_mult(help.cylrot, dotproduct(help.dist, help.cylrot)));
 	help.abc0 = vec3_sqr(help.c1);
 	help.abc1 = 2.0 * dotproduct(help.c1, help.c2);
-	help.abc2 = vec3_sqr(help.c2) - pow((cyl->diameter / 2), 2);
-	help.p1 = vec3_sub(help.cylcenter, vec3_mult(help.cylrot,
-	cyl->height / 2.0));
-	help.p2 = vec3_add(help.cylcenter, vec3_mult(help.cylrot,
-	cyl->height / 2.0));
+	help.abc2 = vec3_sqr(help.c2) - pow(cyl->diameter / 2, 2);
+	help.p1 = vec3_sub(help.cylcenter,
+			vec3_mult(help.cylrot, cyl->height / 2.0));
+	help.p2 = vec3_add(help.cylcenter,
+			vec3_mult(help.cylrot, cyl->height / 2.0));
 	return (help);
 }
 
@@ -44,30 +44,26 @@ int			solve_quadratic_equation(t_cylhelp *help)
 		return (0);
 	else if (discriminant < EPSILON)
 	{
-		help->y0 = -0.5 * help->abc1 / help->abc0;
-		help->y1 = help->y0;
+		help->t0 = -0.5 * help->abc1 / help->abc0;
+		help->t1 = help->t0;
 	}
 	else
 	{
-		help->y0 = (-help->abc1 + sqrt(discriminant)) / (2.0 * help->abc0);
-		help->y1 = (-help->abc1 - sqrt(discriminant)) / (2.0 * help->abc0);
+		help->t0 = (-help->abc1 + sqrt(discriminant)) / (2.0 * help->abc0);
+		help->t1 = (-help->abc1 - sqrt(discriminant)) / (2.0 * help->abc0);
 	}
 	return (1);
 }
 
-void		cylinder_hit(t_ray *ray, t_cylinder *cyl,
-			double res, t_cylhelp help)
+void	cylinder_hit(t_data *my_mlx, int threadnr, t_cylinder *cyl,
+		t_cylhelp help)
 {
-	if (res != -1)
-		res = fmin(help.y0, help.y1);
-	else
-		res = help.y1;
-	if (res < ray->length)
+	if (help.res > 0.0 && help.res < my_mlx->ray[threadnr]->length)
 	{
-		ray->length = res;
-		ray->colour = cyl->colour;
-		ray->hitnormal =
-			vec3_normalize(vec3_sub(vec3_mult(ray->v, res), cyl->s));
+		my_mlx->ray[threadnr]->length = help.res;
+		my_mlx->ray[threadnr]->colour = cyl->colour;
+		my_mlx->ray[threadnr]->hitnormal = vec3_normalize(vec3_sub(vec3_add(
+	my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v, help.res)), cyl->s));
 	}
 }
 
@@ -75,25 +71,25 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 {
 	t_cylhelp	help;
 	t_vec3		q;
-	double		res;
-	double		dotp1;
-	double		dotp2;
 
-	res = -1;
+	help.res = -1;
 	help = cylinder_calc(cyl, my_mlx, threadnr);
 	if (solve_quadratic_equation(&help) == 1)
 	{
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y0));
-		dotp1 = dotproduct(help.cylrot, vec3_sub(q, help.p1));
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y1));
-		dotp2 = dotproduct(help.cylrot, vec3_sub(q, help.p2));
-		if (help.y0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
-			res = help.y0;
-		if (help.y1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
-		{
-			cylinder_hit(my_mlx->ray[threadnr], cyl, res, help);
-		}
-		return (res);
+		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
+		if (help.t0 > 0.0 && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
+				&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
+			help.res = help.t0;
+		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
+		if (help.t1 > 0.0 && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
+					&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
+			help.res = help.res != -1 ? fmin(help.t0, help.t1) : help.t1;
+		cylinder_hit(my_mlx, threadnr, cyl, help);
+		// find_cylinder_caps(my_mlx, cyl, threadnr,
+		// 		vec3_add(cyl->s, vec3_mult(cyl->v, cyl->height / 2)));
+		// find_cylinder_caps(my_mlx, cyl, threadnr,
+		// 		vec3_sub(cyl->s, vec3_mult(cyl->v, cyl->height / 2)));
+		return (1);
 	}
 	return (0);
 }

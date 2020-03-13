@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:03:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:18:49 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/12 16:26:44 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,8 @@ int			parse_square(t_data *my_mlx, char *line, int *i)
 		return (-1);
 	parse_square_from_file(new, line, i);
 	if (colour_check(new->colour) == 0 || new->size < 0.0 ||
-	vec3_sqr(new->normal) == 0)
+	vec3_sqr(new->normal) == 0 || new->normal.x != new->normal.x ||
+	new->normal.y != new->normal.y || new->normal.z != new->normal.z)
 	{
 		free(new);
 		return (-1);

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 23:51:58 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 13:03:08 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,19 +61,24 @@ int		init_my_mlx(t_data *my_mlx, int fd)
 int		argcheck(int argc, char **argv)
 {
 	int ret;
+	int	i;
 
 	ret = 0;
+	i = 0;
 	if (argc < 2 || argc > 3)
 		return (-1);
 	if (argc == 2 || argc == 3)
 	{
 		ret = 1;
-		if (ft_strnstr(argv[1], ".rt", ft_strlen(argv[1])) == 0)
+		while (argv[1][i])
+			i++;
+		if (argv[1][i - 1] != 't' || argv[1][i - 2] != 'r' ||
+			argv[1][i - 3] != '.')
 			return (-1);
 		if (argc == 3)
 		{
 			ret = 2;
-			if (ft_strncmp(argv[2], "--save", 6) != 0)
+			if (ft_strncmp(argv[2], "--save", 7) != 0)
 				return (-1);
 		}
 	}

@@ -6,12 +6,11 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/11 23:17:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/12 16:47:19 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-#include <stdio.h>
 
 t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir,
 	int threadnr)
@@ -27,7 +26,7 @@ t_col	add_light(t_data *my_mlx, t_light *light_current, t_vec3 lightdir,
 	dotnormal = dotproduct(hitnormal, lightdir);
 	if (dotnormal < 0.0)
 		return (colour_new(0, 0, 0));
-	intensity = light_current->brightness * dotnormal * ALBEDO * 10;
+	intensity = light_current->brightness * dotnormal * ALBEDO;
 	intensity /= 4.0 * M_PI * r2;
 	return (colour_mul(my_mlx->ray[threadnr]->colour, light_current->colour,
 			fmin(1.0, fmax(0.0, intensity))));

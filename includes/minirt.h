@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 23:52:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 12:31:12 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,10 @@
 # include "objects.h"
 # include "interaction.h"
 # include "lighting.h"
+# include <stdio.h> //remove
 
 # ifndef ALBEDO
-#  define ALBEDO 40.0
+#  define ALBEDO 1000.0
 # endif
 # define EPSILON 1e-6
 # define CAM_SPEED 0.5
@@ -45,7 +46,7 @@
 #  define THREADCOUNT 1
 # endif
 # ifndef UV
-#  define UV 0
+#  define UV -1
 # endif
 # ifndef SEPIA
 #  define SEPIA 0
@@ -63,7 +64,7 @@
 #  define RAINBOW 0
 # endif
 # ifndef WAVE
-#  define WAVE 1
+#  define WAVE 0
 # endif
 
 /*

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 23:48:53 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/12 15:02:08 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ void	sphere_hit(t_sphere *sp, t_data *my_mlx, int threadnr, double t)
 		my_mlx->ray[threadnr]->length = t;
 		my_mlx->ray[threadnr]->hitnormal = vec3_normalize(vec3_sub(vec3_add(
 			my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v, t)), sp->s));
+		if (BONUS == 1 && WAVE == 1)
+			my_mlx->ray[threadnr]->hitnormal =
+				wave(my_mlx->ray[threadnr]->hitnormal);
 		if (BONUS == 1 && RAINBOW == 1)
 			my_mlx->ray[threadnr]->colour = rainbow(my_mlx, sp, threadnr);
 		else if (BONUS == 1 && UV == 0)
 			my_mlx->ray[threadnr]->colour = uv_checkers(my_mlx, sp, threadnr);
-		else if (BONUS == 1 && (UV == 1 || UV == 2))
+		else if (BONUS == 1 && (UV == 1 || UV == 2) && my_mlx->uvimg != NULL)
 			my_mlx->ray[threadnr]->colour = uvmapping(my_mlx, sp, threadnr);
 		else
 			my_mlx->ray[threadnr]->colour = sp->colour;

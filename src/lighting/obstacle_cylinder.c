@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 19:12:39 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:22:50 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 12:51:11 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,13 @@ static int			quadratic_equation_solve(t_cylhelp *help)
 		return (0);
 	else if (discriminant < EPSILON)
 	{
-		help->y0 = -0.5 * help->abc1 / help->abc0;
-		help->y1 = help->y0;
+		help->t0 = -0.5 * help->abc1 / help->abc0;
+		help->t1 = help->t0;
 	}
 	else
 	{
-		help->y0 = (-help->abc1 + sqrt(discriminant)) / (2.0 * help->abc0);
-		help->y1 = (-help->abc1 - sqrt(discriminant)) / (2.0 * help->abc0);
+		help->t0 = (-help->abc1 + sqrt(discriminant)) / (2.0 * help->abc0);
+		help->t1 = (-help->abc1 - sqrt(discriminant)) / (2.0 * help->abc0);
 	}
 	return (1);
 }
@@ -69,13 +69,13 @@ int					obstacle_cylinder(t_cylinder *cyl, t_vec3 hitpos,
 	help = cylinder_calc(cyl, hitpos, lightdir);
 	if (quadratic_equation_solve(&help) == 1)
 	{
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y0));
+		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
 		dotp1 = dotproduct(help.cylrot, vec3_sub(q, help.p1));
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y1));
+		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
 		dotp2 = dotproduct(help.cylrot, vec3_sub(q, help.p2));
-		if (help.y0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
-			res = help.y0;
-		if (help.y1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
+		if (help.t0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
+			res = help.t0;
+		if (help.t1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 		{
 			if (res < distance && res > 0.0)
 			{

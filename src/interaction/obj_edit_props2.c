@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 16:37:09 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 22:20:00 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 13:10:20 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,25 +47,6 @@ int	sphere_edit_properties(t_data *my_mlx)
 	my_mlx->sphere->s = obj_move(my_mlx->sphere->s, my_mlx);
 	my_mlx->sphere->diameter *= my_mlx->click->sizemult;
 	my_mlx->sphere = spherehead;
-	return (1);
-}
-
-int	triangle_edit_properties(t_data *my_mlx)
-{
-	t_triangle	*trianglehead;
-	int			i;
-
-	i = 0;
-	trianglehead = my_mlx->triangle;
-	while (i < my_mlx->click->index && my_mlx->triangle)
-	{
-		i++;
-		my_mlx->triangle = my_mlx->triangle->next;
-	}
-	my_mlx->triangle->s0 = obj_move(my_mlx->triangle->s0, my_mlx);
-	my_mlx->triangle->s1 = obj_move(my_mlx->triangle->s1, my_mlx);
-	my_mlx->triangle->s2 = obj_move(my_mlx->triangle->s2, my_mlx);
-	my_mlx->triangle = trianglehead;
 	return (1);
 }
 

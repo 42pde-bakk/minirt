@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/04 21:23:10 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 22:10:11 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 12:51:53 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,17 @@ double		click_cylinder(t_cylinder *cyl, t_data *my_mlx, t_vec3 ray)
 	help = click_cylinder_calc(cyl, my_mlx, ray);
 	if (solve_quadratic_equation(&help) == 1)
 	{
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.y0));
+		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
 		dotp1 = dotproduct(help.cylrot, vec3_sub(q, help.p1));
 		dotp2 = dotproduct(help.cylrot, vec3_sub(q, help.p2));
-		if (help.y0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
-			res = help.y0;
-		if (help.y1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
+		if (help.t0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
+			res = help.t0;
+		if (help.t1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
 		{
 			if (res != -1)
-				res = fmin(help.y0, help.y1);
+				res = fmin(help.t0, help.t1);
 			else
-				res = help.y1;
+				res = help.t1;
 			return (res);
 		}
 	}

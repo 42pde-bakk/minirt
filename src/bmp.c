@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 23:07:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 17:09:41 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 13:07:37 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ int		bmp(t_data *my_mlx)
 	buf = write_pixels(buf, my_mlx);
 	if (write(my_mlx->bmp, buf, bmpfilesize) < 0)
 		ft_putstr_int("Error\nWriting to .bmp file failed\n", 2);
+	free(buf);
 	if (close(my_mlx->bmp))
 		return (ft_putstr_int("Error\nClosing .bmp file failed\n", 2));
 	return (0);

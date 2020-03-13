@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/11 23:50:22 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/13 12:45:41 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,8 +120,9 @@ typedef struct	s_cylhelp
 	double	abc2;
 	t_vec3	p1;
 	t_vec3	p2;
-	double	y0;
-	double	y1;
+	double	t0;
+	double	t1;
+	double	res;
 }				t_cylhelp;
 
 typedef struct	s_cylinder
