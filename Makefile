@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/13 19:40:42 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/03/17 01:41:23 by peerdb        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 	parse_plane.c parse_resolution.c parse_sphere.c parse_square.c \
 	parse_tcol.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
-	find_triangle.c uvmapping.c rainbow.c wave.c find_cylinder_caps.c
+	find_triangle.c uvmapping.c rainbow.c wave.c find_cylinder_caps.c bumpmapping.c
 LIGHT = lighting.c obstacles.c obstacle_cylinder.c obstacle_plane.c \
 	obstacle_sphere.c obstacle_square.c obstacle_triangle.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \

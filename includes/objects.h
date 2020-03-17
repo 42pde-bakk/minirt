@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:48:51 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/13 19:40:31 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:41:09 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int			find_objects(t_data *my_mlx, int threadnr);
 void		get_uv(t_vec3 p, double *u, double *v);
 t_col		uv_checkers(t_data *my_mlx, t_sphere *sp, int threadnr);
 t_col		uvmapping(t_data *my_mlx, t_sphere *sp, int threadnr);
+t_vec3		bumpmapping(t_data *my_mlx, t_sphere *sp, int threadnr);
 
 t_col		rainbow(t_data *my_mlx, t_sphere *sp, int threadnr);
 t_vec3		wave(t_vec3 in);

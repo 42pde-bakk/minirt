@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/13 13:03:08 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:24:08 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,13 @@ int		data_initvalues(t_data *my_mlx)
 			return (-1);
 		my_mlx->ray[i]->length = __INT_MAX__;
 		i++;
+	}
+	if (BONUS == 1)
+	{
+		my_mlx->bonus = malloc(sizeof(t_bonus));
+		if (!my_mlx->bonus)
+			return (-1);
+		ft_bzero(my_mlx->bonus, sizeof(t_bonus));
 	}
 	my_mlx->scene->width = -1;
 	return (1);

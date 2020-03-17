@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/13 12:31:12 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:27:35 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,9 @@
 # endif
 # ifndef WAVE
 #  define WAVE 0
+# endif
+# ifndef BUMP
+#  define BUMP 0
 # endif
 
 /*

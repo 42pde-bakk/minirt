@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/12 15:02:08 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:29:38 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	sphere_hit(t_sphere *sp, t_data *my_mlx, int threadnr, double t)
 			my_mlx->ray[threadnr]->colour = rainbow(my_mlx, sp, threadnr);
 		else if (BONUS == 1 && UV == 0)
 			my_mlx->ray[threadnr]->colour = uv_checkers(my_mlx, sp, threadnr);
-		else if (BONUS == 1 && (UV == 1 || UV == 2) && my_mlx->uvimg != NULL)
+		else if (BONUS == 1 && (UV == 1 || UV == 2) && my_mlx->bonus->uvimg != NULL)
 			my_mlx->ray[threadnr]->colour = uvmapping(my_mlx, sp, threadnr);
 		else
 			my_mlx->ray[threadnr]->colour = sp->colour;

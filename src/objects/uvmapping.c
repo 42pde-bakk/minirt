@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/01 16:45:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/03 19:44:29 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:29:05 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ t_col	get_colour(t_data *my_mlx, int i, int j)
 	unsigned int	col;
 	char			*image;
 
-	image = my_mlx->uvaddr;
-	image += (j * my_mlx->uvll + (i * (my_mlx->uvbpp / 8)));
+	image = my_mlx->bonus->uvaddr;
+	image += (j * my_mlx->bonus->uvll + (i * (my_mlx->bonus->uvbpp / 8)));
 	col = *(unsigned int*)image;
 	return (unsigned_to_tcol(col));
 }
@@ -75,12 +75,12 @@ t_col	uvmapping(t_data *my_mlx, t_sphere *sp, int threadnr)
 	int				i;
 	int				j;
 
-	if (my_mlx->uvimg == NULL || my_mlx->uvaddr == NULL)
+	if (my_mlx->bonus->uvimg == NULL || my_mlx->bonus->uvaddr == NULL)
 		return (sp->colour);
 	get_uv(vec3_sub(vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
 		my_mlx->ray[threadnr]->length)), sp->s), &u, &v);
-	i = fmin(my_mlx->uvnx - 1, fmax(0.0, (my_mlx->uvnx - (u * my_mlx->uvnx))));
-	j = fmin(my_mlx->uvnx - 1, fmax(0.0, (1 - v) * my_mlx->uvny - 0.001));
+	i = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0, (my_mlx->bonus->uvnx - (u * my_mlx->bonus->uvnx))));
+	j = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0, (1 - v) * my_mlx->bonus->uvny - 0.001));
 	out = get_colour(my_mlx, i, j);
 	return (out);
 }

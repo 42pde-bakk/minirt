@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/13 12:45:41 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:21:22 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,6 +191,26 @@ typedef struct	s_click
 	int		mousemovestate;
 }				t_click;
 
+typedef struct	s_bonus
+{
+	void		*uvimg;
+	char		*uvaddr;
+	int			uvbpp;
+	int			uvll;
+	int			uvendian;
+	int			uvnx;
+	int			uvny;
+	int			bmp;
+	int			stereoscopy;
+	void		*bumpimg;
+	char		*bumpaddr;
+	int			bumpbpp;
+	int			bumpll;
+	int			bumpendian;
+	int			bumpnx;
+	int			bumpny;
+}				t_bonus;
+
 typedef struct	s_data
 {
 	void		*mlx_ptr;
@@ -215,15 +235,7 @@ typedef struct	s_data
 	t_cylinder	*cylinder;
 	t_triangle	*triangle;
 	t_click		*click;
-	void		*uvimg;
-	char		*uvaddr;
-	int			uvbpp;
-	int			uvll;
-	int			uvendian;
-	int			uvnx;
-	int			uvny;
-	int			bmp;
-	int			stereoscopy;
+	t_bonus		*bonus;
 }				t_data;
 
 typedef struct	s_arg

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/07 18:57:54 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:42:43 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ void	ray(t_data *my_mlx)
 	if (STEREOSCOPY == 1)
 	{
 		my_mlx->cam->s.x -= distance;
-		my_mlx->stereoscopy = 1;
+		my_mlx->bonus->stereoscopy = 1;
 		threading(my_mlx);
 		my_mlx->cam->s.x += 2 * distance;
-		my_mlx->stereoscopy = 2;
+		my_mlx->bonus->stereoscopy = 2;
 		threading(my_mlx);
 		my_mlx->cam->s.x += distance;
 	}

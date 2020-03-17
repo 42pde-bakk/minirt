@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/27 14:07:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/06 12:54:59 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 01:42:31 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +84,12 @@ void			put_rgb(t_data *my_mlx, int x, int y, t_col rgb)
 	unsigned int	transp;
 	int				pos;
 
-	transp = get_transp(rgb, my_mlx->stereoscopy);
+	transp = get_transp(rgb, my_mlx->bonus->stereoscopy);
 	if (x >= 0 && x < my_mlx->scene->width && y >= 0 &&
 		y < my_mlx->scene->height)
 	{
 		pos = y * my_mlx->line_length + x * (my_mlx->bpp / 8);
-		if (my_mlx->stereoscopy == 1)
+		if (my_mlx->bonus->stereoscopy == 1)
 		{
 			if (my_mlx->frame % 2 == 0)
 				*(unsigned int*)(my_mlx->addr + pos) = transp;
