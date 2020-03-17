@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 01:24:08 by peerdb        ########   odam.nl         */
+/*   Updated: 2020/03/17 02:03:13 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ int		data_initvalues(t_data *my_mlx)
 
 int		init_my_mlx(t_data *my_mlx, int fd)
 {
+	printf("b4 init\n");
 	my_mlx->mlx_ptr = mlx_init();
+	printf("af init\n");
 	if (my_mlx->mlx_ptr == NULL)
 		return (-1);
 	my_mlx->scene = malloc(sizeof(t_scene));
@@ -47,11 +49,15 @@ int		init_my_mlx(t_data *my_mlx, int fd)
 	my_mlx->click = malloc(sizeof(t_click));
 	if (my_mlx->click == NULL)
 		return (-1);
+	printf("b4 initvalues\n");
 	if (data_initvalues(my_mlx) == -1)
 		return (-1);
+	printf("b4 parser\n");
 	if (ft_parser(my_mlx, fd) == -1 || my_mlx->scene->width < 0)
 		return (-1);
+	printf("test\n");
 	get_uvimg(my_mlx);
+	printf("test\n");
 	my_mlx->win_ptr = mlx_new_window(my_mlx->mlx_ptr, my_mlx->scene->width,
 	my_mlx->scene->height, "MiniPeeRT");
 	my_mlx->mlx_img = mlx_new_image(my_mlx->mlx_ptr, my_mlx->scene->width,
@@ -108,6 +114,7 @@ int		main(int argc, char **argv)
 	t_data	*my_mlx;
 	int		argcheckret;
 
+	printf("test 0\n");
 	argcheckret = argcheck(argc, argv);
 	if (argcheckret == -1)
 		return (ft_putstr_int("Error\nBruh... Check your arguments\n", 2));
@@ -120,6 +127,7 @@ int		main(int argc, char **argv)
 	my_mlx->fd = fd;
 	if (argcheckret == 2)
 		my_mlx->bmp = 1;
+	printf("test 1\n");
 	if (init_my_mlx(my_mlx, fd) == -1)
 	{
 		ft_putstr_fd("Error\nBruv init...\n", 2);
