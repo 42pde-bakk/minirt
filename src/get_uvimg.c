@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/02 15:09:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 01:27:16 by peerdb        ########   odam.nl         */
+/*   Updated: 2020/03/17 01:51:48 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void	get_uvimg(t_data *my_mlx)
 			my_mlx->bonus->bumpaddr = mlx_get_data_addr(my_mlx->bonus->bumpimg,
 			&my_mlx->bonus->bumpbpp, &my_mlx->bonus->bumpll, &my_mlx->bonus->bumpendian);
 		}
+	}
 }
