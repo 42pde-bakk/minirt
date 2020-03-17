@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/13 19:42:36 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 17:33:45 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int			solve_quadratic_equation(t_cylhelp *help)
 void	cylinder_hit(t_data *my_mlx, int threadnr, t_cylinder *cyl,
 		t_cylhelp help)
 {
-	if (help.res > 0.0 && help.res < my_mlx->ray[threadnr]->length)
+	if (help.res > EPSILON && help.res < my_mlx->ray[threadnr]->length)
 	{
 		my_mlx->ray[threadnr]->length = help.res;
 		my_mlx->ray[threadnr]->colour = cyl->colour;
@@ -72,6 +72,7 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 	t_cylhelp	help;
 	t_vec3		q;
 
+	ft_bzero(&help, sizeof(t_cylhelp));
 	help.res = -1;
 	help = cylinder_calc(cyl, my_mlx, threadnr);
 	if (solve_quadratic_equation(&help) == 1)
@@ -83,7 +84,12 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
 		if (help.t1 > 0.0 && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
 					&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
-			help.res = help.res != -1 ? fmin(help.t0, help.t1) : help.t1;
+		{
+			if (help.res != -1)
+				help.res = fmin(help.t0, help.t1);
+			else
+				help.res = help.t1;
+		}
 		cylinder_hit(my_mlx, threadnr, cyl, help);
 		// find_cylinder_caps(my_mlx, cyl, threadnr,
 		// 		vec3_add(cyl->s, vec3_mult(cyl->v, cyl->height / 2)));

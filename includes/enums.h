@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 16:11:57 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/03/17 03:16:48 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef enum		e_ft_mlx_hooks
 	KEY_PRESS_HOOK = 4,
 	RED_BUTTON_HOOK = 8,
 }					t_ft_mlx_hooks;
+
+# if LINUX == 0
 
 typedef enum		e_key_code
 {
@@ -80,5 +82,58 @@ typedef enum		e_key_code
 	F10 = 109,
 	F12 = 111,
 }					t_key_code;
+
+# else
+
+typedef enum		e_key_code
+{
+	ZOOM_IN = 69,
+	ZOOM_OUT = 78,
+	SPACE = 49,
+	NUM_LOCK_9 = 92,
+	NUM_LOCK_8 = 91,
+	NUM_LOCK_7 = 89,
+	NUM_LOCK_6 = 88,
+	NUM_LOCK_5 = 87,
+	NUM_LOCK_4 = 86,
+	NUM_LOCK_3 = 85,
+	NUM_LOCK_2 = 84,
+	NUM_LOCK_1 = 83,
+	NUM_LOCK_0 = 82,
+	RIGHT_ARROW = 65363,
+	LEFT_ARROW = 65361,
+	UP_ARROW = 65362,
+	DOWN_ARROW = 65364,
+	ESCAPE = 65307,
+	AKEY = 97,
+	SKEY = 115,
+	DKEY = 100,
+	QKEY = 113,
+	WKEY = 119,
+	EKEY = 101,
+	NUMZERO = 82,
+	NUMONE = 83,
+	NUMTWO = 84,
+	NUMTHREE = 85,
+	NUMFOUR = 86,
+	NUMFIVE = 87,
+	NUMSIX = 88,
+	NUMSEVEN = 89,
+	NUMEIGHT = 91,
+	NUMNINE = 92,
+	NUMCLEAR = 71,
+	NUMIS = 81,
+	NUMENTER = 76,
+	NUMPLUS = 69,
+	NUMMINUS = 78,
+	NUMSLASH = 75,
+	NUMSTAR = 67,
+	PLUS = 24,
+	MINUS = 27,
+	F10 = 109,
+	F12 = 111,
+}					t_key_code;
+
+# endif
 
 #endif

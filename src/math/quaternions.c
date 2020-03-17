@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   quaternion.c                                       :+:    :+:            */
+/*   quaternions.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/11 16:56:36 by Peer de Bak   ########   odam.nl         */
+/*   Updated: 2020/03/17 02:55:46 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,13 @@ double		quat_sqrt(t_quat quat)
 t_quat		quat_norm(t_quat quat)
 {
 	double	m;
-	t_quat	out;
 
 	m = quat_sqrt(quat);
-	out.w /= m;
-	out.x /= m;
-	out.y /= m;
-	out.z /= m;
-	return (out);
+	quat.w /= m;
+	quat.x /= m;
+	quat.y /= m;
+	quat.z /= m;
+	return (quat);
 }
 
 t_quat		quat_mult(t_quat a, t_quat b)

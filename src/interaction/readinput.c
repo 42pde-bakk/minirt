@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 22:12:14 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 03:13:22 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	swapcameras(int keycode, t_data *my_mlx)
 
 int		keyinput(int keycode, t_data *my_mlx)
 {
+	printf("keycode = %i\n", keycode);
 	wasd(keycode, my_mlx);
 	if (my_mlx->click->state == 0)
 		arrowkeys(keycode, my_mlx);

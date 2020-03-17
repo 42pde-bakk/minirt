@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 22:11:38 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/25 18:57:43 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 16:22:37 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void	wasd(int keycode, t_data *my_mlx)
 {
-	if ((keycode >= AKEY && keycode <= DKEY) ||
-		(keycode >= QKEY && keycode <= EKEY))
+	if (keycode == WKEY || keycode == AKEY || keycode == SKEY ||
+		keycode == DKEY || keycode == QKEY || keycode == EKEY)
 	{
 		if (keycode == WKEY)
 			my_mlx->cam->s = vec3_add(my_mlx->cam->s,

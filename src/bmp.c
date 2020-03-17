@@ -6,7 +6,7 @@
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 23:07:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/13 13:07:37 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/17 02:57:02 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ char	*write_header(char *buf, t_data *my_mlx)
 	width = (unsigned int)my_mlx->scene->width;
 	height = (unsigned int)my_mlx->scene->height;
 	size = 4 * width * height;
-	*((uint16_t *)&buf[0x00]) = 0x4d42;
-	*((uint32_t *)&buf[0x02]) = (uint32_t)size;
-	*((uint32_t *)&buf[0x0A]) = (uint32_t)0x0E + 40;
-	*((uint32_t *)&buf[0x0E]) = (uint32_t)40;
-	*((uint32_t *)&buf[0x12]) = (uint32_t)my_mlx->scene->width;
-	*((uint32_t *)&buf[0x16]) = (uint32_t)my_mlx->scene->height;
-	*((uint16_t *)&buf[0x1A]) = (uint16_t)1;
-	*((uint16_t *)&buf[0x1C]) = (uint32_t)24;
+	*((u_int16_t *)&buf[0x00]) = 0x4d42;
+	*((u_int32_t *)&buf[0x02]) = (u_int32_t)size;
+	*((u_int32_t *)&buf[0x0A]) = (u_int32_t)0x0E + 40;
+	*((u_int32_t *)&buf[0x0E]) = (u_int32_t)40;
+	*((u_int32_t *)&buf[0x12]) = (u_int32_t)my_mlx->scene->width;
+	*((u_int32_t *)&buf[0x16]) = (u_int32_t)my_mlx->scene->height;
+	*((u_int16_t *)&buf[0x1A]) = (u_int16_t)1;
+	*((u_int16_t *)&buf[0x1C]) = (u_int32_t)24;
 	return (buf);
 }
 
@@ -62,9 +62,9 @@ t_col	get_pixel(t_data *my_mlx, int x, int y)
 
 char	*write_pixels(char *buf, t_data *my_mlx)
 {
-	uint32_t	index;
-	uint32_t	x;
-	uint32_t	y;
+	u_int32_t	index;
+	u_int32_t	x;
+	u_int32_t	y;
 	t_col		col;
 
 	index = 0x0E + 40;

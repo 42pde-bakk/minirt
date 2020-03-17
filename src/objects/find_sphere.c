@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 01:29:38 by peerdb        ########   odam.nl         */
+/*   Updated: 2020/03/17 03:20:48 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,18 @@ void	sphere_hit(t_sphere *sp, t_data *my_mlx, int threadnr, double t)
 		my_mlx->ray[threadnr]->length = t;
 		my_mlx->ray[threadnr]->hitnormal = vec3_normalize(vec3_sub(vec3_add(
 			my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v, t)), sp->s));
+//		printf("hitn = {%f, %f, %f}\n", my_mlx->ray[threadnr]->hitnormal.x, my_mlx->ray[threadnr]->hitnormal.y, my_mlx->ray[threadnr]->hitnormal.z);
+		if (BONUS == 1 && BUMP == 1)
+		{
+			my_mlx->ray[threadnr]->hitnormal = bumpmapping(my_mlx, sp, threadnr);
+//			printf("hitn = {%f, %f, %f}\n", my_mlx->ray[threadnr]->hitnormal.x, my_mlx->ray[threadnr]->hitnormal.y, my_mlx->ray[threadnr]->hitnormal.z);
+		}
 		if (BONUS == 1 && WAVE == 1)
+		{
 			my_mlx->ray[threadnr]->hitnormal =
 				wave(my_mlx->ray[threadnr]->hitnormal);
+//			printf("hitn = {%f, %f, %f}\n", my_mlx->ray[threadnr]->hitnormal.x, my_mlx->ray[threadnr]->hitnormal.y, my_mlx->ray[threadnr]->hitnormal.z);
+		}
 		if (BONUS == 1 && RAINBOW == 1)
 			my_mlx->ray[threadnr]->colour = rainbow(my_mlx, sp, threadnr);
 		else if (BONUS == 1 && UV == 0)

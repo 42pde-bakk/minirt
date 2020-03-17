@@ -6,7 +6,7 @@
 /*   By: peerdb <peerdb@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/17 01:16:00 by peerdb         #+#    #+#                */
-/*   Updated: 2020/03/17 01:40:42 by peerdb        ########   odam.nl         */
+/*   Updated: 2020/03/17 03:21:53 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ t_vec3	get_bump(t_data *my_mlx, int i, int j, t_vec3 p)
 	t_col	col;
 
 	col = get_bump_colour(my_mlx, i, j);
-	printf("p = {%f, %f, %f}\n", p.x, p.y, p.z);
+//	printf("p = {%f, %f, %f}\n", p.x, p.y, p.z);
 	remap = (t_vec3){p.x * (col.r / 127.5 - 1), p.y * (col.g / 127.5 - 1), p.z * (col.b / 127.5 - 1)};
-	printf("remap = {%f, %f, %f}\n", remap.x, remap.y, remap.z);
+//	printf("remap = {%f, %f, %f}\n", remap.x, remap.y, remap.z);
 	return (remap);
 }
 

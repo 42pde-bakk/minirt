@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/17 01:46:02 by peerdb        ########   odam.nl          #
+#    Updated: 2020/03/17 03:17:58 by peerdb        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,11 @@ GNL_DIR = ./gnl/
 LIBFT_DIR = ./libft/
 EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20200219/
+LIBMLX = libmlx.dylib
+ifdef LINUX
+ MLX_DIR = ./minilibx_linux/
+ LIBMLX = libmlx.a
+endif
 HEADER = -I ./includes/
 
 SRC = minirt.c newframe.c freebwilbers.c bmp.c get_uvimg.c
@@ -70,7 +75,7 @@ awk -F '[:x]' '/mode/{print$$3}')
 #MAX_RESY := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:xc]' '/mode/{print$$4}')
 
-FLAGS = -Wall -Werror -Wextra -pedantic -g
+FLAGS = #-Wall -Werror -Wextra -pedantic -g
 BONUS_FLAGS = -D BONUS=0 -D THREADCOUNT=1
 ifdef SPEED
 FLAGS += -Ofast -march=native
@@ -104,6 +109,10 @@ ifdef BUMP
 endif
 
 MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
+ifdef LINUX
+ MAGIC = -L $(MLX_DIR) -lmlx
+ FLAGS += -D LINUX=1
+endif
 
 # COLORS
 PINK = \x1b[35;01m
@@ -126,8 +135,8 @@ $(NAME): $(FILES)
 	@chmod +x $(MLX_DIR)mlx.h
 	@cp $(MLX_DIR)/mlx.h includes/
 	@make -C $(MLX_DIR)
-	@cp $(MLX_DIR)/libmlx.dylib .
-	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(FILES) -o $(NAME)
+	@cp $(MLX_DIR)/$(LIBMLX) .
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx_x86_64 -lXext -lX11 -pthread -lm -lz
 
 clean:
 	@echo "$(RED)Cleaning..."
