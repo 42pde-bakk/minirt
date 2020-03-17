@@ -6,7 +6,7 @@
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/17 01:41:23 by peerdb        ########   odam.nl          #
+#    Updated: 2020/03/17 01:46:02 by peerdb        ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -98,6 +98,9 @@ ifdef RAINBOW
 endif
 ifdef WAVE
  FLAGS += -D WAVE=1
+endif
+ifdef BUMP
+ FLAGS += -D BUMP=1
 endif
 
 MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
