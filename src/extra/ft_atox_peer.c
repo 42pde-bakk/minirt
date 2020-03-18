@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/12/29 16:22:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 17:46:52 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/03/18 16:09:07 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,6 @@ double		ft_atof_peer(const char *str, int *i)
 		(*i)++;
 	}
 	result = ft_decimal_double(str, result, i);
-	if (str[*i] == ',')
-		(*i) += 1;
 	return (sign * result);
 }
 

@@ -6,7 +6,7 @@
 /*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 17:33:45 by peerdb        ########   odam.nl         */
+/*   Updated: 2020/03/18 16:09:56 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,8 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 				help.res = help.t1;
 		}
 		cylinder_hit(my_mlx, threadnr, cyl, help);
-		// find_cylinder_caps(my_mlx, cyl, threadnr,
-		// 		vec3_add(cyl->s, vec3_mult(cyl->v, cyl->height / 2)));
-		// find_cylinder_caps(my_mlx, cyl, threadnr,
-		// 		vec3_sub(cyl->s, vec3_mult(cyl->v, cyl->height / 2)));
+		// find_cylinder_caps(my_mlx, cyl, threadnr, help.p1);
+		// find_cylinder_caps(my_mlx, cyl, threadnr, help.p2)));
 		return (1);
 	}
 	return (0);
