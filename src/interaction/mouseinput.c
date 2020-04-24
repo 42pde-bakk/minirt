@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/05 13:26:38 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 02:59:21 by peerdb        ########   odam.nl         */
+/*   Created: 2020/03/05 13:26:38 by pde-bakk      #+#    #+#                 */
+/*   Updated: 2020/04/24 16:24:46 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,7 @@
 
 void	do_rotate(t_data *my_mlx, t_vec3 adjust, int x, int y)
 {
-	//mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
-	x = 0;
-	y = 0; //rm
+	mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
 	my_mlx->click->dist_r = (x - my_mlx->click->x) / my_mlx->scene->width;
 	my_mlx->click->dist_r = (y - my_mlx->click->y) / my_mlx->scene->height;
 	adjust.y = (x - my_mlx->click->x) / my_mlx->scene->width * 10;
@@ -38,9 +36,7 @@ int		mouseinput(int button, int x, int y, t_data *my_mlx)
 	(void)button;
 	if (my_mlx->click->state == 0)
 	{
-//		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
-		x = 0;
-		y = 0; //rm
+		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
 		y -= 21;
 		my_mlx->click->x = x;
 		my_mlx->click->y = y;

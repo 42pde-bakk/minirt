@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   enums.h                                            :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/06 17:05:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 03:16:48 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 17:29:20 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 17:29:28 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

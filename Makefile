@@ -5,8 +5,8 @@
 #                                                      +:+                     #
 #    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/12/02 17:36:51 by pde-bakk       #+#    #+#                 #
-#    Updated: 2020/03/17 03:17:58 by peerdb        ########   odam.nl          #
+#    Created: 2019/12/02 17:36:51 by pde-bakk      #+#    #+#                  #
+#    Updated: 2020/04/24 16:46:31 by peer          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ EXTRA_DIR = $(SRC_DIR)/extra/
 MLX_DIR = ./minilibx_mms_20200219/
 LIBMLX = libmlx.dylib
 ifdef LINUX
- MLX_DIR = ./minilibx_linux/
+ MLX_DIR = ./minilibx-linux-new/
  LIBMLX = libmlx.a
 endif
 HEADER = -I ./includes/
@@ -136,7 +136,7 @@ $(NAME): $(FILES)
 	@cp $(MLX_DIR)/mlx.h includes/
 	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/$(LIBMLX) .
-	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx_x86_64 -lXext -lX11 -pthread -lm -lz
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx -lXext -lX11 -pthread -lm -lz
 
 clean:
 	@echo "$(RED)Cleaning..."
@@ -164,12 +164,3 @@ run: re
 	@echo "$(PINK)bitch"
 	./miniRT ./scenes/peer.rt
 
-sphere: re
-	@make clean
-	@echo "$(PINK)sphere"
-	./miniRT scenes/sphereonly.rt
-
-cyl: re
-	@make clean
-	@echo "$(PINK)cylinder"
-	./miniRT scenes/cylinder.rt
