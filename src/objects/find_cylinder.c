@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_cylinder.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peer <peer@student.codam.nl>                 +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:28:50 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 18:28:51 by peer          ########   odam.nl         */
+/*   Updated: 2020/04/29 15:48:45 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 			vec3_mult(help.cylrot, cyl->height / 2.0));
 	help.p2 = vec3_add(help.cylcenter,
 			vec3_mult(help.cylrot, cyl->height / 2.0));
+	printf("help.p1 = {%f, %f, %f}\n", help.p1.x, help.p1.y, help.p1.z);
+	printf("help.p2 = {%f, %f, %f}\n", help.p2.x, help.p2.y, help.p2.z);
 	return (help);
 }
 
@@ -78,11 +80,11 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 	if (solve_quadratic_equation(&help) == 1)
 	{
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
-		if (help.t0 > 0.0 && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
+		if (help.t0 > EPSILON && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
 				&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
 			help.res = help.t0;
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
-		if (help.t1 > 0.0 && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
+		if (help.t1 > EPSILON && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
 					&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
 		{
 			if (help.res != -1)
