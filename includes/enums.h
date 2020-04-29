@@ -6,7 +6,7 @@
 /*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 17:34:48 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 17:40:53 by peer          ########   odam.nl         */
+/*   Updated: 2020/04/29 15:41:40 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ typedef enum		e_ft_mlx_hooks
 	RED_BUTTON_HOOK = 8,
 }					t_ft_mlx_hooks;
 
-# ifndef LINUX == 0
+# if LINUX == 0
 
 typedef enum		e_mac_key_code
 {

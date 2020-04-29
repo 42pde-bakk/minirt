@@ -6,7 +6,7 @@
 #    By: peer <peer@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/24 18:30:52 by peer          #+#    #+#                  #
-#    Updated: 2020/04/24 18:30:55 by peer          ########   odam.nl          #
+#    Updated: 2020/04/29 15:42:21 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -136,7 +136,8 @@ $(NAME): $(FILES)
 	@cp $(MLX_DIR)/mlx.h includes/
 #	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/$(LIBMLX) .
-	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx -lXext -lX11 -pthread -lm -lz
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx
+	# -lXext -lX11 -pthread -lm -lz
 
 clean:
 	@echo "$(RED)Cleaning..."
