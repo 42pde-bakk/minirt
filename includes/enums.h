@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/04/24 17:29:20 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 17:29:28 by peer          ########   odam.nl         */
+/*   Created: 2020/04/24 17:34:48 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 17:40:53 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ typedef enum		e_ft_mlx_hooks
 	RED_BUTTON_HOOK = 8,
 }					t_ft_mlx_hooks;
 
-# if LINUX == 0
+# ifndef LINUX == 0
 
-typedef enum		e_key_code
+typedef enum		e_mac_key_code
 {
 	ZOOM_IN = 69,
 	ZOOM_OUT = 78,
@@ -81,11 +81,11 @@ typedef enum		e_key_code
 	MINUS = 27,
 	F10 = 109,
 	F12 = 111,
-}					t_key_code;
+}					t_mac_key_code;
 
 # else
 
-typedef enum		e_key_code
+typedef enum		e_linux_key_code
 {
 	ZOOM_IN = 69,
 	ZOOM_OUT = 78,
@@ -132,7 +132,7 @@ typedef enum		e_key_code
 	MINUS = 27,
 	F10 = 109,
 	F12 = 111,
-}					t_key_code;
+}					t_linux_key_code;
 
 # endif
 

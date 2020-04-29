@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_plane.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:06:05 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/18 14:58:49 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:14:08 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:14:09 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

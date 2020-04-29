@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parse_sphere.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/03 22:06:16 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:20:31 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:13:19 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:13:20 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

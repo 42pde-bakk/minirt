@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   ft_atox_peer.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/29 16:22:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/18 16:09:07 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:17:19 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:17:20 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

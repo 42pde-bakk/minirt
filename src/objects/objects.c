@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   objects.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/02 13:52:34 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:14:40 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:14:41 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   vectors.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/03 16:06:06 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:33:54 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:26:25 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:26:26 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

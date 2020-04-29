@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   uvmapping.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/01 16:45:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 01:29:05 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:28:07 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:28:08 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

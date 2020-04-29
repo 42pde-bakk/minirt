@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parse_plane.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/04 18:25:24 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 17:44:43 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:29:59 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:30:00 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

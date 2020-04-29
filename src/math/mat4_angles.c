@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mat4_angles.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/20 17:26:08 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:30:10 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:26:44 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:26:45 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

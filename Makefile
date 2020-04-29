@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: Peer de Bakker <pde-bakk@student.codam.      +#+                      #
+#    By: peer <peer@student.codam.nl>                 +#+                      #
 #                                                    +#+                       #
-#    Created: 2019/12/02 17:36:51 by pde-bakk      #+#    #+#                  #
-#    Updated: 2020/04/24 16:46:31 by peer          ########   odam.nl          #
+#    Created: 2020/04/24 18:30:52 by peer          #+#    #+#                  #
+#    Updated: 2020/04/24 18:30:55 by peer          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -134,7 +134,7 @@ $(NAME): $(FILES)
 	@echo "$(YELLOW)Making MiniLibX"
 	@chmod +x $(MLX_DIR)mlx.h
 	@cp $(MLX_DIR)/mlx.h includes/
-	@make -C $(MLX_DIR)
+#	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/$(LIBMLX) .
 	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx -lXext -lX11 -pthread -lm -lz
 

@@ -69,6 +69,8 @@ typedef struct s_win_list {
 	void *key_param;
 	void *expose_param;
 	t_event_list hooks[MLX_MAX_EVENT];
+
+	Display *display;
 } t_win_list;
 
 typedef struct s_img {

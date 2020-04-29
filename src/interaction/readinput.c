@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   readinput.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/08 20:28:54 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 03:13:22 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:22:37 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:22:38 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

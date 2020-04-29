@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   click_cylinder_plane.c                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 21:23:10 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/13 12:51:53 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 17:51:44 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 17:51:47 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

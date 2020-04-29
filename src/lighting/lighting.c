@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   lighting.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/13 11:42:47 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/12 16:47:19 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 17:52:59 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 17:53:41 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -63,4 +63,6 @@ int mlx_do_sync(void *mlx_ptr);
 
 int mlx_get_screen_size(void *mlx_ptr, int *sizex, int *sizey);
 
+int	mlx_mouse_get_pos(void *win_ptr, int *x, int *y);
+
 #endif /* MLX_H */

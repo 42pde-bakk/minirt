@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   click_sphere_square.c                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/04 21:24:53 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/16 16:28:23 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:17:53 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:17:54 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

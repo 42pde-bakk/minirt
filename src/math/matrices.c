@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   matrices.c                                         :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/17 18:16:13 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/03 17:16:45 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:26:29 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:26:30 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

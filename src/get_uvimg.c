@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_uvimg.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/02 15:09:51 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 03:11:35 by peerdb        ########   odam.nl         */
+/*   Created: 2020/03/02 15:09:51 by pde-bakk      #+#    #+#                 */
+/*   Updated: 2020/04/29 15:38:17 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

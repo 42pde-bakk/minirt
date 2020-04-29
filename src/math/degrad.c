@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   degrad.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/18 16:24:53 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 20:27:38 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:27:42 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:27:43 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

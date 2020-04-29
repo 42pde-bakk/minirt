@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mathematics.h                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/06 16:45:57 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/11 23:52:27 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:16:02 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:16:03 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   click_object.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/03 23:51:02 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/16 16:34:47 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:22:28 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:22:29 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

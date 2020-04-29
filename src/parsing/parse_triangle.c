@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parse_triangle.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/30 18:04:59 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/02/21 20:18:27 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:29:52 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:29:53 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parse_square.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:03:11 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/12 16:26:44 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:13:33 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:13:34 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

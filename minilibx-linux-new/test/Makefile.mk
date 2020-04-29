@@ -17,6 +17,9 @@ all	:$(NAME)
 $(NAME)	:$(OBJ)
 	$(CC) -o $(NAME) $(OBJ) -L.. -lmlx -L$(INCLIB) -lXext -lX11 -lm -lz
 
+%.o: %.c
+	$(CC) -Imlx_linux -O3 $< -o $@
+
 clean	:
 	rm -f $(NAME) $(OBJ) *~ core *.core
 

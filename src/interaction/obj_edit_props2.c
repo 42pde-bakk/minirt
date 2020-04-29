@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   obj_edit_props2.c                                  :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/11 16:37:09 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/13 13:10:20 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:18:03 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:18:04 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_square.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:06:32 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 23:47:45 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:14:30 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:14:31 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minirt.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/23 16:21:19 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 03:10:19 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:10:33 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:10:35 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int		main(int argc, char **argv)
 	int		fd;
 	t_data	*my_mlx;
 	int		argcheckret;
-	
+
 	argcheckret = argcheck(argc, argv);
 	if (argcheckret == -1)
 		return (ft_putstr_int("Error\nBruh... Check your arguments\n", 2));

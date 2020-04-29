@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   interaction.h                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/06 16:41:53 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/02/21 22:48:44 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 17:34:30 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 17:46:21 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

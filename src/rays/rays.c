@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   rays.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/03 16:01:34 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 01:42:43 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:30:15 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:30:16 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

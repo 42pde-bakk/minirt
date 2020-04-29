@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   obstacles.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/15 13:26:22 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/12 16:28:47 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:25:42 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:25:44 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

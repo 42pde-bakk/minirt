@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minirt.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/12/22 18:25:22 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 03:17:34 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:16:13 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:16:14 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

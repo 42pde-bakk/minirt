@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_cylinder.c                                    :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:05:36 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/18 16:09:56 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:28:50 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:28:51 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

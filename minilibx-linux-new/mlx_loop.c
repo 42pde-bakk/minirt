@@ -18,7 +18,7 @@ int mlx_loop(t_xvar *xvar) {
 
 	mlx_int_set_win_event_mask(xvar);
 	xvar->do_flush = 0;
-	while (42) {
+	for (;;) {
 		while (!xvar->loop_hook || XPending(xvar->display)) {
 			XNextEvent(xvar->display, &ev);
 			win = xvar->win_list;

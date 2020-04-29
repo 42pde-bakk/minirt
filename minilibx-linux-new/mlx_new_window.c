@@ -45,6 +45,7 @@ void *mlx_new_window(t_xvar *xvar, int size_x, int size_y, char *title) {
 	new_win->gc = XCreateGC(xvar->display, new_win->window,
 							GCFunction | GCPlaneMask | GCForeground, &xgcv);
 	new_win->next = xvar->win_list;
+	new_win->display = xvar->display;
 	xvar->win_list = new_win;
 	/*
 	new_win->mouse_hook = mlx_int_do_nothing;

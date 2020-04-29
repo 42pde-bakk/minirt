@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   find_sphere.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/27 18:07:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 03:20:48 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:14:14 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:14:16 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

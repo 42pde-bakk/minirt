@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   parsing.h                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/06 16:47:11 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/05 18:48:14 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:15:30 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:15:31 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

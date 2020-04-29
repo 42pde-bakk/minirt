@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   wave.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/12 15:02:18 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/12 15:03:46 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:14:50 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:14:51 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

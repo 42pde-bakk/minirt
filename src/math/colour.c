@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   colour.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/14 12:06:55 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/05 19:24:52 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:26:38 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:26:39 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

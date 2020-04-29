@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   quaternions.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/01/20 13:23:26 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/17 02:55:46 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:26:57 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:26:58 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

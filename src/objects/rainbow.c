@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   rainbow.c                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/03/11 22:28:20 by pde-bakk       #+#    #+#                */
-/*   Updated: 2020/03/11 23:01:29 by pde-bakk      ########   odam.nl         */
+/*   Created: 2020/04/24 18:14:44 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:14:45 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

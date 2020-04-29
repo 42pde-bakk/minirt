@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   structs.h                                          :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: Peer de Bakker <pde-bakk@student.codam.      +#+                     */
+/*   By: peer <peer@student.codam.nl>                 +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2020/02/06 16:44:00 by Peer de Bak    #+#    #+#                */
-/*   Updated: 2020/03/17 01:51:10 by peerdb        ########   odam.nl         */
+/*   Created: 2020/04/24 18:15:48 by peer          #+#    #+#                 */
+/*   Updated: 2020/04/24 18:15:49 by peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
