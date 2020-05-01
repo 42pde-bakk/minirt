@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:28:50 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/29 15:48:45 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/01 15:14:44 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ t_cylhelp	cylinder_calc(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 			vec3_mult(help.cylrot, cyl->height / 2.0));
 	help.p2 = vec3_add(help.cylcenter,
 			vec3_mult(help.cylrot, cyl->height / 2.0));
-	printf("help.p1 = {%f, %f, %f}\n", help.p1.x, help.p1.y, help.p1.z);
-	printf("help.p2 = {%f, %f, %f}\n", help.p2.x, help.p2.y, help.p2.z);
 	return (help);
 }
 
@@ -57,7 +55,7 @@ int			solve_quadratic_equation(t_cylhelp *help)
 	return (1);
 }
 
-void	cylinder_hit(t_data *my_mlx, int threadnr, t_cylinder *cyl,
+void		cylinder_hit(t_data *my_mlx, int threadnr, t_cylinder *cyl,
 		t_cylhelp help)
 {
 	if (help.res > EPSILON && help.res < my_mlx->ray[threadnr]->length)
@@ -80,11 +78,11 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 	if (solve_quadratic_equation(&help) == 1)
 	{
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
-		if (help.t0 > EPSILON && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
+		if (help.t0 > EPSI && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
 				&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
 			help.res = help.t0;
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
-		if (help.t1 > EPSILON && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
+		if (help.t1 > EPSI && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
 					&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
 		{
 			if (help.res != -1)
@@ -93,8 +91,6 @@ int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 				help.res = help.t1;
 		}
 		cylinder_hit(my_mlx, threadnr, cyl, help);
-		// find_cylinder_caps(my_mlx, cyl, threadnr, help.p1);
-		// find_cylinder_caps(my_mlx, cyl, threadnr, help.p2)));
 		return (1);
 	}
 	return (0);

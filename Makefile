@@ -3,10 +3,10 @@
 #                                                         ::::::::             #
 #    Makefile                                           :+:    :+:             #
 #                                                      +:+                     #
-#    By: peer <peer@student.codam.nl>                 +#+                      #
+#    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/24 18:30:52 by peer          #+#    #+#                  #
-#    Updated: 2020/04/29 15:42:21 by pde-bakk      ########   odam.nl          #
+#    Updated: 2020/05/01 15:13:28 by Peer          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ PARSING = parsing.c parse_camera.c parse_cylinder.c parse_light.c \
 	parse_plane.c parse_resolution.c parse_sphere.c parse_square.c \
 	parse_tcol.c parse_triangle.c
 OBJECTS = objects.c find_cylinder.c find_plane.c find_sphere.c find_square.c \
-	find_triangle.c uvmapping.c rainbow.c wave.c find_cylinder_caps.c bumpmapping.c
+	find_triangle.c uvmapping.c rainbow.c wave.c bumpmapping.c
 LIGHT = lighting.c obstacles.c obstacle_cylinder.c obstacle_plane.c \
 	obstacle_sphere.c obstacle_square.c obstacle_triangle.c
 MATH = colour.c degrad.c mat4_angles.c matrices.c quaternions.c quaternions2.c \

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   bumpmapping.c                                      :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peerdb <peerdb@student.codam.nl>             +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/17 01:16:00 by peerdb        #+#    #+#                 */
-/*   Updated: 2020/04/24 18:13:51 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/01 15:17:00 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@ t_vec3	get_bump(t_data *my_mlx, int i, int j, t_vec3 p)
 	t_col	col;
 
 	col = get_bump_colour(my_mlx, i, j);
-//	printf("p = {%f, %f, %f}\n", p.x, p.y, p.z);
-	remap = (t_vec3){p.x * (col.r / 127.5 - 1), p.y * (col.g / 127.5 - 1), p.z * (col.b / 127.5 - 1)};
-//	printf("remap = {%f, %f, %f}\n", remap.x, remap.y, remap.z);
+	remap = (t_vec3){p.x * (col.r / 127.5 - 1), p.y * (col.g / 127.5 - 1),
+			p.z * (col.b / 127.5 - 1)};
 	return (remap);
 }
 
@@ -43,12 +42,15 @@ t_vec3	bumpmapping(t_data *my_mlx, t_sphere *sp, int threadnr)
 	int				i;
 	int				j;
 
-	p = vec3_normalize(vec3_sub(vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
+	p = vec3_normalize(vec3_sub(vec3_add(my_mlx->cam->s,
+			vec3_mult(my_mlx->ray[threadnr]->v,
 		my_mlx->ray[threadnr]->length)), sp->s));
 	if (my_mlx->bonus->uvimg == NULL || my_mlx->bonus->uvaddr == NULL)
 		return (p);
 	get_uv(p, &u, &v);
-	i = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0, (my_mlx->bonus->uvnx - (u * my_mlx->bonus->uvnx))));
-	j = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0, (1 - v) * my_mlx->bonus->uvny - 0.001));
+	i = fmin(my_mlx->bonus->uvnx - 1,
+		fmax(0.0, (my_mlx->bonus->uvnx - (u * my_mlx->bonus->uvnx))));
+	j = fmin(my_mlx->bonus->uvnx - 1,
+		fmax(0.0, (1 - v) * my_mlx->bonus->uvny - 0.001));
 	return (get_bump(my_mlx, i, j, p));
 }

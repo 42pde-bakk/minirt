@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/05 16:27:07 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/04/30 14:12:55 by Peer          ########   odam.nl         */
+/*   Updated: 2020/04/30 15:00:53 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,14 @@ void	aa_finish(t_arg *arg, int x, int y, t_aa aa)
 	out = colour_add(out, aa.col3);
 	out = colour_add(out, aa.col4);
 	out = colour_div(out, 4);
-	if (colour_check(out))
-		printf("out = {%f, %f, %f}, col1 = {%f, %f, %f}, col2 = {%f, %f, %f}, col3 = {%f, %f, %f}, col4 = {%f, %f, %f}\n", out.r, out.g, out.b, aa.col1.r, aa.col1.g, aa.col1.b, aa.col2.r, aa.col2.g, aa.col2.b, aa.col3.r, aa.col3.g, aa.col3.b, aa.col4.r, aa.col4.g, aa.col4.b);
 	put_rgb(arg->my_mlx, x, y, out);
-	arg->my_mlx->ray[arg->threadnr]->length = __INT_MAX__;
-	arg->my_mlx->ray[arg->threadnr]->colour = colour_new(0.0, 0.0, 0.0);
-	arg->my_mlx->ray[arg->threadnr]->hitnormal = vec3_new(0.0, 0.0, 0.0);
 }
 
 t_col	aa_getcolour(t_arg *arg, double x, double y)
 {
 	printf("getcolour: x=%f, y=%f\n", x, y);
+	arg->my_mlx->ray[arg->threadnr]->length = __INT_MAX__;
+	arg->my_mlx->ray[arg->threadnr]->hitnormal = vec3_new(0.0, 0.0, 0.0);
 	arg->my_mlx->ray[arg->threadnr]->colour = colour_new(0.0, 0.0, 0.0);
 	arg->my_mlx->ray[arg->threadnr]->v = setcamera(arg->my_mlx,
 		ndcx(arg->my_mlx, x), ndcy(arg->my_mlx, y));

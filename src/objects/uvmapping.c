@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   uvmapping.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peer <peer@student.codam.nl>                 +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:28:07 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 18:28:08 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/01 15:17:30 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,10 @@ t_col	uvmapping(t_data *my_mlx, t_sphere *sp, int threadnr)
 		return (sp->colour);
 	get_uv(vec3_sub(vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
 		my_mlx->ray[threadnr]->length)), sp->s), &u, &v);
-	i = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0, (my_mlx->bonus->uvnx - (u * my_mlx->bonus->uvnx))));
-	j = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0, (1 - v) * my_mlx->bonus->uvny - 0.001));
+	i = fmin(my_mlx->bonus->uvnx - 1, fmax(0.0,
+		(my_mlx->bonus->uvnx - (u * my_mlx->bonus->uvnx))));
+	j = fmin(my_mlx->bonus->uvnx - 1,
+		fmax(0.0, (1 - v) * my_mlx->bonus->uvny - 0.001));
 	out = get_colour(my_mlx, i, j);
 	return (out);
 }

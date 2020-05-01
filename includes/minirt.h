@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   minirt.h                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peer <peer@student.codam.nl>                 +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:16:13 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 18:16:14 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/01 15:14:31 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 #  define ALBEDO 1000.0
 # endif
 # define EPSILON 1e-6
+# define EPSI 1e-6
 # define CAM_SPEED 0.5
 # define CAM_ROT_SPEED 5.0
 # define CAM_FOV_STEP 2.0
