@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:16:13 by peer          #+#    #+#                 */
-/*   Updated: 2020/05/01 15:14:31 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/04 22:39:47 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@
 # include "objects.h"
 # include "interaction.h"
 # include "lighting.h"
-# include <stdio.h> //remove
 
 # ifndef ALBEDO
 #  define ALBEDO 1000.0

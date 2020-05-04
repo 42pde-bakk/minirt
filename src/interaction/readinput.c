@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   readinput.c                                        :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peer <peer@student.codam.nl>                 +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:22:37 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 18:22:38 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/04 22:38:35 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void	swapcameras(int keycode, t_data *my_mlx)
 
 int		keyinput(int keycode, t_data *my_mlx)
 {
-	printf("keycode = %i\n", keycode);
 	wasd(keycode, my_mlx);
 	if (my_mlx->click->state == 0)
 		arrowkeys(keycode, my_mlx);

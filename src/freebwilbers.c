@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/11 22:29:02 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/04/29 15:38:35 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/04 22:38:53 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int		freemachine(t_data *my_mlx)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	if (BONUS == 1 && my_mlx->bonus->uvimg != NULL)
 		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->bonus->uvimg);
-	system("leaks miniRT"); //rm
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }
 
@@ -93,6 +92,5 @@ int		exit_putstr(t_data *my_mlx, char *s, int fd)
 		mlx_destroy_window(my_mlx->mlx_ptr, my_mlx->win_ptr);
 	if (my_mlx->bonus->uvimg != NULL)
 		mlx_destroy_image(my_mlx->mlx_ptr, my_mlx->bonus->uvimg);
-	system("leaks miniRT"); //rm
 	exit(ft_putstr_int("Hope you had fun miniRT-ing!\nSee you next time\n", 1));
 }

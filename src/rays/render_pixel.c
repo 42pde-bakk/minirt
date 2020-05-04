@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/05 16:27:07 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/04/30 15:00:53 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/04 22:38:41 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ void	aa_finish(t_arg *arg, int x, int y, t_aa aa)
 
 t_col	aa_getcolour(t_arg *arg, double x, double y)
 {
-	printf("getcolour: x=%f, y=%f\n", x, y);
 	arg->my_mlx->ray[arg->threadnr]->length = __INT_MAX__;
 	arg->my_mlx->ray[arg->threadnr]->hitnormal = vec3_new(0.0, 0.0, 0.0);
 	arg->my_mlx->ray[arg->threadnr]->colour = colour_new(0.0, 0.0, 0.0);

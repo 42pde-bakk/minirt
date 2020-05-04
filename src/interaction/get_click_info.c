@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   get_click_info.c                                   :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peer <peer@student.codam.nl>                 +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:22:50 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 18:22:51 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/04 22:39:10 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	get_click_info(int x, int y, t_data *my_mlx)
 	{
 		clean_click_info(my_mlx);
 		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
-		y -= 21;
 		my_mlx->click->x = x;
 		my_mlx->click->y = y;
 		ray = lookingdir(my_mlx, ndcx(my_mlx, x), ndcy(my_mlx, y));

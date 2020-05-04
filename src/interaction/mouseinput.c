@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   mouseinput.c                                       :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/05 13:26:38 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/04/24 17:52:00 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/04 22:39:28 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
