@@ -6,7 +6,7 @@
 #    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/24 18:30:52 by peer          #+#    #+#                  #
-#    Updated: 2020/05/04 22:40:09 by Peer          ########   odam.nl          #
+#    Updated: 2020/05/06 06:32:07 by Peer          ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,9 @@ awk -F '[:x]' '/mode/{print$$3}')
 #MAX_RESY := $(shell displayplacer list | grep "current mode" | \
 awk -F '[:xc]' '/mode/{print$$4}')
 
-FLAGS = #-Wall -Werror -Wextra -pedantic -g
+FLAGS = -Wall -Werror -Wextra -pedantic -g
+FLAGS2 = -lmlx
+
 BONUS_FLAGS = -D BONUS=0 -D THREADCOUNT=1
 ifdef SPEED
 FLAGS += -Ofast -march=native
@@ -112,6 +114,7 @@ MAGIC = -L minilibx_mms_20200219 -lmlx -framework AppKit
 ifdef LINUX
  MAGIC = -L $(MLX_DIR) -lmlx
  FLAGS += -D LINUX=1
+ FLAG2 += -lXext -lX11 -pthread -lm -lz
 endif
 
 # COLORS
@@ -127,17 +130,17 @@ RESET = \x1b[0m
 all: $(NAME)
 
 $(NAME): $(FILES)
-	@$(shell ./textures/getpic exec >/dev/null exec 2>/dev/null)
+#	@$(shell ./textures/getpic exec >/dev/null exec 2>/dev/null)
 	@echo "$(BLUE)Remaking libft.a"
 	@make re -C $(LIBFT_DIR)
 	@cp $(LIBFT_DIR)/libft.a .
 	@echo "$(YELLOW)Making MiniLibX"
 	@chmod +x $(MLX_DIR)mlx.h
 	@cp $(MLX_DIR)/mlx.h includes/
-#	@make -C $(MLX_DIR)
+	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/$(LIBMLX) .
-	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) -lmlx
-	# -lXext -lX11 -pthread -lm -lz
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) $(FLAGS2)
+	# -lmlx # -lXext -lX11 -pthread -lm -lz
 
 clean:
 	@echo "$(RED)Cleaning..."
@@ -147,7 +150,7 @@ fclean: clean
 	@make fclean -C ./libft
 	/bin/rm -f libft.a
 	/bin/rm -f includes/mlx.h
-	/bin/rm -f $(NAME) libmlx.dylib
+	/bin/rm -f $(NAME) libmlx.dylib libmlx.a
 
 re: fclean all
 

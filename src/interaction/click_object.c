@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   click_object.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: peer <peer@student.codam.nl>                 +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:22:28 by peer          #+#    #+#                 */
-/*   Updated: 2020/04/24 18:22:29 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/06 06:28:05 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,10 +92,7 @@ int		get_object_sphere(t_data *my_mlx, t_vec3 ray)
 
 int		click_object(t_data *my_mlx, t_vec3 ray)
 {
-	int	i;
-
 	my_mlx->click->distance = __INT_MAX__;
-	i = 0;
 	get_object_cylinder(my_mlx, ray);
 	get_object_sphere(my_mlx, ray);
 	get_object_triangle(my_mlx, ray);

@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   obstacle_cylinder.c                                :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 19:12:39 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/04/24 17:52:35 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/06 06:24:53 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int					obstacle_cylinder(t_cylinder *cyl, t_vec3 hitpos,
 		{
 			if (res < distance && res > 0.0)
 			{
+				printf("cylinder is in the way, res = %f\n", res);
 				return (1);
 			}
 		}

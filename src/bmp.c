@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   bmp.c                                              :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: pde-bakk <pde-bakk@student.codam.nl>         +#+                     */
+/*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/21 23:07:26 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/04/24 18:12:14 by peer          ########   odam.nl         */
+/*   Updated: 2020/05/06 06:26:55 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ t_col	get_pixel(t_data *my_mlx, int x, int y)
 {
 	t_col		out;
 	unsigned	in;
-	char		*img;
 	int			pos;
 
-	img = my_mlx->addr;
 	pos = y * my_mlx->line_length + x * my_mlx->bpp / 8;
 	in = *(unsigned int*)(my_mlx->addr + pos);
 	out = unsigned_to_tcol(in);

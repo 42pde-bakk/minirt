@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 17:52:59 by peer          #+#    #+#                 */
-/*   Updated: 2020/05/04 22:37:59 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/06 06:27:32 by Peer          ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,6 @@ t_col	light_tracing(t_data *my_mlx, int threadnr)
 	tmplight = my_mlx->light;
 	out = colour_mul(my_mlx->ray[threadnr]->colour,
 	my_mlx->scene->amblightcolour, my_mlx->scene->ambintensity);
-	t_vec3 actualhitpos = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
-					my_mlx->ray[threadnr]->length));
 	hitpos = vec3_add(my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v,
 					my_mlx->ray[threadnr]->length - 10 * EPSILON));
 	while (tmplight)
