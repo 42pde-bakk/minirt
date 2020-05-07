@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 19:12:39 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/05/07 05:58:15 by pde-bakk      ########   odam.nl         */
+/*   Updated: 2020/05/07 06:09:17 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,32 +56,41 @@ static int			quadratic_equation_solve(t_cylhelp *help)
 	return (1);
 }
 
+void				get_dotp(t_cylhelp help, double dotp[4])
+{
+	t_vec3	q;
+
+	q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
+	dotp[0] = dotproduct(help.cylrot, vec3_sub(q, help.p1));
+	dotp[1] = dotproduct(help.cylrot, vec3_sub(q, help.p2));
+	q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
+	dotp[2] = dotproduct(help.cylrot, vec3_sub(q, help.p1));
+	dotp[3] = dotproduct(help.cylrot, vec3_sub(q, help.p2));
+}
+
 int					obstacle_cylinder(t_cylinder *cyl, t_vec3 hitpos,
 						t_vec3 lightdir, double distance)
 {
 	t_cylhelp	help;
-	t_vec3		q;
 	double		res;
-	double		dotp1;
-	double		dotp2;
+	double		dotp[4];
 
 	help = cylinder_calc(cyl, hitpos, lightdir);
-	res = -1;
+	res = -1.0;
 	if (quadratic_equation_solve(&help) == 1)
 	{
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
-		dotp1 = dotproduct(help.cylrot, vec3_sub(q, help.p1));
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
-		dotp2 = dotproduct(help.cylrot, vec3_sub(q, help.p2));
-		if (help.t0 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
+		get_dotp(help, dotp);
+		if (help.t0 > 0.0 && dotp[0] > 0.0 && dotp[1] < 0.0)
 			res = help.t0;
-		if (help.t1 > 0.0 && dotp1 > 0.0 && dotp2 < 0.0)
+		if (help.t1 > 0.0 && dotp[2] > 0.0 && dotp[3] < 0.0)
 		{
-			if (res < distance && res > 0.0)
-			{
-				return (1);
-			}
+			if (res != -1.0)
+				res = fmin(help.t0, help.t1);
+			else
+				res = help.t1;
 		}
+		if (res < distance && res > 0.0)
+			return (1);
 	}
 	return (0);
 }

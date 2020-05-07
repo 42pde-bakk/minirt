@@ -6,7 +6,7 @@
 #    By: Peer <pde-bakk@student.codam.nl>             +#+                      #
 #                                                    +#+                       #
 #    Created: 2020/04/24 18:30:52 by peer          #+#    #+#                  #
-#    Updated: 2020/05/06 06:32:07 by Peer          ########   odam.nl          #
+#    Updated: 2020/05/07 06:24:48 by pde-bakk      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -130,7 +130,7 @@ RESET = \x1b[0m
 all: $(NAME)
 
 $(NAME): $(FILES)
-#	@$(shell ./textures/getpic exec >/dev/null exec 2>/dev/null)
+	@$(shell ./textures/getpic exec >/dev/null exec 2>/dev/null)
 	@echo "$(BLUE)Remaking libft.a"
 	@make re -C $(LIBFT_DIR)
 	@cp $(LIBFT_DIR)/libft.a .
@@ -139,7 +139,8 @@ $(NAME): $(FILES)
 	@cp $(MLX_DIR)/mlx.h includes/
 	@make -C $(MLX_DIR)
 	@cp $(MLX_DIR)/$(LIBMLX) .
-	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) $(FILES) -o $(NAME) $(FLAGS2)
+	@gcc $(FLAGS) $(BONUS_FLAGS) $(HEADER) $(MAGIC) $(LIBMLX) \
+	$(FILES) -o $(NAME) $(FLAGS2)
 	# -lmlx # -lXext -lX11 -pthread -lm -lz
 
 clean:
@@ -167,4 +168,3 @@ run: re
 	@make clean
 	@echo "$(PINK)bitch"
 	./miniRT ./scenes/peer.rt
-
