@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:28:50 by peer          #+#    #+#                 */
-/*   Updated: 2020/05/01 15:14:44 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/07 05:50:37 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,29 +61,41 @@ void		cylinder_hit(t_data *my_mlx, int threadnr, t_cylinder *cyl,
 	if (help.res > EPSILON && help.res < my_mlx->ray[threadnr]->length)
 	{
 		my_mlx->ray[threadnr]->length = help.res;
+		help.res = -1.0;
 		my_mlx->ray[threadnr]->colour = cyl->colour;
 		my_mlx->ray[threadnr]->hitnormal = vec3_normalize(vec3_sub(vec3_add(
 	my_mlx->cam->s, vec3_mult(my_mlx->ray[threadnr]->v, help.res)), cyl->s));
 	}
 }
 
+void		get_dotproducts(double dotp[4], t_cylhelp help)
+{
+	t_vec3	q;
+
+	q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
+	dotp[0] = dotproduct(help.cylrot, vec3_sub(q, help.p1));
+	dotp[1] = dotproduct(help.cylrot, vec3_sub(q, help.p2));
+	q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
+	dotp[2] = dotproduct(help.cylrot, vec3_sub(q, help.p1));
+	dotp[3] = dotproduct(help.cylrot, vec3_sub(q, help.p2));
+}
+
 int			find_cylinder(t_cylinder *cyl, t_data *my_mlx, int threadnr)
 {
 	t_cylhelp	help;
-	t_vec3		q;
+	double		dotp[4];
 
 	ft_bzero(&help, sizeof(t_cylhelp));
-	help.res = -1;
 	help = cylinder_calc(cyl, my_mlx, threadnr);
+	help.res = -1.0;
 	if (solve_quadratic_equation(&help) == 1)
 	{
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
-		if (help.t0 > EPSI && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
-				&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
+		get_dotproducts(dotp, help);
+		if (help.t0 > EPSI && dotp[0] > 0.0 && dotp[1] < 0.0)
+		{
 			help.res = help.t0;
-		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t1));
-		if (help.t1 > EPSI && dotproduct(help.cylrot, vec3_sub(q, help.p1)) > 0
-					&& dotproduct(help.cylrot, vec3_sub(q, help.p2)) < 0)
+		}
+		if (help.t1 > EPSI && dotp[2] > 0.0 && dotp[3] < 0.0)
 		{
 			if (help.res != -1)
 				help.res = fmin(help.t0, help.t1);

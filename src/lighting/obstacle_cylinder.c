@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/02/19 19:12:39 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/05/06 06:24:53 by Peer          ########   odam.nl         */
+/*   Updated: 2020/05/07 05:58:15 by pde-bakk      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,8 @@ int					obstacle_cylinder(t_cylinder *cyl, t_vec3 hitpos,
 	double		dotp1;
 	double		dotp2;
 
-	res = -1;
 	help = cylinder_calc(cyl, hitpos, lightdir);
+	res = -1;
 	if (quadratic_equation_solve(&help) == 1)
 	{
 		q = vec3_add(help.rayorigin, vec3_mult(help.raydir, help.t0));
@@ -79,7 +79,6 @@ int					obstacle_cylinder(t_cylinder *cyl, t_vec3 hitpos,
 		{
 			if (res < distance && res > 0.0)
 			{
-				printf("cylinder is in the way, res = %f\n", res);
 				return (1);
 			}
 		}
