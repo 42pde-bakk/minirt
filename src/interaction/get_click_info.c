@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/04/24 18:22:50 by peer          #+#    #+#                 */
-/*   Updated: 2020/05/04 22:39:10 by Peer          ########   odam.nl         */
+/*   Updated: 2020/11/30 15:31:22 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,9 @@ void	get_click_info(int x, int y, t_data *my_mlx)
 	if (my_mlx->click->state == 0)
 	{
 		clean_click_info(my_mlx);
-		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		#ifndef LINUX
+			mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		#endif
 		my_mlx->click->x = x;
 		my_mlx->click->y = y;
 		ray = lookingdir(my_mlx, ndcx(my_mlx, x), ndcy(my_mlx, y));
@@ -55,7 +57,9 @@ void	get_click_info(int x, int y, t_data *my_mlx)
 	}
 	else
 	{
-		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		#ifndef LINUX
+			mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		#endif
 		y -= 21;
 		my_mlx->click->dist_r = (x - my_mlx->click->x);
 		my_mlx->click->dist_up = (y - my_mlx->click->y);

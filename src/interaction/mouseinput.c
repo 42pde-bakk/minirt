@@ -6,7 +6,7 @@
 /*   By: Peer <pde-bakk@student.codam.nl>             +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2020/03/05 13:26:38 by pde-bakk      #+#    #+#                 */
-/*   Updated: 2020/05/04 22:39:28 by Peer          ########   odam.nl         */
+/*   Updated: 2020/11/30 15:31:33 by peerdb        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,9 @@
 
 void	do_rotate(t_data *my_mlx, t_vec3 adjust, int x, int y)
 {
-	mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+	#ifndef LINUX
+		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+	#endif
 	my_mlx->click->dist_r = (x - my_mlx->click->x) / my_mlx->scene->width;
 	my_mlx->click->dist_r = (y - my_mlx->click->y) / my_mlx->scene->height;
 	adjust.y = (x - my_mlx->click->x) / my_mlx->scene->width * 10;
@@ -36,7 +38,9 @@ int		mouseinput(int button, int x, int y, t_data *my_mlx)
 	(void)button;
 	if (my_mlx->click->state == 0)
 	{
-		mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		#ifndef LINUX
+			mlx_mouse_get_pos(my_mlx->win_ptr, &x, &y);
+		#endif
 		y -= 21;
 		my_mlx->click->x = x;
 		my_mlx->click->y = y;
