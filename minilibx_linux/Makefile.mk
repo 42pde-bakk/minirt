@@ -35,6 +35,7 @@ SRC		=	mlx_init.c \
 			mlx_string_put.c \
 			mlx_new_image.c \
 			mlx_get_data_addr.c \
+			mlx_get_screen_size.c \
 			mlx_put_image_to_window.c \
 			mlx_get_color_value.c \
 			mlx_clear_window.c \

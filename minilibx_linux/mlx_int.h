@@ -123,3 +123,4 @@ void	*mlx_int_new_xshm_image();
 char    **mlx_int_str_to_wordtab();
 void	*mlx_new_image();
 int	shm_att_pb();
+int	mlx_get_screen_size(t_xvar *xvar, int *sizex, int *sizey);

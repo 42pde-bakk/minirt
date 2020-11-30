@@ -1,5 +1,5 @@
 INC=/usr/include
-HT=x86_64
+HT=Linux
 DOCP=do_cp
 
 
@@ -17,7 +17,7 @@ OBJ = $(SRC:.c=.o)
 all	:$(NAME)
 
 $(NAME)	:$(OBJ)
-	$(CC) -o $(NAME) $(OBJ) $(shell pkg-config --libs --static mlx)
+	$(CC) -o $(NAME) $(OBJ) -L.. -lmlx -L$(INCLIB) -lXext -lX11 -lm -lz
 
 clean	:
 	rm -f $(NAME) $(OBJ) *~ core *.core
